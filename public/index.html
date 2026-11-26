@@ -532,13 +532,15 @@ const MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','ag
 const nomeMes = iso => `${MESES[+iso.slice(5,7)-1]}/${iso.slice(0,4)}`;
 const STATUS_RES = {
   pendente: ['pend', 'Aguardando confirmação'], confirmada: ['ok', 'Confirmada'],
-  cancelada_aluno: ['cinza', 'Cancelada por você'], cancelada_chuva: ['azul', 'Cancelada · crédito devolvido'], recusada: ['verm', 'Não confirmada · crédito devolvido'],
+  cancelada_aluno: ['cinza', 'Cancelada por você'], cancelada_chuva: ['azul', 'Cancelada · crédito devolvido'], recusada: ['verm', 'Não confirmada · nenhum crédito usado'],
+  nao_escolhida: ['cinza', 'Ficou com outro horário · nenhum crédito usado'],
 };
 const MOTIVOS = {
   lotado: 'Que pena — essa vaga acabou de ser preenchida.', sem_credito: 'Você não tem créditos disponíveis.',
   nivel: 'Esse horário não é para o seu nível.', ja_pediu: 'Você já pediu esse horário.', passou: 'Esse horário já começou.',
   nao_abriu: 'Esse horário ainda não abriu.', indisponivel: 'Esse horário não está mais disponível.', aluno: 'Não conseguimos confirmar seu cadastro. Entre de novo.',
   mensalidade: 'Sua mensalidade está em atraso. Regularize no Financeiro para pedir reposição.',
+  ja_confirmado_dia: 'Você já tem uma reposição confirmada nesse dia.',
 };
 
 async function carregarInfo(){
@@ -726,7 +728,7 @@ function proximasAulas(ex, a){
       out.push({ data: dia, hora: t.hora, tipo: 'turma', nivel_id: t.nivel_id }); break;
     }
   });
-  (a.reservas || []).filter(r => ['pendente','confirmada'].includes(r.status) && (r.data > hoje || (r.data === hoje && r.hora.slice(0,5) > agora)))
+  (a.reservas || []).filter(r => r.status === 'confirmada' && (r.data > hoje || (r.data === hoje && r.hora.slice(0,5) > agora)))
     .forEach(r => out.push({ data: r.data, hora: r.hora, tipo: 'reposicao', status: r.status }));
   return out.sort((x, y) => (x.data + x.hora).localeCompare(y.data + y.hora));
 }
@@ -849,6 +851,8 @@ function tabRepo(){
   const prox = a.lista_creditos[0];
   const meus = d.horarios.filter(h => !h.nivel_ids.length || h.nivel_ids.some(n => a.nivel_ids.includes(n)));
   const jaPedi = new Set(a.reservas.filter(r => ['pendente','confirmada'].includes(r.status)).map(r => r.horario_id));
+  const diaConfirmado = new Set(a.reservas.filter(r => r.status === 'confirmada').map(r => r.data));
+  const nPend = a.reservas.filter(r => r.status === 'pendente').length;
   let vagas;
   if (!meus.length){
     const alvo = proximaAberturaRegra();
@@ -858,7 +862,8 @@ function tabRepo(){
     meus.forEach(h => {
       if (h.data !== ult){ ult = h.data; vagas += `<div class="dia"><h3>${nomeDia(h.data)}</h3><span>${diaCompleto(h.data)}</span></div>`; }
       const pedi = jaPedi.has(h.id);
-      const botao = pedi ? `<span class="selo pend">Pedido feito</span>` : h.lotado ? `<span class="selo cinza">Lotado</span>`
+      const botao = pedi ? (a.reservas.some(r => r.horario_id === h.id && r.status === 'confirmada') ? `<span class="selo ok">Confirmada</span>` : `<span class="selo pend">Pedido feito</span>`) : h.lotado ? `<span class="selo cinza">Lotado</span>`
+        : diaConfirmado.has(h.data) ? `<span class="selo cinza">Já confirmada no dia</span>`
         : `<button class="btn auto mini" data-pedir="${h.id}" ${a.creditos && emDia ? '' : 'disabled'}>Pedir vaga</button>`;
       vagas += `<div class="vaga ${h.lotado && !pedi ? 'lotada' : ''}" style="--c:${esc(corDe(h.nivel_ids))}"><div class="hora">${fmtHoraBig(h.hora)}</div>
         <div class="info"><div class="niveis">${chipsNiveis(h.nivel_ids)}</div>${h.observacao ? `<p>${esc(h.observacao)}</p>` : ''}</div>${botao}</div>`;
@@ -876,7 +881,8 @@ function tabRepo(){
       return `<div class="minha"><div class="q"><b>${nomeDia(r.data)} · ${fmtHora(r.hora)}</b><span>${diaCompleto(r.data)}${r.observacao ? ' · ' + esc(r.observacao) : ''}</span>
         <div style="margin-top:6px"><span class="selo ${cl}">${tx}</span></div></div>
         ${['pendente','confirmada'].includes(r.status) ? `<button class="btn perigo mini" data-cancelar="${r.id}" data-st="${r.status}">Cancelar</button>` : ''}</div>`; }).join('')}</div></div>` : ''}
-    <div class="secao"><h2 class="secao-t">VAGAS <span class="verde">ABERTAS</span></h2><p class="secao-s">Horários liberados para o seu nível.</p>${vagas}
+    <div class="secao"><h2 class="secao-t">VAGAS <span class="verde">ABERTAS</span></h2><p class="secao-s">Horários liberados para o seu nível.</p>
+      <div class="aviso" style="margin-bottom:14px">💡 <b>Pode pedir mais de um horário!</b> Marque todos os que você consegue. O professor confirma um deles e só então 1 crédito é usado. Os outros pedidos do mesmo dia se encerram sozinhos.${nPend ? `<br><b>Você tem ${nPend} ${nPend === 1 ? 'pedido aguardando' : 'pedidos aguardando'}.</b>` : ''}</div>${vagas}
       ${!a.creditos && meus.length ? `<div class="aviso amarelo">Para pedir uma vaga você precisa ter pelo menos 1 crédito.</div>` : ''}</div>
     <div class="secao"><h2 class="secao-t">COMO <span class="verde">FUNCIONA</span></h2><div class="carta" style="padding:6px 20px"><ol class="regras">${(cfg('regras') || []).map(r => `<li>${esc(r)}</li>`).join('')}<li>A reposição só pode ser marcada com a mensalidade em dia.</li></ol></div></div>`;
   ligarIr();
@@ -886,13 +892,13 @@ function tabRepo(){
 async function pedir(horarioId, btn){
   const h = S.dados.horarios.find(x => x.id === horarioId), a = alunoSel();
   const ok = await confirmar({ titulo: 'PEDIR ESTA VAGA?', ok: 'Pedir vaga',
-    texto: `<b>${esc(a.nome)}</b> · ${nomeDia(h.data)} (${dataCurta(h.data)}) às <b>${fmtHora(h.hora)}</b>.<br><br>Vamos usar 1 crédito. A vaga fica garantida quando o professor confirmar pelo WhatsApp. Até lá, se cancelar, o crédito volta.` });
+    texto: `<b>${esc(a.nome)}</b> · ${nomeDia(h.data)} (${dataCurta(h.data)}) às <b>${fmtHora(h.hora)}</b>.<br><br>Pedir <b>não usa crédito</b>. Se o professor confirmar este horário, aí sim 1 crédito é usado e ele te avisa pelo WhatsApp.<br><br>Você pode pedir outros horários também: o professor escolhe um.` });
   if (!ok) return;
   ocupado(btn, true);
   try {
     const r = await apiAluno('aluno_reservar', { aluno_id: a.id, horario_id: horarioId });
     if (r.ok) modal(`<div style="text-align:center"><div class="selo-grande">✓</div><h2>PEDIDO <span class="verde">ENVIADO!</span></h2>
-      <p class="sub">Você está na lista de ${nomeDia(h.data).toLowerCase()} às ${fmtHora(h.hora)}.<br>O professor vai confirmar pelo WhatsApp.</p><button class="btn" data-fechar>Fechar</button></div>`);
+      <p class="sub">Você pediu ${nomeDia(h.data).toLowerCase()} às ${fmtHora(h.hora)}.<br>O professor confirma pelo WhatsApp.<br><br>Consegue em outro horário também? <b>Peça mais um</b> — isso ajuda o professor a te encaixar.</p><button class="btn" data-fechar>Fechar</button></div>`);
     else toast(MOTIVOS[r.motivo] || 'Não foi possível pedir essa vaga.', true);
   } catch(e){ toast(e.message, true); }
   await carregarApp(true);
@@ -900,11 +906,11 @@ async function pedir(horarioId, btn){
 async function cancelarMinha(id, status, btn){
   const perde = status === 'confirmada';
   const ok = await confirmar({ titulo: 'CANCELAR REPOSIÇÃO?', ok: 'Sim, cancelar', perigo: true,
-    texto: perde ? 'Essa reposição já foi <b>confirmada</b>. Se cancelar agora, <b>você perde o crédito</b> e a vaga fica livre para outro aluno.' : 'O professor ainda não confirmou, então <b>o crédito volta</b> para você.' });
+    texto: perde ? 'Essa reposição já foi <b>confirmada</b>. Se cancelar agora, <b>você perde o crédito</b> e a vaga fica livre para outro aluno.' : 'O professor ainda não confirmou, então <b>nenhum crédito foi usado</b>.' });
   if (!ok) return;
   ocupado(btn, true);
   try { const r = await apiAluno('aluno_cancelar', { reserva_id: id });
-    toast(r.ok ? (r.perdeu_credito ? 'Reposição cancelada. O crédito foi perdido.' : 'Cancelada. Seu crédito voltou.') : 'Não foi possível cancelar.', !r.ok); } catch(e){ toast(e.message, true); }
+    toast(r.ok ? (r.perdeu_credito ? 'Reposição cancelada. O crédito foi perdido.' : 'Pedido cancelado.') : 'Não foi possível cancelar.', !r.ok); } catch(e){ toast(e.message, true); }
   await carregarApp(true);
 }
 
@@ -1353,7 +1359,7 @@ async function recarregar(msg){ if (msg) toast(msg); await carregarPainel(); }
 
 const ABAS = [['hoje','Hoje'],['pedidos','Reposições'],['horarios','Horários'],['turmas','Turmas'],['alunos','Alunos'],['financeiro','Financeiro'],['loja','Loja'],['creditos','Créditos'],['conteudo','Conteúdo'],['numeros','Números'],['ajustes','Ajustes']];
 function desenharPainel(){
-  const pend = pendentes().length;
+  const pend = gruposPendentes().length;
   $('painel').innerHTML = `<div class="p-topo"><div class="p-linha">
       <div class="marca"><img src="/logo.png" alt="Matheus Knupp Tennis" class="logo-img"><small>DASHBOARD</small></div>
       <div style="display:flex;gap:8px"><button class="chip-btn" id="p-atualizar">Atualizar</button><button class="chip-btn" id="p-fechar">Ver site</button></div></div>
@@ -1381,7 +1387,15 @@ function statusHorario(h){
   if (h.ocupadas >= h.vagas) return ['pend', 'Lotado'];
   return ['ok', 'Aberto'];
 }
+function bloqueioConfirmar(r, h){
+  const al = ADM.alunos.find(a => a.id === r.aluno_id);
+  if (h.ocupadas >= h.vagas) return 'Lotado';
+  if (al && al.creditos < 1) return 'Sem crédito';
+  return '';
+}
 function botaoConfirmar(r, h){
+  const bl = bloqueioConfirmar(r, h);
+  if (bl) return `<span class="selo cinza">${bl}</span>`;
   if (!r.whatsapp) return `<button class="btn mini" data-conf="${r.id}">Confirmar</button>`;
   const texto = preencher(ADM.config.msg_confirmacao, variaveis(h, { nome: r.nome.split(' ')[0] }));
   return `<a class="btn wpp mini" target="_blank" rel="noopener" href="${linkWpp(r.whatsapp, texto)}" data-conf-link="${r.id}">${ICON.wpp} Confirmar</a>`;
@@ -1389,15 +1403,29 @@ function botaoConfirmar(r, h){
 function ligarConfirmar(raiz){
   raiz.querySelectorAll('[data-conf-link]').forEach(a => a.addEventListener('click', () => {
     fetch(`/api/admin/reserva/${a.dataset.confLink}/confirmar`, { method:'POST', keepalive:true, headers:{'x-admin-senha':SENHA,'content-type':'application/json'} })
-      .then(() => setTimeout(() => recarregar('Confirmado ✅'), 400));
+      .then(x => x.json()).then(r => setTimeout(() => recarregar(msgConfirmado(r)), 400)).catch(() => setTimeout(() => recarregar(), 400));
   }));
-  raiz.querySelectorAll('[data-conf]').forEach(b => b.onclick = async () => { ocupado(b,true); await post(`/reserva/${b.dataset.conf}/confirmar`).catch(()=>{}); recarregar('Confirmado ✅'); });
+  raiz.querySelectorAll('[data-conf]').forEach(b => b.onclick = async () => { ocupado(b,true); const r = await post(`/reserva/${b.dataset.conf}/confirmar`).catch(()=>({})); recarregar(msgConfirmado(r)); });
   raiz.querySelectorAll('[data-recusar]').forEach(b => b.onclick = async () => {
-    if (!await confirmar({ titulo:'RECUSAR PEDIDO?', texto:'O aluno sai da lista e o crédito volta para ele.', ok:'Recusar', perigo:true })) return;
-    await post(`/reserva/${b.dataset.recusar}/recusar`).catch(e => toast(e.message,true)); recarregar('Pedido recusado. Crédito devolvido.');
+    if (!await confirmar({ titulo:'RECUSAR PEDIDO?', texto:'O aluno sai da lista. Se já estava confirmado, o crédito volta para ele.', ok:'Recusar', perigo:true })) return;
+    await post(`/reserva/${b.dataset.recusar}/recusar`).catch(e => toast(e.message,true)); recarregar('Pedido recusado.');
   });
 }
 
+function msgConfirmado(r){
+  if (!r || !r.ok) return ({ lotado: '⚠️ Não confirmou: o horário já está lotado.', sem_credito: '⚠️ Não confirmou: o aluno está sem crédito.' })[r && r.motivo] || '⚠️ Não foi possível confirmar.';
+  return r.encerrados ? `Confirmado ✅ · ${r.encerrados} ${r.encerrados === 1 ? 'outro pedido encerrado' : 'outros pedidos encerrados'}` : 'Confirmado ✅';
+}
+/* pedidos agrupados por aluno + dia: mostra todos os horários que a pessoa pode */
+function gruposPendentes(){
+  const g = new Map();
+  pendentes().forEach(({ r, h }) => {
+    const k = r.aluno_id + '|' + h.data;
+    if (!g.has(k)) g.set(k, { r, h, data: h.data, opcoes: [] });
+    g.get(k).opcoes.push({ r, h });
+  });
+  return [...g.values()].sort((a, b) => a.data.localeCompare(b.data) || a.r.criado_em.localeCompare(b.r.criado_em));
+}
 /* ---------- PEDIDOS ---------- */
 function abaPedidos(){
   const hoje = hojeISO(), amanha = somaDias(hoje, 1);
@@ -1410,7 +1438,7 @@ function abaPedidos(){
   const textoGrupo = preencher(ADM.config.msg_grupo, { dia: proximoDia ? `${nomeDia(proximoDia).toLowerCase()} (${diaCompleto(proximoDia)})` : 'amanhã', link: SITE });
   const m = $('p-miolo');
   m.innerHTML = `<div class="kpis">
-      <div class="kpi" style="--k:var(--amarelo)"><div class="v">${pend.length}</div><div class="l">Pedidos para confirmar</div></div>
+      <div class="kpi" style="--k:var(--amarelo)"><div class="v">${gruposPendentes().length}</div><div class="l">Alunos esperando confirmação</div></div>
       <div class="kpi"><div class="v">${vagasAm}</div><div class="l">Vagas livres amanhã</div></div>
       <div class="kpi" style="--k:var(--azul)"><div class="v">${comCred}</div><div class="l">Alunos com crédito</div></div>
       <div class="kpi" style="--k:var(--vermelho)"><div class="v">${vencendo}</div><div class="l">Créditos vencendo (7 dias)</div></div></div>
@@ -1418,9 +1446,12 @@ function abaPedidos(){
       <div style="flex:1 1 220px"><b>Avisar o grupo</b><div class="cinza pequeno">Abre o WhatsApp com a mensagem pronta e o link do site. É só escolher o grupo.</div></div>
       <a class="btn wpp auto" target="_blank" rel="noopener" href="${linkWppLivre(textoGrupo)}">${ICON.wpp} Avisar o grupo</a></div>
     <div class="p-titulo"><h2>PARA <span class="verde">CONFIRMAR</span></h2></div>
-    ${pend.length ? `<div class="lista">${pend.map(({r,h}) => `<div class="item"><div class="q"><b>${esc(r.nome)}</b>
-        <span>${nomeDia(h.data)} ${dataCurta(h.data)} · ${fmtHora(h.hora)} · ${r.whatsapp ? fmtWpp(r.whatsapp) : 'sem WhatsApp'}</span></div>
-        <div class="btns">${botaoConfirmar(r,h)}<button class="btn perigo mini" data-recusar="${r.id}">Recusar</button></div></div>`).join('')}</div>`
+    ${pend.length ? `<p class="cinza pequeno" style="margin:-4px 0 12px">Cada aluno aparece com <b>todos os horários que pode</b> no dia. Confirme um: o crédito é usado e os outros pedidos dele nesse dia se encerram sozinhos.</p>
+      <div class="lista">${gruposPendentes().map(g => { const al = ADM.alunos.find(a => a.id === g.r.aluno_id) || {}; return `<div class="item" style="display:block">
+        <div class="q"><b>${esc(g.r.nome)}</b><span>${nomeDia(g.data)} ${dataCurta(g.data)} · ${g.opcoes.length === 1 ? '1 horário possível' : g.opcoes.length + ' horários possíveis'} · ${al.creditos || 0} ${al.creditos === 1 ? 'crédito' : 'créditos'}${g.r.whatsapp ? ' · ' + fmtWpp(g.r.whatsapp) : ''}</span></div>
+        ${g.opcoes.map(({ r, h }) => `<div style="display:flex;align-items:center;gap:10px;margin-top:8px;padding-top:8px;border-top:1px solid var(--borda)">
+          <div style="flex:1"><b class="bebas" style="font-size:1.3rem">${fmtHora(h.hora)}</b> <span class="cinza pequeno">${h.ocupadas}/${h.vagas} confirmados${h.observacao ? ' · ' + esc(h.observacao) : ''}</span></div>
+          <div class="btns">${botaoConfirmar(r,h)}<button class="btn perigo mini" data-recusar="${r.id}">Recusar</button></div></div>`).join('')}</div>`; }).join('')}</div>`
       : `<div class="vazio"><span class="bebas">Tudo em dia</span>Nenhum pedido esperando confirmação.</div>`}
     <div class="p-titulo"><h2>PRÓXIMAS <span class="verde">REPOSIÇÕES</span></h2><button class="btn auto mini" id="novo-h1">+ Novo horário</button></div>
     <div id="lista-prox"></div>`;
@@ -1440,7 +1471,7 @@ function cartaHorario(h){
     <div class="ph-cab"><div class="hora">${fmtHoraBig(h.hora)}</div>
       <div class="q"><b>${nomeDia(h.data)} · ${diaCompleto(h.data)}</b><div class="niveis" style="margin-top:5px">${chipsNiveis(h.nivel_ids)}</div>
         ${h.observacao ? `<span>${esc(h.observacao)}</span>` : ''}${h.motivo_cancelamento ? `<span> · ${esc(h.motivo_cancelamento)}</span>` : ''}</div>
-      <div style="text-align:right"><div class="ocup">${h.ocupadas}/${h.vagas}</div><span class="selo ${cl}">${esc(tx)}</span></div></div>
+      <div style="text-align:right"><div class="ocup">${h.ocupadas}/${h.vagas}</div>${ativos.some(r => r.status === 'pendente') ? `<div class="cinza pequeno">+${ativos.filter(r => r.status === 'pendente').length} ${ativos.filter(r => r.status === 'pendente').length === 1 ? 'pedido' : 'pedidos'}</div>` : ''}<span class="selo ${cl}">${esc(tx)}</span></div></div>
     ${ativos.length || outros.length ? `<div class="ph-res">${ativos.map(r => `<div class="item"><div class="q"><b>${esc(r.nome)}</b>
         <span>${r.status === 'pendente' ? 'Aguardando confirmação' : 'Confirmado'}${r.whatsapp ? ' · ' + fmtWpp(r.whatsapp) : ''}</span></div>
         <div class="btns">${r.status === 'pendente' ? botaoConfirmar(r,h) : `<span class="selo ok">Confirmado</span>`}
@@ -1819,7 +1850,7 @@ const nomeAluno = id => (ADM.alunos.find(a => a.id === id) || {}).nome || '—';
 const nomeTurma = t => `${SEM[t.dia_semana]} ${fmtHora(t.hora)}${t.nome ? ' · ' + t.nome : ''}`;
 
 function desenharPainel(){
-  const pend = pendentes().length, p = ADM.pendencias || {};
+  const pend = gruposPendentes().length, p = ADM.pendencias || {};
   const badge = { pedidos: pend, financeiro: (p.informadas || 0) + (p.atrasadas || 0), conteudo: p.indicacoes_novas || 0 };
   $('painel').innerHTML = `<div class="p-topo"><div class="p-linha">
       <div class="marca"><img src="/logo.png" alt="Matheus Knupp Tennis" class="logo-img"><small>DASHBOARD</small></div>

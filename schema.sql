@@ -10,6 +10,8 @@ drop table if exists public.inscricoes cascade;
 drop table if exists public.ofertas cascade;
 drop function if exists public.inscrever(bigint, text, text, text);
 
+drop table if exists public.pedidos cascade;
+drop table if exists public.produtos cascade;
 drop table if exists public.presencas cascade;
 drop table if exists public.aulas cascade;
 drop table if exists public.turma_alunos cascade;

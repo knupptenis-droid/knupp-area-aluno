@@ -21,7 +21,7 @@ if (TEST_PG) {
   const pool = new Pool({ connectionString: TEST_PG });
   rpc = async (fn, args = {}) => {
     const keys = Object.keys(args);
-    const JSONB = ['p_lista', 'p_notas', 'p_checklist', 'p_presencas'];
+    const JSONB = ['p_lista', 'p_notas', 'p_checklist', 'p_presencas', 'p_itens', 'p_produto', 'p_store'];
     const vals = keys.map(k => ((JSONB.includes(k) || (fn === 'admin_salvar_config' && k === 'p_valor')) && args[k] !== null
       ? JSON.stringify(args[k]) : args[k]));
     const sql = `select public.${fn}(${keys.map((k, i) => `${k} => $${i + 1}`).join(', ')}) as r`;
@@ -39,7 +39,7 @@ if (TEST_PG) {
 }
 
 const app = express();
-app.use(express.json({ limit: '2mb' }));
+app.use(express.json({ limit: '12mb' }));
 app.use(express.static(path.join(__dirname, 'public'), {
   setHeaders(res, file) {
     if (file.endsWith('sw.js') || file.endsWith('.html')) res.setHeader('Cache-Control', 'no-cache');
@@ -183,7 +183,9 @@ admin.delete('/nivel/:id', rota(async (req, res) =>
 
 const CONFIG_PERMITIDA = ['validade_dias', 'hora_abertura', 'local_nome', 'local_endereco', 'professor_nome',
   'professor_bio', 'professor_whatsapp', 'instagram', 'foto', 'regras', 'msg_confirmacao', 'msg_grupo', 'msg_cancelamento',
-  'pix_tipo', 'pix_chave', 'pix_nome', 'pix_cidade', 'msg_cobranca', 'msg_lembrete_aula', 'indicacao_beneficio', 'habilidades', 'financeiro_inicio'];
+  'pix_tipo', 'pix_chave', 'pix_nome', 'pix_cidade', 'msg_cobranca', 'msg_lembrete_aula', 'indicacao_beneficio', 'habilidades', 'financeiro_inicio',
+  'preco_aula', 'loja_taxas', 'loja_entrega', 'loja_categorias', 'loja_url',
+  'plano_desconto', 'taxa_credito_1x', 'taxa_credito_3x'];
 admin.post('/config', rota(async (req, res) => {
   const itens = Object.entries(req.body || {}).filter(([k]) => CONFIG_PERMITIDA.includes(k));
   for (const [k, v] of itens) await rpc('admin_salvar_config', { p_chave: k, p_valor: v });
@@ -251,7 +253,18 @@ const FUNCOES_ALUNO = {
   aluno_informar_pagamento: b => ({ p_mensalidade: num(b.mensalidade_id) }),
   aluno_avaliar_aula: b => ({ p_aluno_id: num(b.aluno_id), p_aula_id: num(b.aula_id), p_nota: num(b.nota), p_comentario: txt(b.comentario) }),
   aluno_indicar: b => ({ p_aluno_id: num(b.aluno_id), p_nome: txt(b.nome), p_wpp_amigo: txt(b.whatsapp) }),
+  aluno_area_v4: () => ({}),
+  aluno_criar_pedido: b => ({ p_aluno_id: num(b.aluno_id), p_tipo: txt(b.tipo), p_itens: Array.isArray(b.itens) ? b.itens : [],
+    p_pagamento: txt(b.pagamento) || 'pix', p_entrega: txt(b.entrega) || 'retirada', p_endereco: txt(b.endereco), p_observacao: txt(b.observacao) }),
+  aluno_informar_pedido: b => ({ p_pedido: num(b.pedido_id) }),
+  aluno_cancelar_pedido: b => ({ p_pedido: num(b.pedido_id) }),
+  aluno_area_v5: () => ({}),
+  aluno_pagar_cartao: b => ({ p_mensalidade: num(b.mensalidade_id) }),
 };
+
+// ======================= LOJA (pública) =======================
+app.get('/api/loja', rota(async (req, res) => res.json(await rpc('loja_listar'))));
+app.get('/api/loja/:id', rota(async (req, res) => res.json(await rpc('loja_produto', { p_id: String(req.params.id) }))));
 app.post('/api/v3/aluno/:fn', limitar(LIMITE), rota(async (req, res) => {
   const montar = FUNCOES_ALUNO[req.params.fn];
   if (!montar) return res.status(404).json({ erro: 'Ação inválida.' });
@@ -264,7 +277,21 @@ const FUNCOES_ADMIN = ['admin_dados_v3', 'admin_salvar_aluno_extra', 'admin_salv
   'admin_financeiro', 'admin_mensalidade', 'admin_excluir_mensalidade', 'admin_aulas_dia', 'admin_salvar_aula',
   'admin_salvar_avaliacao', 'admin_avaliacoes', 'admin_excluir_avaliacao', 'admin_nivel_criterios',
   'admin_salvar_conteudo', 'admin_excluir_conteudo', 'admin_salvar_aviso', 'admin_excluir_aviso',
-  'admin_indicacao_status', 'admin_resetar_pin', 'gerar_mensalidades'];
+  'admin_indicacao_status', 'admin_resetar_pin', 'gerar_mensalidades',
+  'admin_dados_v4', 'admin_pedido_status', 'admin_salvar_produto', 'admin_excluir_produto', 'loja_produto', 'admin_importar_loja', 'admin_dados_v5'];
+
+// importa os produtos da vitrine antiga (lê o JSON que fica dentro do index.html dela)
+admin.post('/importar-loja', rota(async (req, res) => {
+  const url = String(req.body.url || '').trim();
+  if (!/^https:\/\/[a-z0-9.-]+\.netlify\.app\/?$/i.test(url) && !/^https:\/\/[a-z0-9.-]+\.[a-z.]+\/?$/i.test(url))
+    return res.status(400).json({ erro: 'Endereço inválido.' });
+  let html;
+  try { const r = await fetch(url); html = await r.text(); } catch (e) { return res.status(502).json({ erro: 'Não consegui abrir a loja.' }); }
+  const m = html.match(/<script[^>]*id=["']store["'][^>]*>([\s\S]*?)<\/script>/i);
+  if (!m) return res.status(422).json({ erro: 'Não achei os produtos nessa página.' });
+  let store; try { store = JSON.parse(m[1]); } catch (e) { return res.status(422).json({ erro: 'Os dados da loja estão num formato inesperado.' }); }
+  res.json(await rpc('admin_importar_loja', { p_store: store }));
+}));
 admin.post('/v3/:fn', rota(async (req, res) => {
   if (!FUNCOES_ADMIN.includes(req.params.fn)) return res.status(404).json({ erro: 'Ação inválida.' });
   const args = {};

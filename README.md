@@ -1,3 +1,17 @@
+# Atualização v5: plano trimestral + mensalidade no cartão
+1. **Supabase:** rode **`atualizacao-v5.sql`**. Precisa do v3 e do v4 já rodados, e não apaga nada.
+2. **GitHub:** envie os arquivos da raiz em `.../upload/main` e os da pasta public em `.../upload/main/public`.
+3. **Render:** clique em **Manual Deploy → Deploy latest commit**.
+
+---
+
+# Atualização v4: comprar aulas + loja
+1. **Supabase → SQL Editor:** rode **`atualizacao-v4.sql`**. Ele não apaga nada e precisa do v3 já rodado.
+2. **GitHub:** envie os arquivos da raiz em `.../upload/main` e os da pasta `public` em `.../upload/main/public`.
+3. **Painel → Loja → Produtos:** clique em **"Importar da loja antiga"** para trazer os produtos da lojaknupptenis.netlify.app.
+
+---
+
 # Knupp Tênis · Área do Aluno (v3)
 
 O site virou a **Área do Aluno** completa:

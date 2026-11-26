@@ -260,6 +260,7 @@ const FUNCOES_ALUNO = {
   aluno_cancelar_pedido: b => ({ p_pedido: num(b.pedido_id) }),
   aluno_area_v5: () => ({}),
   aluno_pagar_cartao: b => ({ p_mensalidade: num(b.mensalidade_id) }),
+  aluno_area_v8: () => ({}),
 };
 
 // ======================= LOJA (pública) =======================
@@ -278,7 +279,8 @@ const FUNCOES_ADMIN = ['admin_dados_v3', 'admin_salvar_aluno_extra', 'admin_salv
   'admin_salvar_avaliacao', 'admin_avaliacoes', 'admin_excluir_avaliacao', 'admin_nivel_criterios',
   'admin_salvar_conteudo', 'admin_excluir_conteudo', 'admin_salvar_aviso', 'admin_excluir_aviso',
   'admin_indicacao_status', 'admin_resetar_pin', 'gerar_mensalidades',
-  'admin_dados_v4', 'admin_pedido_status', 'admin_salvar_produto', 'admin_excluir_produto', 'loja_produto', 'admin_importar_loja', 'admin_dados_v5'];
+  'admin_dados_v4', 'admin_pedido_status', 'admin_salvar_produto', 'admin_excluir_produto', 'loja_produto', 'admin_importar_loja', 'admin_dados_v5',
+  'admin_dados_v8', 'admin_salvar_desde', 'admin_dar_conquista', 'admin_excluir_conquista'];
 
 // importa os produtos da vitrine antiga (lê o JSON que fica dentro do index.html dela)
 admin.post('/importar-loja', rota(async (req, res) => {

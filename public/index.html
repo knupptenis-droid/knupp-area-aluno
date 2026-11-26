@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Área do Aluno · Knupp Tênis</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Knupp Reposição">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --preto:#0A0A0A; --fundo2:#0F0F0F; --carta:#141414; --carta2:#1B1B1B; --carta3:#232323;
+  --borda:rgba(255,255,255,.08); --borda2:rgba(255,255,255,.14);
+  --verde:#2BD576; --verde2:#22C55E; --verde-f:rgba(43,213,118,.10); --verde-b:rgba(43,213,118,.35);
+  --branco:#F2F2F2; --texto:#CFCFCF; --cinza:#8A8A8A; --cinza2:#5A5A5A;
+  --amarelo:#FACC15; --amarelo-f:rgba(250,204,21,.10); --vermelho:#F87171; --vermelho-f:rgba(248,113,113,.10);
+  --azul:#3B9EFF; --raio:14px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--preto);color:var(--branco);font-family:"DM Sans",system-ui,-apple-system,sans-serif;
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh}
+button,input,select,textarea{font-family:inherit;font-size:1rem;color:inherit}
+a{color:inherit}
+.bebas{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;letter-spacing:.01em}
+.eyebrow{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cinza);margin:0}
+.verde{color:var(--verde)} .cinza{color:var(--cinza)} .pequeno{font-size:.85rem}
+.oculto{display:none!important}
+
+/* topo */
+.topo{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
+  padding:calc(12px + env(safe-area-inset-top)) 20px 12px;background:rgba(10,10,10,.82);backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--borda)}
+.marca{font-family:"Bebas Neue",Impact,sans-serif;font-size:1.7rem;line-height:1;letter-spacing:.04em;text-decoration:none}
+.marca i{font-style:normal;color:var(--verde)}
+.marca small{font-family:"DM Sans";font-size:.62rem;letter-spacing:.22em;color:var(--cinza);margin-left:8px;vertical-align:middle}
+.topo-acoes{display:flex;gap:8px}
+.chip-btn{background:var(--carta2);border:1px solid var(--borda);border-radius:999px;padding:7px 13px;font-size:.8rem;cursor:pointer;color:var(--texto)}
+.chip-btn:hover{border-color:var(--borda2);color:var(--branco)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;text-align:center;padding:52px 22px 34px}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(110% 80% at 50% 0%,rgba(43,213,118,.14) 0%,rgba(10,10,10,0) 60%);pointer-events:none}
+.quadra{position:absolute;left:50%;top:-40px;width:560px;max-width:none;transform:translateX(-50%);opacity:.07;pointer-events:none}
+.hero h1{position:relative;font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:clamp(3.2rem,15vw,5rem);line-height:.86;margin:14px 0 18px}
+.hero p{position:relative;max-width:28rem;margin:0 auto;color:var(--texto)}
+.status{position:relative;display:inline-flex;align-items:center;gap:9px;margin-top:22px;padding:9px 16px;border-radius:999px;
+  border:1px solid var(--borda);background:var(--carta);font-size:.88rem}
+.status .ponto{width:8px;height:8px;border-radius:50%;background:var(--cinza2)}
+.status.aberto{border-color:var(--verde-b);background:var(--verde-f)}
+.status.aberto .ponto{background:var(--verde);box-shadow:0 0 0 0 rgba(43,213,118,.6);animation:pulso 1.8s infinite}
+@keyframes pulso{0%{box-shadow:0 0 0 0 rgba(43,213,118,.55)}70%{box-shadow:0 0 0 9px rgba(43,213,118,0)}100%{box-shadow:0 0 0 0 rgba(43,213,118,0)}}
+.contagem{font-variant-numeric:tabular-nums;font-weight:700}
+
+/* miolo */
+.miolo{max-width:32rem;margin:0 auto;padding:8px 18px 110px}
+.secao{margin-top:34px}
+.secao-t{font-family:"Bebas Neue",Impact,sans-serif;font-size:2rem;line-height:1;margin:0 0 4px}
+.secao-s{color:var(--cinza);font-size:.92rem;margin:0 0 16px}
+.carta{background:var(--carta);border:1px solid var(--borda);border-radius:var(--raio);padding:20px}
+.carta+.carta{margin-top:12px}
+
+label{display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cinza);margin:0 0 8px}
+input,select,textarea{width:100%;background:var(--fundo2);border:1px solid var(--borda);border-radius:11px;padding:14px 15px;appearance:none;-webkit-appearance:none}
+textarea{min-height:90px;resize:vertical;line-height:1.5}
+input::placeholder,textarea::placeholder{color:#4A4A4A}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--verde);box-shadow:0 0 0 3px var(--verde-f)}
+select{background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%238A8A8A' stroke-width='1.6'%3E%3Cpath d='M1 1.5L6 6.5l5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:40px}
+input[type=checkbox]{width:20px;height:20px;padding:0;border-radius:6px;flex:0 0 auto;cursor:pointer;position:relative;background:var(--fundo2)}
+input[type=checkbox]:checked{background:var(--verde);border-color:var(--verde)}
+input[type=checkbox]:checked::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #06140C;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.campo{margin-bottom:16px}
+.linha2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;font-weight:700;color:#06140C;background:var(--verde2);
+  border:0;border-radius:11px;padding:15px;cursor:pointer;text-decoration:none;transition:background .15s,transform .05s}
+.btn:hover:not(:disabled){background:var(--verde)} .btn:active:not(:disabled){transform:scale(.99)}
+.btn:disabled{background:var(--carta3);color:var(--cinza2);cursor:not-allowed}
+.btn.sec{background:transparent;color:var(--texto);border:1px solid var(--borda2);font-weight:500}
+.btn.sec:hover{background:var(--carta2);color:var(--branco)}
+.btn.perigo{background:transparent;color:var(--vermelho);border:1px solid rgba(248,113,113,.35);font-weight:500}
+.btn.perigo:hover{background:var(--vermelho-f)}
+.btn.wpp{background:#25D366;color:#06140C}
+.btn.auto{width:auto;padding:11px 16px}
+.btn.mini{width:auto;padding:8px 12px;font-size:.82rem;border-radius:9px}
+.btn svg{width:18px;height:18px;flex:0 0 auto}
+.btn.mini svg{width:15px;height:15px}
+button:focus-visible,a:focus-visible{outline:2px solid var(--verde);outline-offset:2px}
+
+.aviso{border:1px solid var(--borda);border-left:3px solid var(--verde);background:var(--carta);border-radius:10px;padding:12px 14px;font-size:.92rem;margin:0 0 14px}
+.aviso.erro{border-left-color:var(--vermelho);background:var(--vermelho-f)}
+.aviso.amarelo{border-left-color:var(--amarelo)}
+
+/* chips de nível */
+.nivel{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;letter-spacing:.04em;padding:4px 9px;border-radius:999px;
+  background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c);border:1px solid color-mix(in srgb,var(--c) 30%,transparent);white-space:nowrap}
+.niveis{display:flex;flex-wrap:wrap;gap:6px}
+.sel-niveis{display:flex;flex-wrap:wrap;gap:8px}
+.sel-niveis button{cursor:pointer;opacity:.45}
+.sel-niveis button.on{opacity:1;box-shadow:0 0 0 2px color-mix(in srgb,var(--c) 45%,transparent)}
+
+/* aluno: carteira */
+.quem{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.quem button{flex:1 1 auto;padding:11px 14px;border-radius:11px;border:1px solid var(--borda);background:var(--carta);cursor:pointer;font-weight:500}
+.quem button.on{border-color:var(--verde);background:var(--verde-f);color:var(--branco)}
+.carteira{position:relative;overflow:hidden;border-radius:18px;padding:22px;border:1px solid var(--verde-b);
+  background:linear-gradient(135deg,rgba(43,213,118,.16),rgba(43,213,118,.03) 55%,rgba(20,20,20,1))}
+.carteira .ola{color:var(--texto);margin:0 0 14px}
+.carteira .num{font-family:"Bebas Neue",Impact,sans-serif;font-size:4.6rem;line-height:.85;color:var(--verde)}
+.carteira .num small{font-size:1.5rem;color:var(--branco);margin-left:6px}
+.carteira .venc{margin-top:10px;font-size:.88rem;color:var(--texto)}
+.carteira .bola{position:absolute;right:-26px;top:-26px;width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#E6F96B,#B8D430 60%,#8FA821);opacity:.18}
+.carteira .bola::after{content:"";position:absolute;inset:14px;border-radius:50%;border:3px solid rgba(255,255,255,.7);border-color:rgba(255,255,255,.7) transparent rgba(255,255,255,.7) transparent;transform:rotate(30deg)}
+.carteira.zero{border-color:var(--borda);background:var(--carta)}
+.carteira.zero .num{color:var(--cinza)}
+
+/* vagas */
+.dia{margin:22px 0 10px;display:flex;align-items:baseline;gap:10px}
+.dia h3{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:1.5rem;margin:0}
+.dia span{color:var(--cinza);font-size:.85rem}
+.vaga{display:flex;align-items:center;gap:16px;background:var(--carta);border:1px solid var(--borda);border-radius:var(--raio);padding:16px;margin-bottom:10px;position:relative;overflow:hidden}
+.vaga::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c,var(--verde))}
+.vaga .hora{font-family:"Bebas Neue",Impact,sans-serif;font-size:2.3rem;line-height:.9;min-width:74px}
+.vaga .info{flex:1;min-width:0}
+.vaga .info p{margin:6px 0 0;color:var(--cinza);font-size:.85rem}
+.vaga.lotada{opacity:.55}
+.selo{display:inline-block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:5px 9px;border-radius:7px;white-space:nowrap}
+.selo.pend{background:var(--amarelo-f);color:var(--amarelo)}
+.selo.ok{background:var(--verde-f);color:var(--verde)}
+.selo.cinza{background:var(--carta3);color:var(--cinza)}
+.selo.verm{background:var(--vermelho-f);color:var(--vermelho)}
+.selo.azul{background:rgba(59,158,255,.12);color:var(--azul)}
+
+.minha{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--borda)}
+.minha:last-child{border-bottom:0}
+.minha .q{flex:1}
+.minha .q b{display:block}
+.minha .q{min-width:0}
+.minha .q > span{color:var(--cinza);font-size:.85rem}
+.minha .btn{flex:0 0 auto}
+.minha .selo{white-space:normal;letter-spacing:.08em}
+
+.vazio{text-align:center;padding:34px 18px;border:1px dashed var(--borda2);border-radius:var(--raio);color:var(--cinza)}
+.vazio .bebas{font-size:1.7rem;color:var(--branco);display:block;margin-bottom:6px}
+
+/* regras / prof / local */
+.regras{margin:0;padding:0;list-style:none;counter-reset:r}
+.regras li{counter-increment:r;position:relative;padding:12px 0 12px 40px;border-bottom:1px solid var(--borda);color:var(--texto);font-size:.94rem}
+.regras li:last-child{border-bottom:0}
+.regras li::before{content:counter(r);position:absolute;left:0;top:11px;width:26px;height:26px;border-radius:8px;background:var(--verde-f);color:var(--verde);
+  font-family:"Bebas Neue",Impact,sans-serif;font-size:1.05rem;display:grid;place-items:center}
+.prof{display:flex;gap:16px;align-items:center}
+.marca{display:inline-flex;align-items:center}
+.logo-img{height:34px;width:auto;display:block}
+.prof .foto{width:84px;height:84px;border-radius:50%;object-fit:cover;flex:0 0 auto;border:2px solid var(--verde);background:var(--carta2);
+  display:grid;place-items:center;font-family:"Bebas Neue",Impact,sans-serif;font-size:2rem;color:var(--verde)}
+.prof h3{margin:0;font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:1.7rem;line-height:1}
+.prof p{margin:6px 0 0;color:var(--texto);font-size:.9rem}
+.acoes{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.acoes .btn{flex:1 1 140px}
+.local{display:flex;gap:14px;align-items:center}
+.local .pin{width:46px;height:46px;border-radius:12px;background:var(--verde-f);display:grid;place-items:center;flex:0 0 auto}
+.local .pin svg{width:22px;height:22px;stroke:var(--verde);fill:none;stroke-width:2}
+
+.rodape{border-top:1px solid var(--borda);text-align:center;padding:26px 22px 40px;color:var(--cinza2);font-size:.8rem}
+.engrenagem{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:40;width:44px;height:44px;border-radius:50%;
+  background:var(--carta2);border:1px solid var(--borda);display:grid;place-items:center;cursor:pointer;color:var(--cinza2)}
+.engrenagem:hover{color:var(--branco)}
+.engrenagem svg{width:20px;height:20px}
+
+/* modal + toast */
+.fundo-modal{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.72);backdrop-filter:blur(4px);display:flex;align-items:flex-end;justify-content:center;padding:0}
+.modal{width:100%;max-width:34rem;max-height:92vh;overflow:auto;background:var(--carta);border:1px solid var(--borda2);border-radius:20px 20px 0 0;padding:24px 20px calc(24px + env(safe-area-inset-bottom));animation:sobe .2s ease}
+@media(min-width:640px){.fundo-modal{align-items:center;padding:20px}.modal{border-radius:20px}}
+@keyframes sobe{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+.modal h2{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:2rem;margin:0 0 6px;line-height:1}
+.modal .sub{color:var(--cinza);margin:0 0 18px;font-size:.92rem}
+.modal .rodape-m{display:flex;gap:10px;margin-top:20px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:90;background:var(--branco);color:#0A0A0A;
+  padding:12px 18px;border-radius:12px;font-weight:500;font-size:.92rem;box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:90vw;text-align:center}
+.toast.erro{background:var(--vermelho);color:#1a0505}
+.girando{width:18px;height:18px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:gira .7s linear infinite;display:inline-block}
+@keyframes gira{to{transform:rotate(360deg)}}
+
+/* ====================== PAINEL ====================== */
+#painel{position:fixed;inset:0;z-index:60;background:var(--preto);overflow:auto}
+.p-topo{position:sticky;top:0;z-index:5;background:rgba(10,10,10,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--borda);padding:calc(10px + env(safe-area-inset-top)) 16px 0}
+.p-linha{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:60rem;margin:0 auto}
+.p-abas{display:flex;gap:4px;overflow-x:auto;max-width:60rem;margin:10px auto 0;scrollbar-width:none}
+.p-abas::-webkit-scrollbar{display:none}
+.p-abas button{background:none;border:0;border-bottom:2px solid transparent;padding:10px 12px;color:var(--cinza);cursor:pointer;white-space:nowrap;font-weight:500;font-size:.92rem;position:relative}
+.p-abas button.on{color:var(--branco);border-bottom-color:var(--verde)}
+.p-abas .badge{background:var(--amarelo);color:#1a1500;font-size:.68rem;font-weight:700;border-radius:999px;padding:1px 6px;margin-left:5px}
+.p-miolo{max-width:60rem;margin:0 auto;padding:20px 16px 100px}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}
+@media(min-width:760px){.kpis{grid-template-columns:repeat(4,1fr)}}
+.kpi{background:var(--carta);border:1px solid var(--borda);border-radius:var(--raio);padding:16px;border-top:2px solid var(--k,var(--verde))}
+.kpi .v{font-family:"Bebas Neue",Impact,sans-serif;font-size:2.6rem;line-height:1}
+.kpi .l{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza)}
+.p-titulo{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:26px 0 12px;flex-wrap:wrap}
+.p-titulo h2{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:1.8rem;margin:0;line-height:1}
+.lista{background:var(--carta);border:1px solid var(--borda);border-radius:var(--raio);overflow:hidden}
+.item{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--borda);flex-wrap:wrap}
+.item:last-child{border-bottom:0}
+.item .q{flex:1 1 180px;min-width:0}
+.item .q b{display:block;overflow:hidden;text-overflow:ellipsis}
+.item .q > span{color:var(--cinza);font-size:.84rem}
+.item .btns{display:flex;gap:6px;flex-wrap:wrap}
+.item.clicavel{cursor:pointer} .item.clicavel:hover{background:var(--carta2)}
+.ph{background:var(--carta);border:1px solid var(--borda);border-radius:var(--raio);margin-bottom:12px;overflow:hidden}
+.ph-cab{display:flex;align-items:center;gap:14px;padding:14px 16px;flex-wrap:wrap}
+.ph-cab .hora{font-family:"Bebas Neue",Impact,sans-serif;font-size:2rem;line-height:.9;min-width:64px}
+.ph-cab{flex-wrap:nowrap!important}
+.ph-cab .q{flex:1 1 0;min-width:0}
+.ph-cab > div:last-child{flex:0 0 auto}
+.ph-cab .q > span{color:var(--cinza);font-size:.84rem}
+.ocup{font-family:"Bebas Neue",Impact,sans-serif;font-size:1.4rem}
+.ph-res{border-top:1px solid var(--borda);background:var(--fundo2)}
+.ph-res .item{padding:11px 16px}
+.ph-acoes{display:flex;gap:6px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--borda)}
+.busca{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.busca input{flex:1 1 200px}
+.busca select{flex:0 0 auto;width:auto}
+.barra{display:flex;align-items:flex-end;gap:10px;height:170px;padding:16px 16px 0}
+.barra .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px}
+.barra .b{width:100%;max-width:46px;border-radius:7px 7px 2px 2px;background:var(--verde);min-height:3px}
+.barra .n{font-size:.8rem;font-weight:700}
+.barra-leg{display:flex;gap:10px;padding:8px 16px 14px}
+.barra-leg span{flex:1;text-align:center;color:var(--cinza);font-size:.75rem}
+.check-linha{display:flex;align-items:center;gap:10px;padding:10px 0;cursor:pointer;text-transform:none;letter-spacing:0;font-size:.95rem;color:var(--texto);margin:0}
+.turmas-sel{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.turmas-sel button{padding:8px 12px;border-radius:9px;border:1px solid var(--borda);background:var(--fundo2);cursor:pointer;font-size:.86rem}
+.turmas-sel button.on{border-color:var(--verde);background:var(--verde-f)}
+.alunos-check{max-height:300px;overflow:auto;border:1px solid var(--borda);border-radius:11px;padding:4px 12px;background:var(--fundo2)}
+.cor-in{width:52px;height:46px;padding:4px;cursor:pointer}
+.login-p{max-width:22rem;margin:12vh auto 0;text-align:center;padding:0 20px}
+.login-p .marca{font-size:3.4rem}
+@media(max-width:420px){.vaga .hora{font-size:2rem;min-width:62px}}
+
+/* ====== v3: área do aluno ====== */
+.ola-t{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:2.8rem;line-height:.95;margin:4px 0 10px}
+.app-nav{position:fixed;left:0;right:0;bottom:0;z-index:35;display:flex;justify-content:space-around;background:rgba(14,14,14,.94);backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);border-top:1px solid var(--borda);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+.app-nav button{flex:1;background:none;border:0;color:var(--cinza2);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:.68rem;padding:6px 0;cursor:pointer;font-weight:500}
+.app-nav button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.app-nav button.on{color:var(--verde)}
+#tela-app ~ .engrenagem, body:has(#tela-app:not(.oculto)) .engrenagem{bottom:calc(84px + env(safe-area-inset-bottom))}
+body:has(#tela-app:not(.oculto)) .rodape{display:none}
+.quem-barra{display:flex;gap:8px;overflow-x:auto;padding:12px 18px 0;max-width:32rem;margin:0 auto;scrollbar-width:none}
+.quem-barra button{flex:0 0 auto;padding:9px 14px;border-radius:999px;border:1px solid var(--borda);background:var(--carta);cursor:pointer;font-weight:500;font-size:.9rem}
+.quem-barra button.on{border-color:var(--verde);background:var(--verde-f)}
+.prox{background:linear-gradient(135deg,rgba(43,213,118,.14),rgba(20,20,20,1) 70%);border:1px solid var(--verde-b);border-radius:18px;padding:20px;margin:6px 0 12px}
+.prox-dia{font-family:"Bebas Neue",Impact,sans-serif;font-size:2.4rem;line-height:1;margin:4px 0 6px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{text-align:left;background:var(--carta);border:1px solid var(--borda);border-radius:var(--raio);padding:16px;cursor:pointer;color:var(--branco)}
+.tile:hover{border-color:var(--borda2)}
+.tile .v{font-family:"Bebas Neue",Impact,sans-serif;font-size:2.2rem;line-height:1.05;min-height:2.3rem;display:flex;align-items:center}
+.tile .l{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza);margin-top:4px}
+.diario{background:var(--carta);border:1px solid var(--borda);border-radius:var(--raio);padding:16px;margin-bottom:10px}
+.diario-cab{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.tema{color:var(--texto);font-size:.92rem;margin-top:4px}
+.recado{margin-top:12px;background:var(--verde-f);border-left:3px solid var(--verde);border-radius:8px;padding:10px 12px;font-size:.93rem}
+.recado .eyebrow{display:block;margin-bottom:4px;color:var(--verde)}
+.estrelas{display:flex;gap:6px;justify-content:center;margin:8px 0 18px}
+.estrelas button{background:none;border:0;font-size:2.6rem;color:var(--carta3);cursor:pointer;line-height:1}
+.estrelas button.on{color:var(--amarelo)}
+.estrelas-lidas{color:var(--amarelo);margin-top:10px;letter-spacing:2px}
+.fatura{background:var(--carta);border:1px solid var(--borda);border-radius:18px;padding:20px;border-top:3px solid var(--amarelo)}
+.fatura.ok{border-top-color:var(--verde)} .fatura.verm{border-top-color:var(--vermelho)} .fatura.azul{border-top-color:var(--azul)} .fatura.cinza{border-top-color:var(--cinza2)}
+.fatura-cab{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.fatura-valor{font-family:"Bebas Neue",Impact,sans-serif;font-size:3rem;line-height:1;margin:4px 0}
+.pix-box{margin-top:16px}
+.qr{background:#fff;border-radius:14px;padding:10px;width:220px;max-width:70%;margin:0 auto}
+.qr svg{display:block;width:100%;height:auto}
+.pix-codigo{font-family:ui-monospace,Menlo,monospace;font-size:.72rem;word-break:break-all;background:var(--fundo2);border:1px dashed var(--borda2);border-radius:10px;padding:10px;color:var(--texto);max-height:90px;overflow:auto}
+.radar{width:100%;max-width:340px;height:auto;display:block;margin:0 auto}
+.habs{display:grid;gap:8px;margin-top:14px;text-align:left}
+.hab{display:grid;grid-template-columns:105px 1fr 22px 30px;gap:10px;align-items:center;font-size:.9rem}
+.hab em{font-style:normal;font-size:.8rem;font-weight:700} .vermelho{color:var(--vermelho)}
+.barra-h{height:8px;background:var(--carta3);border-radius:99px;overflow:hidden}
+.barra-h i{display:block;height:100%;background:var(--verde);border-radius:99px}
+.progresso{height:10px;background:var(--carta3);border-radius:99px;overflow:hidden}
+.progresso i{display:block;height:100%;background:linear-gradient(90deg,var(--verde2),var(--verde));border-radius:99px}
+.check-item{display:flex;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--borda);color:var(--texto)}
+.check-item:last-child{border-bottom:0}
+.check-item .ck{width:22px;height:22px;border-radius:7px;border:2px solid var(--cinza2);display:grid;place-items:center;flex:0 0 auto;font-size:.8rem;font-weight:700;color:#06140C}
+.check-item.ok{color:var(--branco)} .check-item.ok .ck{background:var(--verde);border-color:var(--verde)}
+.conq{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cq{background:var(--carta);border:1px solid var(--borda);border-radius:14px;padding:14px 8px;text-align:center;opacity:.35;filter:grayscale(1)}
+.cq.on{opacity:1;filter:none;border-color:var(--verde-b);background:linear-gradient(180deg,rgba(43,213,118,.10),var(--carta))}
+.cq span{font-size:1.8rem;display:block;line-height:1.2}
+.cq b{font-size:.74rem;font-weight:500;color:var(--texto);display:block;margin-top:6px;line-height:1.25}
+.conteudo{display:block;text-decoration:none;background:var(--carta);border:1px solid var(--borda);border-radius:var(--raio);padding:14px 16px;margin-bottom:10px}
+.conteudo b{display:block} .conteudo span{display:block;color:var(--cinza);font-size:.88rem} .conteudo em{font-style:normal;color:var(--verde);font-size:.85rem}
+.pin-in{font-size:1.6rem;letter-spacing:.6em;text-align:center}
+.selo-grande{width:64px;height:64px;border-radius:50%;background:var(--verde-f);border:1px solid var(--verde-b);display:grid;place-items:center;margin:4px auto 16px;color:var(--verde);font-size:1.8rem;font-weight:700}
+/* painel v3 */
+button.kpi{text-align:left;color:var(--branco);cursor:pointer;font:inherit}
+.seg{display:inline-flex;border:1px solid var(--borda2);border-radius:10px;overflow:hidden;flex:0 0 auto}
+.seg button{background:transparent;border:0;padding:8px 12px;font-size:.84rem;color:var(--cinza);cursor:pointer}
+.seg button + button{border-left:1px solid var(--borda2)}
+.seg button.on{background:var(--verde);color:#06140C;font-weight:700}
+.seg button.on.falta{background:var(--vermelho);color:#1a0505}
+.chamada-linha .com-aluno{flex:1 1 100%;padding:10px 12px;font-size:.9rem}
+.nota-linha{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--borda)}
+.nota-linha .seg button{min-width:38px}
+@media(max-width:380px){.hab{grid-template-columns:86px 1fr 18px 26px}.conq{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <a class="marca" href="/"><img src="/logo.png" alt="Matheus Knupp Tennis" class="logo-img"><small>ÁREA DO ALUNO</small></a>
+  <div class="topo-acoes">
+    <button class="chip-btn oculto" id="btn-instalar" type="button">Instalar app</button>
+    <button class="chip-btn oculto" id="btn-sair" type="button">Sair</button>
+  </div>
+</header>
+
+<!-- ===== LOGIN ===== -->
+<section id="tela-login">
+  <section class="hero" style="padding-bottom:22px">
+    <svg class="quadra" viewBox="0 0 560 300" fill="none" stroke="#fff" stroke-width="2"><rect x="20" y="20" width="520" height="260"/><line x1="20" y1="52" x2="540" y2="52"/><line x1="20" y1="248" x2="540" y2="248"/><line x1="280" y1="20" x2="280" y2="280" stroke-width="3"/><line x1="150" y1="52" x2="150" y2="248"/><line x1="410" y1="52" x2="410" y2="248"/><line x1="150" y1="150" x2="410" y2="150"/></svg>
+    <p class="eyebrow" id="hero-local">CLUBE MILITAR · CABO FRIO</p>
+    <h1>ÁREA DO<br><span class="verde">ALUNO</span></h1>
+    <p>Suas aulas, reposições, mensalidades e sua evolução no tênis, tudo num lugar só.</p>
+  </section>
+  <main class="miolo" style="padding-top:0">
+    <div class="carta">
+      <div id="login-msg"></div>
+      <form id="form-wpp" novalidate>
+        <h2 class="secao-t">ENTRE COM SEU <span class="verde">WHATSAPP</span></h2>
+        <p class="secao-s">O mesmo número cadastrado com o professor. Para as crianças, o número do responsável.</p>
+        <div class="campo"><label for="in-wpp">WhatsApp com DDD</label>
+          <input id="in-wpp" type="tel" inputmode="numeric" autocomplete="tel" placeholder="(22) 99999-9999" maxlength="16"></div>
+        <button class="btn" type="submit" id="btn-continuar">Continuar</button>
+      </form>
+      <form id="form-pin" class="oculto" novalidate>
+        <h2 class="secao-t" id="pin-titulo">DIGITE SEU <span class="verde">PIN</span></h2>
+        <p class="secao-s" id="pin-sub">Os 4 números que você criou no primeiro acesso.</p>
+        <div class="campo"><label for="in-pin" id="pin-label">PIN</label>
+          <input id="in-pin" class="pin-in" type="password" inputmode="numeric" maxlength="4" autocomplete="current-password" placeholder="••••"></div>
+        <div class="campo oculto" id="pin2-box"><label for="in-pin2">Repita o PIN</label>
+          <input id="in-pin2" class="pin-in" type="password" inputmode="numeric" maxlength="4" placeholder="••••"></div>
+        <button class="btn" type="submit" id="btn-pin">Entrar</button>
+        <div style="display:flex;justify-content:space-between;margin-top:14px" class="pequeno">
+          <a href="#" id="pin-voltar" class="cinza">← Trocar número</a><a href="#" id="pin-esqueci" class="cinza">Esqueci meu PIN</a></div>
+      </form>
+    </div>
+  </main>
+</section>
+
+<!-- ===== APP DO ALUNO ===== -->
+<section id="tela-app" class="oculto">
+  <div id="app-quem"></div>
+  <main class="miolo" id="app-conteudo" style="padding-top:14px;padding-bottom:120px"></main>
+  <nav class="app-nav" id="app-nav">
+    <button data-tab="inicio" class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a2 2 0 0 1-2 2h-4v-7H9v7H5a2 2 0 0 1-2-2z"/></svg>Início</button>
+    <button data-tab="aulas"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>Aulas</button>
+    <button data-tab="repo"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.6 6.2c3.3 2.6 3.3 9 0 11.6M18.4 6.2c-3.3 2.6-3.3 9 0 11.6"/></svg>Reposição</button>
+    <button data-tab="fin"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>Financeiro</button>
+    <button data-tab="evo"><svg viewBox="0 0 24 24"><path d="M3 20h18M6 16l4-5 3 3 6-8"/></svg>Evolução</button>
+  </nav>
+</section>
+
+
+<footer class="rodape">© <span id="ano"></span> Knupp Tênis · Cabo Frio</footer>
+
+<button class="engrenagem" id="engrenagem" type="button" aria-label="Área do professor">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+</button>
+
+<!-- PAINEL DO PROFESSOR -->
+<div id="painel" class="oculto"></div>
+
+<div id="modais"></div>
+<div id="toast-box"></div>
+
+<script src="/qrcode.js"></script>
+<script>
+/* =========================================================
+   UTILIDADES
+   ========================================================= */
+const $ = id => document.getElementById(id);
+const TZ = 'America/Sao_Paulo';
+const SITE = location.origin;
+const ICON = {
+  wpp: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>',
+  ig: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
+};
+function esc(s){return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function soNum(s){return String(s||'').replace(/\D/g,'')}
+function mascaraWpp(v){
+  let d = soNum(v); if (d.startsWith('55') && d.length > 11) d = d.slice(2); d = d.slice(0,11);
+  if (d.length <= 2) return d.length ? '(' + d : '';
+  if (d.length <= 6) return `(${d.slice(0,2)}) ${d.slice(2)}`;
+  if (d.length <= 10) return `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`;
+  return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;
+}
+function fmtWpp(n){ if(!n) return ''; return mascaraWpp(n); }
+function hojeISO(){ return new Intl.DateTimeFormat('en-CA',{timeZone:TZ}).format(new Date()); }
+function somaDias(iso, n){ const d = new Date(iso + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate()+n); return d.toISOString().slice(0,10); }
+const SEM = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+const SEM_L = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
+function diaSemana(iso){ return new Date(iso + 'T12:00:00Z').getUTCDay(); }
+function dataCurta(iso){ const [y,m,d] = iso.split('-'); return `${d}/${m}`; }
+function nomeDia(iso){
+  const h = hojeISO();
+  if (iso === h) return 'Hoje';
+  if (iso === somaDias(h,1)) return 'Amanhã';
+  if (iso === somaDias(h,-1)) return 'Ontem';
+  return SEM_L[diaSemana(iso)].replace(/^./, c => c.toUpperCase());
+}
+function diaCompleto(iso){ return `${SEM[diaSemana(iso)]}, ${dataCurta(iso)}`; }
+function fmtHora(t){ if(!t) return ''; const [h,m] = t.split(':'); return m === '00' ? `${+h}h` : `${+h}h${m}`; }
+function fmtHoraBig(t){ return t ? t.slice(0,5) : ''; }
+function fmtDataHora(ts){
+  const d = new Date(ts);
+  const iso = new Intl.DateTimeFormat('en-CA',{timeZone:TZ}).format(d);
+  const hh = new Intl.DateTimeFormat('pt-BR',{timeZone:TZ,hour:'2-digit',minute:'2-digit'}).format(d);
+  return `${nomeDia(iso).toLowerCase()} (${dataCurta(iso)}) às ${hh.replace(':00','h').replace(':','h')}`;
+}
+function diasAte(ts){ return Math.ceil((new Date(ts) - Date.now()) / 86400000); }
+function dataDe(ts){ return dataCurta(new Intl.DateTimeFormat('en-CA',{timeZone:TZ}).format(new Date(ts))); }
+function preencher(modelo, v){ return String(modelo||'').replace(/\{(\w+)\}/g, (_,k) => v[k] ?? ''); }
+function linkWpp(numero, texto){ const n = soNum(numero); return `https://wa.me/${n}?text=${encodeURIComponent(texto)}`; }
+function linkWppLivre(texto){ return `https://wa.me/?text=${encodeURIComponent(texto)}`; }
+function guarda(k, v){ try{ v === null ? localStorage.removeItem(k) : localStorage.setItem(k, v); }catch(e){} }
+function pega(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+
+function toast(msg, erro){
+  const t = document.createElement('div'); t.className = 'toast' + (erro ? ' erro' : ''); t.textContent = msg;
+  $('toast-box').appendChild(t); setTimeout(() => t.remove(), 3200);
+}
+function modal(html, aoMontar){
+  const f = document.createElement('div'); f.className = 'fundo-modal';
+  f.innerHTML = `<div class="modal" role="dialog">${html}</div>`;
+  f.addEventListener('click', e => { if (e.target === f) f.remove(); });
+  const esc_ = e => { if (e.key === 'Escape' && $('modais').lastElementChild === f){ f.remove(); document.removeEventListener('keydown', esc_); } };
+  document.addEventListener('keydown', esc_);
+  $('modais').appendChild(f);
+  const fechar = () => f.remove();
+  f.querySelectorAll('[data-fechar]').forEach(b => b.onclick = fechar);
+  if (aoMontar) aoMontar(f.querySelector('.modal'), fechar);
+  return fechar;
+}
+function confirmar({titulo, texto, ok = 'Confirmar', perigo = false}){
+  return new Promise(res => {
+    let resposta = false;
+    const fechar = modal(`<h2>${titulo}</h2><p class="sub">${texto}</p>
+      <div class="rodape-m"><button class="btn sec" data-fechar>Voltar</button><button class="btn ${perigo?'perigo':''}" id="m-ok">${ok}</button></div>`,
+      (m, f) => { m.querySelector('#m-ok').onclick = () => { resposta = true; f(); }; });
+    const obs = new MutationObserver(() => { if (!document.body.contains($('m-ok'))) { obs.disconnect(); res(resposta); } });
+    obs.observe($('modais'), {childList:true});
+  });
+}
+async function chamar(url, opts = {}){
+  const r = await fetch(url, { ...opts, headers: { 'content-type': 'application/json', ...(opts.headers||{}) } });
+  let j = {}; try { j = await r.json(); } catch(e) {}
+  if (!r.ok) { const err = new Error(j.erro || 'Falha na conexão. Tente de novo.'); err.status = r.status; throw err; }
+  return j;
+}
+function ocupado(btn, sim){ if(!btn) return; if (sim){ btn.dataset.txt = btn.innerHTML; btn.innerHTML = '<span class="girando"></span>'; btn.disabled = true; } else { btn.innerHTML = btn.dataset.txt || btn.innerHTML; btn.disabled = false; } }
+
+/* =========================================================
+   INFO PÚBLICA
+   ========================================================= */
+let INFO = { niveis: [], config: {} };
+const nivelPor = id => INFO.niveis.find(n => n.id === id) || (ADM && ADM.niveis.find(n => n.id === id));
+function chipNivel(id){ const n = nivelPor(id); if(!n) return ''; return `<span class="nivel" style="--c:${esc(n.cor)}">${esc(n.nome)}</span>`; }
+function chipsNiveis(ids){ return !ids || !ids.length ? '<span class="nivel" style="--c:#8A8A8A">Todos os níveis</span>' : ids.map(chipNivel).join(''); }
+function corDe(ids){ const n = ids && ids.length ? nivelPor(ids[0]) : null; return n ? n.cor : 'var(--verde)'; }
+const cfg = k => (INFO.config || {})[k];
+const dinheiro = v => 'R$ ' + Number(v || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+const nomeMes = iso => `${MESES[+iso.slice(5,7)-1]}/${iso.slice(0,4)}`;
+const STATUS_RES = {
+  pendente: ['pend', 'Aguardando confirmação'], confirmada: ['ok', 'Confirmada'],
+  cancelada_aluno: ['cinza', 'Cancelada por você'], cancelada_chuva: ['azul', 'Cancelada · crédito devolvido'], recusada: ['verm', 'Não confirmada · crédito devolvido'],
+};
+const MOTIVOS = {
+  lotado: 'Que pena — essa vaga acabou de ser preenchida.', sem_credito: 'Você não tem créditos disponíveis.',
+  nivel: 'Esse horário não é para o seu nível.', ja_pediu: 'Você já pediu esse horário.', passou: 'Esse horário já começou.',
+  nao_abriu: 'Esse horário ainda não abriu.', indisponivel: 'Esse horário não está mais disponível.', aluno: 'Não conseguimos confirmar seu cadastro. Entre de novo.',
+  mensalidade: 'Sua mensalidade está em atraso. Regularize no Financeiro para pedir reposição.',
+};
+
+async function carregarInfo(){
+  try { INFO = await chamar('/api/info'); } catch(e) { return; }
+  const c = INFO.config || {};
+  $('hero-local').textContent = `${(c.local_nome || 'Clube Militar').toUpperCase()} · CABO FRIO`;
+}
+function proximaAberturaRegra(){
+  const hh = String(cfg('hora_abertura') || '14:00');
+  const agoraISO = hojeISO();
+  for (let i = 0; i < 8; i++){
+    const dia = somaDias(agoraISO, i), dow = diaSemana(dia);
+    if (dow === 5 || dow === 6) continue;
+    const alvo = new Date(`${dia}T${hh.slice(0,5)}:00-03:00`);
+    if (alvo > new Date()) return alvo;
+  }
+  return null;
+}
+
+/* =========================================================
+   PIX (BR Code) e RECIBO
+   ========================================================= */
+function crc16(s){
+  let crc = 0xFFFF;
+  for (let i = 0; i < s.length; i++){ crc ^= s.charCodeAt(i) << 8; for (let j = 0; j < 8; j++) crc = (crc & 0x8000) ? ((crc << 1) ^ 0x1021) & 0xFFFF : (crc << 1) & 0xFFFF; }
+  return crc.toString(16).toUpperCase().padStart(4, '0');
+}
+const semAcento = s => String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^A-Za-z0-9 ]/g,'').toUpperCase().trim();
+function chavePix(){
+  const tipo = cfg('pix_tipo') || 'celular', c = String(cfg('pix_chave') || '').trim();
+  if (!c) return '';
+  if (tipo === 'celular'){ let d = soNum(c); if (!d.startsWith('55')) d = '55' + d; return '+' + d; }
+  if (tipo === 'cpf') return soNum(c);
+  if (tipo === 'email') return c.toLowerCase();
+  return c;
+}
+function pixCopiaCola(valor, txid){
+  const chave = chavePix(); if (!chave) return '';
+  const f = (id, v) => id + String(v.length).padStart(2, '0') + v;
+  const nome = semAcento(cfg('pix_nome') || 'Matheus Knupp').slice(0, 25) || 'KNUPP TENIS';
+  const cidade = semAcento(cfg('pix_cidade') || 'Cabo Frio').slice(0, 15) || 'CABO FRIO';
+  const tx = (String(txid || '***').replace(/[^A-Za-z0-9]/g, '') || '***').slice(0, 25);
+  const p = f('00','01') + f('26', f('00','br.gov.bcb.pix') + f('01', chave)) + f('52','0000') + f('53','986')
+    + (valor ? f('54', Number(valor).toFixed(2)) : '') + f('58','BR') + f('59', nome) + f('60', cidade) + f('62', f('05', tx)) + '6304';
+  return p + crc16(p);
+}
+function qrSvg(texto, px = 220){
+  try { const q = qrcode(0, 'M'); q.addData(texto); q.make(); return q.createSvgTag({ cellSize: Math.max(2, Math.floor(px / (q.getModuleCount() + 8))), margin: 4, scalable: true }); }
+  catch(e){ return ''; }
+}
+async function copiar(texto){
+  try { await navigator.clipboard.writeText(texto); toast('Copiado! Cole no app do seu banco.'); }
+  catch(e){ const t = document.createElement('textarea'); t.value = texto; document.body.appendChild(t); t.select(); try{ document.execCommand('copy'); toast('Copiado!'); }catch(_){ toast('Segure no código para copiar.', true); } t.remove(); }
+}
+function abrirRecibo({ numero, nome, responsavel, valor, competencia, forma, pago_em }){
+  const c = INFO.config || {};
+  const data = pago_em ? new Date(pago_em).toLocaleDateString('pt-BR', { timeZone: TZ }) : new Date().toLocaleDateString('pt-BR', { timeZone: TZ });
+  const valorExtenso = dinheiro(valor);
+  const html = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Recibo ${numero} · Knupp Tênis</title>
+  <style>body{font-family:Arial,Helvetica,sans-serif;color:#111;max-width:640px;margin:30px auto;padding:0 20px}
+  .cab{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #111;padding-bottom:14px}
+  .cab img{height:52px;filter:invert(1)} h1{font-size:22px;margin:0;letter-spacing:2px} .num{font-size:13px;color:#555;text-align:right}
+  .valor{font-size:26px;font-weight:700;margin:26px 0 6px} p{line-height:1.7;font-size:15px}
+  .ass{margin-top:60px;text-align:center} .ass div{border-top:1px solid #111;width:260px;margin:0 auto;padding-top:6px;font-size:14px}
+  .rod{margin-top:40px;font-size:12px;color:#777;text-align:center} button{margin:30px auto 0;display:block;padding:12px 22px;font-size:15px;border:0;border-radius:8px;background:#22C55E;font-weight:700;cursor:pointer}
+  @media print{button{display:none}}</style></head><body>
+  <div class="cab"><img src="${location.origin}/logo.png" alt="Matheus Knupp Tennis"><div><h1>RECIBO</h1><div class="num">Nº ${esc(numero)}<br>${esc(data)}</div></div></div>
+  <div class="valor">${esc(valorExtenso)}</div>
+  <p>Recebi de <b>${esc(responsavel ? responsavel + ' (responsável por ' + nome + ')' : nome)}</b> a importância de <b>${esc(valorExtenso)}</b>,
+  referente às <b>aulas de tênis do mês de ${esc(nomeMes(competencia))}</b>, pago via <b>${esc(forma || 'PIX')}</b> em ${esc(data)}.</p>
+  <p>Para clareza, firmo o presente recibo.</p>
+  <p>${esc(c.pix_cidade || 'Cabo Frio')}, ${esc(data)}.</p>
+  <div class="ass"><div>${esc(c.professor_nome || 'Matheus Knupp')}<br>Knupp Tênis · Professor de Tênis</div></div>
+  <div class="rod">${esc(c.local_nome || 'Clube Militar')} · ${esc(c.local_endereco || 'Cabo Frio · RJ')}</div>
+  <button onclick="window.print()">Salvar em PDF / Imprimir</button></body></html>`;
+  const w = window.open('', '_blank');
+  if (!w){ toast('Permita pop-ups para abrir o recibo.', true); return; }
+  w.document.open(); w.document.write(html); w.document.close();
+}
+
+/* =========================================================
+   ÁREA DO ALUNO
+   ========================================================= */
+const S = { token: pega('knupp_token'), wpp: null, dados: null, sel: null, aba: 'inicio' };
+const apiAluno = (fn, body = {}) => chamar('/api/v3/aluno/' + fn, { method:'POST', headers:{ 'x-token': S.token || '' }, body: JSON.stringify(body) })
+  .catch(e => { if (e.status === 401){ sair(true); } throw e; });
+
+$('in-wpp').addEventListener('input', e => { e.target.value = mascaraWpp(e.target.value); });
+document.querySelectorAll('.pin-in').forEach(i => i.addEventListener('input', e => { e.target.value = soNum(e.target.value).slice(0,4); }));
+$('form-wpp').addEventListener('submit', e => { e.preventDefault(); passoWpp(); });
+$('form-pin').addEventListener('submit', e => { e.preventDefault(); passoPin(); });
+$('pin-voltar').onclick = e => { e.preventDefault(); mostrarPasso('wpp'); };
+$('pin-esqueci').onclick = e => { e.preventDefault();
+  const w = cfg('professor_whatsapp');
+  $('login-msg').innerHTML = `<div class="aviso amarelo">Peça ao professor para zerar seu PIN. Depois é só entrar de novo e criar um novo.
+    ${w ? `<br><a class="verde" target="_blank" rel="noopener" href="${linkWpp(w, 'Oi, professor! Esqueci o PIN da área do aluno, pode zerar para mim?')}">Falar com o professor no WhatsApp →</a>` : ''}</div>`; };
+
+let modoPin = 'entrar';
+function mostrarPasso(p){
+  $('form-wpp').classList.toggle('oculto', p !== 'wpp'); $('form-pin').classList.toggle('oculto', p === 'wpp');
+  if (p === 'wpp'){ $('login-msg').innerHTML = ''; $('in-wpp').focus(); return; }
+  modoPin = p;
+  const criar = p === 'criar';
+  $('pin-titulo').innerHTML = criar ? 'CRIE SEU <span class="verde">PIN</span>' : 'DIGITE SEU <span class="verde">PIN</span>';
+  $('pin-sub').textContent = criar ? 'Primeiro acesso! Crie uma senha de 4 números. Ela protege seus dados e pagamentos.' : 'Os 4 números que você criou no primeiro acesso.';
+  $('pin-label').textContent = criar ? 'Novo PIN (4 números)' : 'PIN';
+  $('pin2-box').classList.toggle('oculto', !criar);
+  $('btn-pin').textContent = criar ? 'Criar PIN e entrar' : 'Entrar';
+  $('in-pin').value = ''; $('in-pin2').value = ''; setTimeout(() => $('in-pin').focus(), 50);
+}
+const MSG_LOGIN = {
+  nao_cadastrado: 'Não achamos esse número. Confira se digitou certo ou fale com o professor para atualizar seu cadastro.',
+  numero_invalido: 'Número inválido. Use DDD + número.', pin_errado: 'PIN incorreto. Tente de novo.',
+  bloqueado: 'Muitas tentativas erradas. Espere 15 minutos e tente de novo.', pin_formato: 'O PIN precisa ter 4 números.',
+};
+async function passoWpp(){
+  const wpp = soNum($('in-wpp').value), msg = $('login-msg'); msg.innerHTML = '';
+  if (wpp.length < 10){ msg.innerHTML = '<div class="aviso erro">Digite o WhatsApp com DDD.</div>'; return; }
+  const btn = $('btn-continuar'); ocupado(btn, true);
+  try {
+    const r = await chamar('/api/v3/login', { method:'POST', body: JSON.stringify({ whatsapp: wpp }) });
+    S.wpp = wpp;
+    if (r.motivo === 'criar_pin') mostrarPasso('criar');
+    else if (r.motivo === 'pedir_pin') mostrarPasso('entrar');
+    else msg.innerHTML = `<div class="aviso ${r.motivo === 'nao_cadastrado' ? 'amarelo' : 'erro'}">${esc(MSG_LOGIN[r.motivo] || 'Não foi possível entrar.')}</div>`;
+  } catch(e){ msg.innerHTML = `<div class="aviso erro">${esc(e.message)}</div>`; }
+  finally { ocupado(btn, false); }
+}
+async function passoPin(){
+  const pin = $('in-pin').value, msg = $('login-msg'); msg.innerHTML = '';
+  if (pin.length !== 4){ msg.innerHTML = '<div class="aviso erro">O PIN tem 4 números.</div>'; return; }
+  if (modoPin === 'criar' && pin !== $('in-pin2').value){ msg.innerHTML = '<div class="aviso erro">Os dois PINs não são iguais.</div>'; return; }
+  const btn = $('btn-pin'); ocupado(btn, true);
+  try {
+    const r = await chamar('/api/v3/login', { method:'POST', body: JSON.stringify({ whatsapp: S.wpp, pin }) });
+    if (!r.ok){ msg.innerHTML = `<div class="aviso erro">${esc(MSG_LOGIN[r.motivo] || 'Não foi possível entrar.')}</div>`; return; }
+    S.token = r.token; guarda('knupp_token', r.token); guarda('knupp_wpp', S.wpp);
+    S.aba = 'inicio'; S.sel = null;
+    await carregarApp();
+  } catch(e){ msg.innerHTML = `<div class="aviso erro">${esc(e.message)}</div>`; }
+  finally { ocupado(btn, false); }
+}
+function sair(expirou){
+  if (!expirou && S.token) fetch('/api/v3/sair', { method:'POST', headers:{ 'x-token': S.token } }).catch(()=>{});
+  S.token = null; S.dados = null; guarda('knupp_token', null);
+  $('tela-app').classList.add('oculto'); $('tela-login').classList.remove('oculto'); $('btn-sair').classList.add('oculto');
+  mostrarPasso('wpp'); const w = pega('knupp_wpp'); if (w) $('in-wpp').value = mascaraWpp(w);
+  if (expirou) $('login-msg').innerHTML = '<div class="aviso amarelo">Sua sessão expirou. Entre de novo.</div>';
+}
+$('btn-sair').onclick = () => sair(false);
+
+async function carregarApp(silencioso){
+  let r;
+  try { r = await apiAluno('aluno_area'); } catch(e){ if (!silencioso && e.status !== 401) toast(e.message, true); return; }
+  if (!r.ok){ sair(true); return; }
+  S.dados = r;
+  if (!S.sel || !r.alunos.some(a => a.id === S.sel)) S.sel = +(pega('knupp_sel') || 0) && r.alunos.some(a => a.id === +pega('knupp_sel')) ? +pega('knupp_sel') : r.alunos[0].id;
+  $('tela-login').classList.add('oculto'); $('tela-app').classList.remove('oculto'); $('btn-sair').classList.remove('oculto');
+  desenharApp();
+}
+document.querySelectorAll('#app-nav [data-tab]').forEach(b => b.onclick = () => { S.aba = b.dataset.tab; desenharApp(); window.scrollTo({ top: 0 }); });
+
+const alunoSel = () => S.dados.alunos.find(a => a.id === S.sel);
+const extraSel = () => (S.dados.extra || {})[S.sel] || {};
+
+function desenharApp(){
+  const d = S.dados;
+  document.querySelectorAll('#app-nav [data-tab]').forEach(b => b.classList.toggle('on', b.dataset.tab === S.aba));
+  $('app-quem').innerHTML = d.alunos.length > 1 ? `<div class="quem-barra">${d.alunos.map(x =>
+    `<button class="${x.id === S.sel ? 'on' : ''}" data-aluno="${x.id}">${esc(x.nome)}</button>`).join('')}</div>` : '';
+  document.querySelectorAll('[data-aluno]').forEach(b => b.onclick = () => { S.sel = +b.dataset.aluno; guarda('knupp_sel', S.sel); desenharApp(); });
+  ({ inicio: tabInicio, aulas: tabAulas, repo: tabRepo, fin: tabFin, evo: tabEvo })[S.aba]();
+}
+
+/* ---------- cálculos ---------- */
+function agoraHHMM(){ return new Intl.DateTimeFormat('pt-BR',{ timeZone:TZ, hour:'2-digit', minute:'2-digit', hour12:false }).format(new Date()); }
+function proximasAulas(ex, a){
+  const out = [], hoje = hojeISO(), agora = agoraHHMM();
+  (ex.turmas || []).forEach(t => {
+    for (let i = 0; i < 8; i++){
+      const dia = somaDias(hoje, i);
+      if (diaSemana(dia) !== t.dia_semana) continue;
+      if (i === 0 && t.hora.slice(0,5) <= agora) continue;
+      out.push({ data: dia, hora: t.hora, tipo: 'turma', nivel_id: t.nivel_id }); break;
+    }
+  });
+  (a.reservas || []).filter(r => ['pendente','confirmada'].includes(r.status) && (r.data > hoje || (r.data === hoje && r.hora.slice(0,5) > agora)))
+    .forEach(r => out.push({ data: r.data, hora: r.hora, tipo: 'reposicao', status: r.status }));
+  return out.sort((x, y) => (x.data + x.hora).localeCompare(y.data + y.hora));
+}
+function sequencia(ex){
+  let n = 0;
+  for (const au of (ex.aulas || [])){ if (au.status_aula !== 'realizada') continue; if (au.presenca === 'falta') break; n++; }
+  return n;
+}
+function mensalidadeAtual(ex){
+  const ms = ex.mensalidades || [];
+  return ms.find(m => m.status === 'pendente' && m.vencimento < hojeISO()) || ms.find(m => ['pendente','informado'].includes(m.status)) || ms[0] || null;
+}
+function seloMens(m){
+  if (!m) return ['cinza','Sem mensalidade'];
+  if (m.status === 'pago') return ['ok','Paga'];
+  if (m.status === 'isento') return ['cinza','Isenta'];
+  if (m.status === 'informado') return ['azul','Pagamento informado'];
+  return m.vencimento < hojeISO() ? ['verm','Atrasada'] : ['pend','Em aberto'];
+}
+
+/* ---------- INÍCIO ---------- */
+function tabInicio(){
+  const a = alunoSel(), ex = extraSel(), c = INFO.config || {};
+  const prox = proximasAulas(ex, a)[0];
+  const m = mensalidadeAtual(ex), [mc, mt] = seloMens(m);
+  const atrasada = m && m.status === 'pendente' && m.vencimento < hojeISO();
+  const avisos = S.dados.avisos || [];
+  $('app-conteudo').innerHTML = `
+    <p class="eyebrow">Área do aluno</p>
+    <h1 class="ola-t">OLÁ, <span class="verde">${esc(a.nome.split(' ')[0].toUpperCase())}</span></h1>
+    <div class="niveis" style="margin:-4px 0 18px">${a.nivel_ids.map(chipNivel).join('')}</div>
+    ${avisos.map(v => `<div class="aviso amarelo">📢 ${esc(v.texto)}</div>`).join('')}
+    ${atrasada ? `<div class="aviso erro"><b>Mensalidade de ${esc(nomeMes(m.competencia))} em atraso.</b> Enquanto não regularizar, a reposição fica bloqueada.
+       <button class="btn mini" style="margin-top:10px" data-ir="fin">Pagar agora</button></div>` : ''}
+    <div class="prox">
+      <p class="eyebrow">Próxima aula</p>
+      ${prox ? `<div class="prox-dia">${nomeDia(prox.data)} · <span class="verde">${fmtHora(prox.hora)}</span></div>
+        <div class="cinza">${diaCompleto(prox.data)} · ${esc(c.local_nome || 'Clube Militar')}${prox.tipo === 'reposicao' ? ` · <span class="selo ${prox.status === 'confirmada' ? 'ok' : 'pend'}">Reposição${prox.status === 'pendente' ? ' (aguardando)' : ''}</span>` : ''}</div>`
+      : `<div class="prox-dia">—</div><div class="cinza">Nenhuma aula agendada. Fale com o professor.</div>`}
+    </div>
+    <div class="tiles">
+      <button class="tile" data-ir="repo"><div class="v">${a.creditos}</div><div class="l">Crédito${a.creditos===1?'':'s'} de reposição</div></button>
+      <button class="tile" data-ir="fin"><div class="v"><span class="selo ${mc}">${mt}</span></div><div class="l">Mensalidade</div></button>
+      <button class="tile" data-ir="aulas"><div class="v">${ex.total_presencas || 0}</div><div class="l">Aulas feitas</div></button>
+      <button class="tile" data-ir="evo"><div class="v">${sequencia(ex)}🔥</div><div class="l">Aulas seguidas</div></button>
+    </div>
+    <div class="secao"><h2 class="secao-t">INDIQUE UM <span class="verde">AMIGO</span></h2>
+      <div class="carta"><p style="margin-top:0">${esc(c.indicacao_beneficio || 'Indique um amigo para treinar com a gente!')}</p>
+        <div class="linha2"><div class="campo"><label>Nome do amigo</label><input id="ind-nome"></div>
+        <div class="campo"><label>WhatsApp dele</label><input id="ind-wpp" type="tel" inputmode="numeric" placeholder="(22) 9…"></div></div>
+        <div class="acoes" style="margin-top:0"><button class="btn" id="ind-enviar">Enviar indicação</button>
+        <a class="btn wpp" target="_blank" rel="noopener" href="${linkWppLivre('Faço aula de tênis com o professor Matheus Knupp e estou curtindo demais! Vem fazer uma aula 🎾 https://knupptenis.com.br')}">${ICON.wpp} Convidar</a></div>
+        ${ex.indicacoes ? `<p class="cinza pequeno" style="margin-bottom:0">Você já indicou ${ex.indicacoes} amigo(s)${ex.indicacoes_fechadas ? `, ${ex.indicacoes_fechadas} já fechou 💚` : ''}.</p>` : ''}</div></div>
+    <div class="secao"><h2 class="secao-t">SEU <span class="verde">PROFESSOR</span></h2>
+      <div class="carta"><div class="prof">${c.foto ? `<img class="foto" src="${esc(c.foto)}" alt="">` : '<div class="foto"><img src="/logo-simbolo.png" alt="" style="width:46%;height:auto"></div>'}
+        <div><p class="eyebrow">Knupp Tênis</p><h3>${esc(c.professor_nome || 'Matheus Knupp')}</h3><p>${esc(c.professor_bio || '')}</p></div></div>
+        <div class="acoes">${c.instagram ? `<a class="btn sec" target="_blank" rel="noopener" href="https://instagram.com/${esc(String(c.instagram).replace('@',''))}">${ICON.ig} @${esc(String(c.instagram).replace('@',''))}</a>` : ''}
+        ${c.professor_whatsapp ? `<a class="btn wpp" target="_blank" rel="noopener" href="${linkWpp(c.professor_whatsapp, 'Oi, professor!')}">${ICON.wpp} WhatsApp</a>` : ''}</div></div>
+      <div class="carta"><div class="local"><div class="pin"><svg viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+        <div style="flex:1"><p class="eyebrow">Local das aulas</p><b>${esc(c.local_nome || 'Clube Militar')}</b><div class="cinza pequeno">${esc(c.local_endereco || '')}</div></div>
+        <a class="btn sec mini" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((c.local_nome || 'Clube Militar') + ' ' + (c.local_endereco || 'Cabo Frio'))}">Mapa</a></div></div>
+    </div>`;
+  ligarIr();
+  $('ind-wpp').oninput = e => e.target.value = mascaraWpp(e.target.value);
+  $('ind-enviar').onclick = async e => {
+    const nome = $('ind-nome').value.trim(); if (!nome) return toast('Escreva o nome do amigo.', true);
+    ocupado(e.target, true);
+    try { const r = await apiAluno('aluno_indicar', { aluno_id: S.sel, nome, whatsapp: soNum($('ind-wpp').value) });
+      toast(r.ok ? 'Indicação enviada! Valeu 💚' : 'Não foi possível enviar.', !r.ok); } catch(err){ toast(err.message, true); }
+    await carregarApp(true);
+  };
+}
+function ligarIr(){ document.querySelectorAll('[data-ir]').forEach(b => b.onclick = () => { S.aba = b.dataset.ir; desenharApp(); window.scrollTo({ top: 0 }); }); }
+
+/* ---------- AULAS ---------- */
+const PRES = { presente: ['ok','Presente'], falta: ['verm','Falta'], reposicao: ['azul','Reposição'] };
+function tabAulas(){
+  const ex = extraSel(), c = INFO.config || {};
+  const turmas = ex.turmas || [], aulas = ex.aulas || [];
+  $('app-conteudo').innerHTML = `
+    <h2 class="secao-t">MINHA <span class="verde">TURMA</span></h2>
+    ${turmas.length ? `<div class="carta" style="padding:4px 18px">${turmas.map(t => `<div class="minha"><div class="q"><b>${SEM_L[t.dia_semana].replace(/^./, x => x.toUpperCase())} · ${fmtHora(t.hora)}</b>
+        <span>${esc(t.nome || '')}${t.nome ? ' · ' : ''}${esc(c.local_nome || 'Clube Militar')}</span></div>${t.nivel_id ? chipNivel(t.nivel_id) : ''}</div>`).join('')}</div>`
+      : `<div class="vazio">Sua turma ainda não foi cadastrada no sistema.</div>`}
+    <div class="secao"><h2 class="secao-t">DIÁRIO DE <span class="verde">AULAS</span></h2>
+      <p class="secao-s">O que foi treinado e o recado do professor para você.</p>
+      ${aulas.length ? aulas.map(au => {
+        const [pc, pt] = au.status_aula === 'cancelada' ? ['cinza','Aula cancelada'] : (PRES[au.presenca] || ['cinza', au.presenca]);
+        const podeAvaliar = au.status_aula === 'realizada' && au.presenca !== 'falta';
+        return `<div class="diario"><div class="diario-cab"><div><b>${diaCompleto(au.data)} · ${fmtHora(au.hora)}</b>
+          ${au.tema ? `<div class="tema">🎯 ${esc(au.tema)}</div>` : ''}</div><span class="selo ${pc}">${pt}</span></div>
+          ${au.comentario ? `<div class="recado"><span class="eyebrow">Recado do professor</span>${esc(au.comentario)}</div>` : ''}
+          ${au.comentario_geral ? `<p class="cinza pequeno" style="margin:8px 0 0">${esc(au.comentario_geral)}</p>` : ''}
+          ${podeAvaliar ? (au.nota_aluno ? `<div class="estrelas-lidas">${'★'.repeat(au.nota_aluno)}${'☆'.repeat(5 - au.nota_aluno)} <span class="cinza pequeno">sua avaliação</span></div>`
+            : `<button class="btn sec mini" style="margin-top:10px" data-avaliar="${au.aula_id}">Avaliar esta aula</button>`) : ''}</div>`;
+      }).join('') : `<div class="vazio"><span class="bebas">Nada por aqui ainda</span>Depois de cada aula, o professor registra o que foi treinado.</div>`}
+    </div>`;
+  document.querySelectorAll('[data-avaliar]').forEach(b => b.onclick = () => avaliarAula(+b.dataset.avaliar));
+}
+function avaliarAula(aulaId){
+  let nota = 0;
+  modal(`<h2>COMO FOI A <span class="verde">AULA?</span></h2><p class="sub">Sua opinião ajuda o professor a melhorar.</p>
+    <div class="estrelas" id="av-est">${[1,2,3,4,5].map(n => `<button data-n="${n}">★</button>`).join('')}</div>
+    <div class="campo"><label>Comentário (opcional)</label><textarea id="av-com" placeholder="O que você mais curtiu? O que dá para melhorar?"></textarea></div>
+    <div class="rodape-m"><button class="btn sec" data-fechar>Voltar</button><button class="btn" id="av-ok">Enviar</button></div>`,
+  (m, fechar) => {
+    m.querySelectorAll('[data-n]').forEach(b => b.onclick = () => { nota = +b.dataset.n; m.querySelectorAll('[data-n]').forEach(x => x.classList.toggle('on', +x.dataset.n <= nota)); });
+    m.querySelector('#av-ok').onclick = async () => {
+      if (!nota) return toast('Toque nas estrelas.', true);
+      try { await apiAluno('aluno_avaliar_aula', { aluno_id: S.sel, aula_id: aulaId, nota, comentario: m.querySelector('#av-com').value }); toast('Obrigado pela avaliação! ⭐'); } catch(e){ toast(e.message, true); }
+      fechar(); carregarApp(true);
+    };
+  });
+}
+
+/* ---------- REPOSIÇÃO ---------- */
+function tabRepo(){
+  const d = S.dados, a = alunoSel(), ex = extraSel();
+  const emDia = ex.em_dia !== false;
+  const prox = a.lista_creditos[0];
+  const meus = d.horarios.filter(h => !h.nivel_ids.length || h.nivel_ids.some(n => a.nivel_ids.includes(n)));
+  const jaPedi = new Set(a.reservas.filter(r => ['pendente','confirmada'].includes(r.status)).map(r => r.horario_id));
+  let vagas;
+  if (!meus.length){
+    const alvo = proximaAberturaRegra();
+    vagas = `<div class="vazio"><span class="bebas">Nenhuma vaga aberta agora</span>${alvo ? 'As próximas vagas abrem ' + esc(fmtDataHora(alvo)) + '.' : 'As vagas abrem na véspera, às 14h.'}</div>`;
+  } else {
+    let ult = ''; vagas = '';
+    meus.forEach(h => {
+      if (h.data !== ult){ ult = h.data; vagas += `<div class="dia"><h3>${nomeDia(h.data)}</h3><span>${diaCompleto(h.data)}</span></div>`; }
+      const pedi = jaPedi.has(h.id);
+      const botao = pedi ? `<span class="selo pend">Pedido feito</span>` : h.lotado ? `<span class="selo cinza">Lotado</span>`
+        : `<button class="btn auto mini" data-pedir="${h.id}" ${a.creditos && emDia ? '' : 'disabled'}>Pedir vaga</button>`;
+      vagas += `<div class="vaga ${h.lotado && !pedi ? 'lotada' : ''}" style="--c:${esc(corDe(h.nivel_ids))}"><div class="hora">${fmtHoraBig(h.hora)}</div>
+        <div class="info"><div class="niveis">${chipsNiveis(h.nivel_ids)}</div>${h.observacao ? `<p>${esc(h.observacao)}</p>` : ''}</div>${botao}</div>`;
+    });
+  }
+  $('app-conteudo').innerHTML = `
+    <div class="carteira ${a.creditos ? '' : 'zero'}"><div class="bola"></div>
+      <p class="ola">Créditos de reposição</p>
+      <div class="num">${a.creditos}<small>${a.creditos === 1 ? 'CRÉDITO' : 'CRÉDITOS'}</small></div>
+      <div class="venc">${a.creditos ? `Próximo vencimento: <b>${dataDe(prox.expira_em)}</b> (${diasAte(prox.expira_em) <= 1 ? 'vence amanhã' : 'em ' + diasAte(prox.expira_em) + ' dias'})`
+        : 'Os créditos aparecem quando uma aula sua é cancelada por chuva ou pelo professor.'}</div></div>
+    ${!emDia ? `<div class="aviso erro" style="margin-top:14px"><b>Reposição bloqueada:</b> sua mensalidade está em atraso. <button class="btn mini" style="margin-top:10px" data-ir="fin">Regularizar</button></div>` : ''}
+    ${a.reservas.length ? `<div class="secao"><h2 class="secao-t">MINHAS <span class="verde">REPOSIÇÕES</span></h2><div class="carta" style="padding:4px 18px">${a.reservas.map(r => {
+      const [cl, tx] = STATUS_RES[r.status] || ['cinza', r.status];
+      return `<div class="minha"><div class="q"><b>${nomeDia(r.data)} · ${fmtHora(r.hora)}</b><span>${diaCompleto(r.data)}${r.observacao ? ' · ' + esc(r.observacao) : ''}</span>
+        <div style="margin-top:6px"><span class="selo ${cl}">${tx}</span></div></div>
+        ${['pendente','confirmada'].includes(r.status) ? `<button class="btn perigo mini" data-cancelar="${r.id}" data-st="${r.status}">Cancelar</button>` : ''}</div>`; }).join('')}</div></div>` : ''}
+    <div class="secao"><h2 class="secao-t">VAGAS <span class="verde">ABERTAS</span></h2><p class="secao-s">Horários liberados para o seu nível.</p>${vagas}
+      ${!a.creditos && meus.length ? `<div class="aviso amarelo">Para pedir uma vaga você precisa ter pelo menos 1 crédito.</div>` : ''}</div>
+    <div class="secao"><h2 class="secao-t">COMO <span class="verde">FUNCIONA</span></h2><div class="carta" style="padding:6px 20px"><ol class="regras">${(cfg('regras') || []).map(r => `<li>${esc(r)}</li>`).join('')}<li>A reposição só pode ser marcada com a mensalidade em dia.</li></ol></div></div>`;
+  ligarIr();
+  document.querySelectorAll('[data-pedir]').forEach(b => b.onclick = () => pedir(+b.dataset.pedir, b));
+  document.querySelectorAll('[data-cancelar]').forEach(b => b.onclick = () => cancelarMinha(+b.dataset.cancelar, b.dataset.st, b));
+}
+async function pedir(horarioId, btn){
+  const h = S.dados.horarios.find(x => x.id === horarioId), a = alunoSel();
+  const ok = await confirmar({ titulo: 'PEDIR ESTA VAGA?', ok: 'Pedir vaga',
+    texto: `<b>${esc(a.nome)}</b> · ${nomeDia(h.data)} (${dataCurta(h.data)}) às <b>${fmtHora(h.hora)}</b>.<br><br>Vamos usar 1 crédito. A vaga fica garantida quando o professor confirmar pelo WhatsApp. Até lá, se cancelar, o crédito volta.` });
+  if (!ok) return;
+  ocupado(btn, true);
+  try {
+    const r = await apiAluno('aluno_reservar', { aluno_id: a.id, horario_id: horarioId });
+    if (r.ok) modal(`<div style="text-align:center"><div class="selo-grande">✓</div><h2>PEDIDO <span class="verde">ENVIADO!</span></h2>
+      <p class="sub">Você está na lista de ${nomeDia(h.data).toLowerCase()} às ${fmtHora(h.hora)}.<br>O professor vai confirmar pelo WhatsApp.</p><button class="btn" data-fechar>Fechar</button></div>`);
+    else toast(MOTIVOS[r.motivo] || 'Não foi possível pedir essa vaga.', true);
+  } catch(e){ toast(e.message, true); }
+  await carregarApp(true);
+}
+async function cancelarMinha(id, status, btn){
+  const perde = status === 'confirmada';
+  const ok = await confirmar({ titulo: 'CANCELAR REPOSIÇÃO?', ok: 'Sim, cancelar', perigo: true,
+    texto: perde ? 'Essa reposição já foi <b>confirmada</b>. Se cancelar agora, <b>você perde o crédito</b> e a vaga fica livre para outro aluno.' : 'O professor ainda não confirmou, então <b>o crédito volta</b> para você.' });
+  if (!ok) return;
+  ocupado(btn, true);
+  try { const r = await apiAluno('aluno_cancelar', { reserva_id: id });
+    toast(r.ok ? (r.perdeu_credito ? 'Reposição cancelada. O crédito foi perdido.' : 'Cancelada. Seu crédito voltou.') : 'Não foi possível cancelar.', !r.ok); } catch(e){ toast(e.message, true); }
+  await carregarApp(true);
+}
+
+/* ---------- FINANCEIRO ---------- */
+function tabFin(){
+  const a = alunoSel(), ex = extraSel(), ms = ex.mensalidades || [];
+  const atual = mensalidadeAtual(ex);
+  let cartao = '';
+  if (!ms.length) cartao = `<div class="vazio"><span class="bebas">Nada para pagar</span>${ex.valor_mensal ? 'Suas mensalidades vão aparecer aqui todo mês.' : 'Nenhuma mensalidade cadastrada para você.'}</div>`;
+  else {
+    const m = atual, [sc, st] = seloMens(m);
+    const aberto = ['pendente'].includes(m.status);
+    const pix = aberto ? pixCopiaCola(m.valor, 'KNUPP' + m.id) : '';
+    cartao = `<div class="fatura ${sc}"><div class="fatura-cab"><div><p class="eyebrow">Mensalidade · ${esc(nomeMes(m.competencia))}</p>
+        <div class="fatura-valor">${dinheiro(m.valor)}</div><div class="cinza pequeno">Vencimento ${dataCurta(m.vencimento)}</div></div><span class="selo ${sc}">${st}</span></div>
+      ${aberto ? (pix ? `<div class="pix-box"><div class="qr">${qrSvg(pix)}</div>
+          <p class="cinza pequeno" style="text-align:center;margin:10px 0">Escaneie o QR Code no app do banco ou copie o código:</p>
+          <div class="pix-codigo">${esc(pix)}</div>
+          <button class="btn" id="pix-copiar" style="margin-top:12px">Copiar código PIX</button></div>`
+        : `<div class="aviso amarelo" style="margin-top:14px">O PIX ainda não foi configurado. Fale com o professor para pagar.</div>`)
+        + `<button class="btn sec" id="ja-paguei" style="margin-top:10px">Já paguei</button>
+           <p class="cinza pequeno" style="margin-bottom:0">Depois de pagar, toque em "Já paguei". O professor confere e o recibo aparece aqui.</p>` : ''}
+      ${m.status === 'informado' ? `<p class="cinza pequeno" style="margin:14px 0 0">Recebemos seu aviso de pagamento. Assim que o professor confirmar, o recibo fica disponível.</p>` : ''}
+      ${m.status === 'pago' ? `<button class="btn sec" data-recibo="${m.id}" style="margin-top:14px">Ver recibo</button>` : ''}</div>`;
+  }
+  $('app-conteudo').innerHTML = `<h2 class="secao-t">FINAN<span class="verde">CEIRO</span></h2>
+    <p class="secao-s">${ex.valor_mensal ? `Plano: <b>${dinheiro(ex.valor_mensal)}</b> por mês · vence todo dia ${ex.dia_vencimento}` : 'Mensalidades, PIX e recibos.'}</p>
+    ${cartao}
+    ${ms.length > 1 || (ms.length && atual && ms[0].id !== atual.id) ? `<div class="secao"><h2 class="secao-t" style="font-size:1.6rem">HISTÓRICO</h2><div class="carta" style="padding:4px 18px">
+      ${ms.map(m => { const [sc, st] = seloMens(m); return `<div class="minha"><div class="q"><b>${esc(nomeMes(m.competencia).replace(/^./, x => x.toUpperCase()))}</b>
+        <span>${dinheiro(m.valor)} · venc. ${dataCurta(m.vencimento)}</span></div><span class="selo ${sc}">${st}</span>
+        ${m.status === 'pago' ? `<button class="btn sec mini" data-recibo="${m.id}">Recibo</button>` : ''}</div>`; }).join('')}</div></div>` : ''}`;
+  const cp = $('pix-copiar'); if (cp) cp.onclick = () => copiar(pixCopiaCola(atual.valor, 'KNUPP' + atual.id));
+  const jp = $('ja-paguei'); if (jp) jp.onclick = async () => {
+    if (!await confirmar({ titulo: 'JÁ PAGOU?', ok: 'Sim, já paguei', texto: 'Vamos avisar o professor para conferir o pagamento. Se quiser, mande o comprovante para ele no WhatsApp.' })) return;
+    try { await apiAluno('aluno_informar_pagamento', { mensalidade_id: atual.id }); toast('Aviso enviado! ✅'); } catch(e){ toast(e.message, true); }
+    const w = cfg('professor_whatsapp');
+    if (w) modal(`<h2>ENVIAR <span class="verde">COMPROVANTE?</span></h2><p class="sub">Opcional, mas agiliza a confirmação.</p>
+      <a class="btn wpp" target="_blank" rel="noopener" href="${linkWpp(w, `Oi, professor! Paguei a mensalidade de ${nomeMes(atual.competencia)} (${a.nome}). Segue o comprovante:`)}">${ICON.wpp} Mandar no WhatsApp</a>
+      <div class="rodape-m"><button class="btn sec" data-fechar>Agora não</button></div>`);
+    carregarApp(true);
+  };
+  document.querySelectorAll('[data-recibo]').forEach(b => b.onclick = () => {
+    const m = ms.find(x => x.id === +b.dataset.recibo);
+    abrirRecibo({ numero: m.recibo, nome: a.nome, valor: m.valor, competencia: m.competencia, forma: m.forma, pago_em: m.pago_em });
+  });
+}
+
+/* ---------- EVOLUÇÃO ---------- */
+function radar(habs, atual, inicial, tam = 300){
+  const n = habs.length; if (n < 3) return '';
+  const c = tam / 2, R = tam / 2 - 46, ang = i => -Math.PI / 2 + i * 2 * Math.PI / n;
+  const pt = (i, v) => [c + Math.cos(ang(i)) * R * v / 5, c + Math.sin(ang(i)) * R * v / 5];
+  const poly = vals => habs.map((h, i) => pt(i, +vals[h] || 0).map(x => x.toFixed(1)).join(',')).join(' ');
+  let g = '';
+  for (let k = 1; k <= 5; k++) g += `<polygon points="${habs.map((h, i) => pt(i, k).join(',')).join(' ')}" fill="none" stroke="rgba(255,255,255,${k === 5 ? .16 : .07})"/>`;
+  habs.forEach((h, i) => { const [x, y] = pt(i, 5); const [lx, ly] = pt(i, 6.15);
+    g += `<line x1="${c}" y1="${c}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,.07)"/>
+      <text x="${lx}" y="${ly}" fill="#CFCFCF" font-size="11" text-anchor="middle" dominant-baseline="middle" font-family="DM Sans,sans-serif">${esc(h)}</text>`; });
+  if (inicial) g += `<polygon points="${poly(inicial)}" fill="rgba(138,138,138,.12)" stroke="#8A8A8A" stroke-dasharray="4 4" stroke-width="1.5"/>`;
+  g += `<polygon points="${poly(atual)}" fill="rgba(43,213,118,.22)" stroke="#2BD576" stroke-width="2"/>`;
+  habs.forEach((h, i) => { const [x, y] = pt(i, +atual[h] || 0); g += `<circle cx="${x}" cy="${y}" r="3.5" fill="#2BD576"/>`; });
+  return `<svg viewBox="0 0 ${tam} ${tam}" class="radar">${g}</svg>`;
+}
+function conquistas(a, ex){
+  const t = ex.total_presencas || 0, s = sequencia(ex), av = ex.avaliacoes || [];
+  const media = v => { const xs = Object.values(v.notas || {}).map(Number).filter(Boolean); return xs.length ? xs.reduce((p, q) => p + q, 0) / xs.length : 0; };
+  return [
+    ['🎾','Primeira aula', t >= 1], ['🔟','10 aulas', t >= 10], ['⭐','25 aulas', t >= 25], ['🏅','50 aulas', t >= 50], ['🏆','100 aulas', t >= 100],
+    ['🔥','5 aulas seguidas', s >= 5], ['💯','10 aulas seguidas', s >= 10],
+    ['🔁','Usou uma reposição', (a.reservas || []).some(r => r.status === 'confirmada')],
+    ['📋','Primeira avaliação', av.length >= 1], ['🚀','Evoluiu na avaliação', av.length >= 2 && media(av[av.length - 1]) > media(av[0])],
+    ['🤝','Indicou um amigo', (ex.indicacoes || 0) >= 1], ['💚','Amigo indicado fechou', (ex.indicacoes_fechadas || 0) >= 1],
+  ];
+}
+function tabEvo(){
+  const a = alunoSel(), ex = extraSel(), av = ex.avaliacoes || [];
+  const habsCfg = cfg('habilidades') || ['Forehand','Backhand','Saque','Devolução','Voleio','Movimentação','Tático','Mental'];
+  const ult = av[av.length - 1], pri = av.length > 1 ? av[0] : null;
+  const habs = ult ? habsCfg.filter(h => ult.notas[h] !== undefined).concat(Object.keys(ult.notas).filter(h => !habsCfg.includes(h))) : [];
+  const nivelId = a.nivel_ids[0], crit = ((S.dados.niveis_criterios || {})[nivelId]) || [];
+  const feitos = crit.filter(c => (ex.checklist || {})[c]).length;
+  const conq = conquistas(a, ex), ganhas = conq.filter(c => c[2]).length;
+  const conteudos = (S.dados.conteudos || []).filter(c => !c.nivel_ids.length || c.nivel_ids.some(n => a.nivel_ids.includes(n)));
+  $('app-conteudo').innerHTML = `<h2 class="secao-t">SUA <span class="verde">EVOLUÇÃO</span></h2>
+    ${ult ? `<p class="secao-s">Avaliação do professor de ${dataCurta(ult.data)}${pri ? ` · comparando com ${dataCurta(pri.data)} (tracejado)` : ''}</p>
+      <div class="carta" style="text-align:center">${habs.length >= 3 ? radar(habs, ult.notas, pri && pri.notas) : ''}
+        <div class="habs">${habs.map(h => { const v = +ult.notas[h] || 0, d = pri ? v - (+pri.notas[h] || 0) : 0;
+          return `<div class="hab"><span>${esc(h)}</span><div class="barra-h"><i style="width:${v * 20}%"></i></div><b>${v}</b>${d ? `<em class="${d > 0 ? 'verde' : 'vermelho'}">${d > 0 ? '+' : ''}${d}</em>` : '<em></em>'}</div>`; }).join('')}</div>
+        ${ult.observacao ? `<div class="recado" style="text-align:left"><span class="eyebrow">Observação do professor</span>${esc(ult.observacao)}</div>` : ''}</div>`
+      : `<div class="vazio"><span class="bebas">Sem avaliação ainda</span>O professor vai avaliar seus golpes de tempos em tempos. Aqui você acompanha sua evolução.</div>`}
+    ${crit.length ? `<div class="secao"><h2 class="secao-t">PARA SUBIR DE <span class="verde">NÍVEL</span></h2>
+      <p class="secao-s">Nível atual: ${chipNivel(nivelId)} · ${feitos} de ${crit.length} conquistados</p>
+      <div class="progresso"><i style="width:${Math.round(feitos / crit.length * 100)}%"></i></div>
+      <div class="carta" style="padding:6px 18px;margin-top:12px">${crit.map(c => { const ok = (ex.checklist || {})[c];
+        return `<div class="check-item ${ok ? 'ok' : ''}"><span class="ck">${ok ? '✓' : ''}</span>${esc(c)}</div>`; }).join('')}</div></div>` : ''}
+    <div class="secao"><h2 class="secao-t">CONQUIS<span class="verde">TAS</span></h2><p class="secao-s">${ganhas} de ${conq.length} desbloqueadas</p>
+      <div class="conq">${conq.map(([i, n, ok]) => `<div class="cq ${ok ? 'on' : ''}"><span>${i}</span><b>${esc(n)}</b></div>`).join('')}</div></div>
+    ${conteudos.length ? `<div class="secao"><h2 class="secao-t">CONTEÚDO PARA <span class="verde">VOCÊ</span></h2>
+      ${conteudos.map(c => `<a class="conteudo" ${c.url ? `href="${esc(c.url)}" target="_blank" rel="noopener"` : ''}><b>${esc(c.titulo)}</b>${c.descricao ? `<span>${esc(c.descricao)}</span>` : ''}${c.url ? '<em>Abrir →</em>' : ''}</a>`).join('')}</div>` : ''}`;
+}
+
+/* instalar como app */
+let pedidoInstalar = null;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); pedidoInstalar = e; $('btn-instalar').classList.remove('oculto'); });
+const ehIOS = /iphone|ipad|ipod/i.test(navigator.userAgent), standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+if (ehIOS && !standalone) $('btn-instalar').classList.remove('oculto');
+$('btn-instalar').onclick = async () => {
+  if (pedidoInstalar){ pedidoInstalar.prompt(); await pedidoInstalar.userChoice; pedidoInstalar = null; $('btn-instalar').classList.add('oculto'); return; }
+  modal(`<h2>INSTALAR NO <span class="verde">IPHONE</span></h2><p class="sub">Leva 10 segundos:</p>
+    <ol class="regras"><li>Abra este site no <b>Safari</b>.</li><li>Toque no botão <b>Compartilhar</b> (quadrado com a seta para cima).</li><li>Escolha <b>Adicionar à Tela de Início</b> e toque em <b>Adicionar</b>.</li></ol>
+    <div class="rodape-m"><button class="btn" data-fechar>Entendi</button></div>`);
+};
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
+
+/* =========================================================
+   PAINEL DO PROFESSOR
+   ========================================================= */
+let ADM = null, SENHA = null, ABA = 'hoje', ESTAT = null;
+try { SENHA = sessionStorage.getItem('knupp_senha'); } catch(e) {}
+const api = (url, opts = {}) => chamar('/api/admin' + url, { ...opts, headers: { 'x-admin-senha': SENHA || '' } })
+  .catch(e => { if (e.status === 401){ SENHA = null; try{sessionStorage.removeItem('knupp_senha')}catch(_){}; loginPainel('Senha incorreta.'); } throw e; });
+const post = (url, body) => api(url, { method:'POST', body: JSON.stringify(body || {}) });
+const del = url => api(url, { method:'DELETE' });
+
+$('engrenagem').onclick = () => { $('painel').classList.remove('oculto'); document.body.style.overflow = 'hidden'; SENHA ? carregarPainel() : loginPainel(); };
+function fecharPainel(){ $('painel').classList.add('oculto'); document.body.style.overflow = ''; carregarInfo(); if (ALUNO.wpp) entrar(ALUNO.wpp, true); }
+
+function loginPainel(erro){
+  $('painel').innerHTML = `<div class="login-p"><img src="/logo.png" alt="Matheus Knupp Tennis" style="width:min(260px,80%);height:auto">
+    <p class="eyebrow" style="margin:10px 0 28px">Dashboard · Área restrita</p>
+    ${erro ? `<div class="aviso erro">${esc(erro)}</div>` : ''}
+    <form id="f-login"><div class="campo"><input type="password" id="in-senha" placeholder="Senha" autocomplete="current-password"></div>
+    <button class="btn" type="submit">Entrar</button></form>
+    <button class="btn sec" style="margin-top:10px" id="login-voltar">Voltar ao site</button></div>`;
+  $('in-senha').focus();
+  $('login-voltar').onclick = fecharPainel;
+  $('f-login').onsubmit = e => { e.preventDefault(); SENHA = $('in-senha').value; try{sessionStorage.setItem('knupp_senha', SENHA)}catch(_){}; carregarPainel(); };
+}
+
+async function carregarPainel(){
+  try { ADM = await api('/dados'); } catch(e){ if (e.status !== 401) toast(e.message, true); return; }
+  INFO.niveis = ADM.niveis.filter(n => n.ativo); INFO.config = ADM.config;
+  desenharPainel();
+}
+async function recarregar(msg){ if (msg) toast(msg); await carregarPainel(); }
+
+const ABAS = [['hoje','Hoje'],['pedidos','Reposições'],['horarios','Horários'],['turmas','Turmas'],['alunos','Alunos'],['financeiro','Financeiro'],['creditos','Créditos'],['conteudo','Conteúdo'],['numeros','Números'],['ajustes','Ajustes']];
+function desenharPainel(){
+  const pend = pendentes().length;
+  $('painel').innerHTML = `<div class="p-topo"><div class="p-linha">
+      <div class="marca"><img src="/logo.png" alt="Matheus Knupp Tennis" class="logo-img"><small>DASHBOARD</small></div>
+      <div style="display:flex;gap:8px"><button class="chip-btn" id="p-atualizar">Atualizar</button><button class="chip-btn" id="p-fechar">Ver site</button></div></div>
+    <nav class="p-abas">${ABAS.map(([k,t]) => `<button data-aba="${k}" class="${ABA===k?'on':''}">${t}${k==='pedidos'&&pend?`<span class="badge">${pend}</span>`:''}</button>`).join('')}</nav></div>
+    <div class="p-miolo" id="p-miolo"></div>`;
+  $('p-fechar').onclick = fecharPainel;
+  $('p-atualizar').onclick = () => recarregar('Atualizado.');
+  document.querySelectorAll('[data-aba]').forEach(b => b.onclick = () => { ABA = b.dataset.aba; desenharPainel(); });
+  ({ pedidos: abaPedidos, horarios: abaHorarios, alunos: abaAlunos, creditos: abaCreditos, numeros: abaNumeros, ajustes: abaAjustes })[ABA]();
+}
+function pendentes(){
+  const out = [];
+  ADM.horarios.forEach(h => h.reservas.forEach(r => { if (r.status === 'pendente' && h.status !== 'cancelado') out.push({ r, h }); }));
+  return out.sort((a,b) => (a.h.data+a.h.hora).localeCompare(b.h.data+b.h.hora) || a.r.criado_em.localeCompare(b.r.criado_em));
+}
+function variaveis(h, extra = {}){
+  return { dia: `${nomeDia(h.data).toLowerCase()} (${diaCompleto(h.data)})`, hora: fmtHora(h.hora), local: ADM.config.local_nome || 'Clube Militar', link: SITE, ...extra };
+}
+function statusHorario(h){
+  const agora = Date.now(), abre = new Date(h.abre_em), inicio = new Date(`${h.data}T${h.hora.slice(0,5)}:00-03:00`);
+  if (h.status === 'cancelado') return ['verm', 'Cancelado'];
+  if (inicio < agora) return ['cinza', 'Encerrado'];
+  if (h.status === 'fechado') return ['cinza', 'Fechado'];
+  if (abre > agora) return ['azul', 'Abre ' + fmtDataHora(abre)];
+  if (h.ocupadas >= h.vagas) return ['pend', 'Lotado'];
+  return ['ok', 'Aberto'];
+}
+function botaoConfirmar(r, h){
+  if (!r.whatsapp) return `<button class="btn mini" data-conf="${r.id}">Confirmar</button>`;
+  const texto = preencher(ADM.config.msg_confirmacao, variaveis(h, { nome: r.nome.split(' ')[0] }));
+  return `<a class="btn wpp mini" target="_blank" rel="noopener" href="${linkWpp(r.whatsapp, texto)}" data-conf-link="${r.id}">${ICON.wpp} Confirmar</a>`;
+}
+function ligarConfirmar(raiz){
+  raiz.querySelectorAll('[data-conf-link]').forEach(a => a.addEventListener('click', () => {
+    fetch(`/api/admin/reserva/${a.dataset.confLink}/confirmar`, { method:'POST', keepalive:true, headers:{'x-admin-senha':SENHA,'content-type':'application/json'} })
+      .then(() => setTimeout(() => recarregar('Confirmado ✅'), 400));
+  }));
+  raiz.querySelectorAll('[data-conf]').forEach(b => b.onclick = async () => { ocupado(b,true); await post(`/reserva/${b.dataset.conf}/confirmar`).catch(()=>{}); recarregar('Confirmado ✅'); });
+  raiz.querySelectorAll('[data-recusar]').forEach(b => b.onclick = async () => {
+    if (!await confirmar({ titulo:'RECUSAR PEDIDO?', texto:'O aluno sai da lista e o crédito volta para ele.', ok:'Recusar', perigo:true })) return;
+    await post(`/reserva/${b.dataset.recusar}/recusar`).catch(e => toast(e.message,true)); recarregar('Pedido recusado. Crédito devolvido.');
+  });
+}
+
+/* ---------- PEDIDOS ---------- */
+function abaPedidos(){
+  const hoje = hojeISO(), amanha = somaDias(hoje, 1);
+  const pend = pendentes();
+  const abertosAm = ADM.horarios.filter(h => h.data === amanha && h.status !== 'cancelado');
+  const vagasAm = abertosAm.reduce((s,h) => s + Math.max(h.vagas - h.ocupadas, 0), 0);
+  const comCred = ADM.alunos.filter(a => a.creditos > 0).length;
+  const vencendo = ADM.creditos.filter(c => c.status === 'disponivel' && diasAte(c.expira_em) <= 7).length;
+  const proximoDia = ADM.horarios.filter(h => h.data >= hoje && h.status !== 'cancelado').map(h => h.data).sort()[0];
+  const textoGrupo = preencher(ADM.config.msg_grupo, { dia: proximoDia ? `${nomeDia(proximoDia).toLowerCase()} (${diaCompleto(proximoDia)})` : 'amanhã', link: SITE });
+  const m = $('p-miolo');
+  m.innerHTML = `<div class="kpis">
+      <div class="kpi" style="--k:var(--amarelo)"><div class="v">${pend.length}</div><div class="l">Pedidos para confirmar</div></div>
+      <div class="kpi"><div class="v">${vagasAm}</div><div class="l">Vagas livres amanhã</div></div>
+      <div class="kpi" style="--k:var(--azul)"><div class="v">${comCred}</div><div class="l">Alunos com crédito</div></div>
+      <div class="kpi" style="--k:var(--vermelho)"><div class="v">${vencendo}</div><div class="l">Créditos vencendo (7 dias)</div></div></div>
+    <div class="carta" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+      <div style="flex:1 1 220px"><b>Avisar o grupo</b><div class="cinza pequeno">Abre o WhatsApp com a mensagem pronta e o link do site. É só escolher o grupo.</div></div>
+      <a class="btn wpp auto" target="_blank" rel="noopener" href="${linkWppLivre(textoGrupo)}">${ICON.wpp} Avisar o grupo</a></div>
+    <div class="p-titulo"><h2>PARA <span class="verde">CONFIRMAR</span></h2></div>
+    ${pend.length ? `<div class="lista">${pend.map(({r,h}) => `<div class="item"><div class="q"><b>${esc(r.nome)}</b>
+        <span>${nomeDia(h.data)} ${dataCurta(h.data)} · ${fmtHora(h.hora)} · ${r.whatsapp ? fmtWpp(r.whatsapp) : 'sem WhatsApp'}</span></div>
+        <div class="btns">${botaoConfirmar(r,h)}<button class="btn perigo mini" data-recusar="${r.id}">Recusar</button></div></div>`).join('')}</div>`
+      : `<div class="vazio"><span class="bebas">Tudo em dia</span>Nenhum pedido esperando confirmação.</div>`}
+    <div class="p-titulo"><h2>PRÓXIMAS <span class="verde">REPOSIÇÕES</span></h2><button class="btn auto mini" id="novo-h1">+ Novo horário</button></div>
+    <div id="lista-prox"></div>`;
+  const prox = ADM.horarios.filter(h => h.data >= hoje && h.status !== 'cancelado').sort((a,b) => (a.data+a.hora).localeCompare(b.data+b.hora));
+  $('lista-prox').innerHTML = prox.length ? prox.map(cartaHorario).join('') : `<div class="vazio">Nenhum horário futuro criado.</div>`;
+  ligarHorarios(m); ligarConfirmar(m);
+  $('novo-h1').onclick = () => formHorario();
+}
+
+/* ---------- HORÁRIOS ---------- */
+function cartaHorario(h){
+  const [cl, tx] = statusHorario(h);
+  const ativos = h.reservas.filter(r => ['pendente','confirmada'].includes(r.status));
+  const outros = h.reservas.filter(r => !['pendente','confirmada'].includes(r.status));
+  const futuro = new Date(`${h.data}T${h.hora.slice(0,5)}:00-03:00`) > Date.now();
+  return `<div class="ph" style="border-left:3px solid ${esc(corDe(h.nivel_ids))}">
+    <div class="ph-cab"><div class="hora">${fmtHoraBig(h.hora)}</div>
+      <div class="q"><b>${nomeDia(h.data)} · ${diaCompleto(h.data)}</b><div class="niveis" style="margin-top:5px">${chipsNiveis(h.nivel_ids)}</div>
+        ${h.observacao ? `<span>${esc(h.observacao)}</span>` : ''}${h.motivo_cancelamento ? `<span> · ${esc(h.motivo_cancelamento)}</span>` : ''}</div>
+      <div style="text-align:right"><div class="ocup">${h.ocupadas}/${h.vagas}</div><span class="selo ${cl}">${esc(tx)}</span></div></div>
+    ${ativos.length || outros.length ? `<div class="ph-res">${ativos.map(r => `<div class="item"><div class="q"><b>${esc(r.nome)}</b>
+        <span>${r.status === 'pendente' ? 'Aguardando confirmação' : 'Confirmado'}${r.whatsapp ? ' · ' + fmtWpp(r.whatsapp) : ''}</span></div>
+        <div class="btns">${r.status === 'pendente' ? botaoConfirmar(r,h) : `<span class="selo ok">Confirmado</span>`}
+        <button class="btn perigo mini" data-recusar="${r.id}">${r.status === 'pendente' ? 'Recusar' : 'Tirar'}</button></div></div>`).join('')}
+      ${outros.map(r => `<div class="item"><div class="q"><span>${esc(r.nome)} — ${(STATUS_RES[r.status]||[])[1] || r.status}${r.perdeu_credito ? ' (perdeu o crédito)' : ''}</span></div></div>`).join('')}</div>` : ''}
+    ${h.status !== 'cancelado' && futuro ? `<div class="ph-acoes">
+      <button class="btn sec mini" data-editar="${h.id}">Editar</button>
+      ${new Date(h.abre_em) > Date.now() ? `<button class="btn sec mini" data-abrir="${h.id}">Abrir agora</button>` : ''}
+      <button class="btn sec mini" data-status="${h.id}" data-para="${h.status === 'fechado' ? 'ativo' : 'fechado'}">${h.status === 'fechado' ? 'Reabrir' : 'Fechar'}</button>
+      <button class="btn sec mini" data-add="${h.id}">+ Aluno</button>
+      <button class="btn sec mini" data-duplicar="${h.id}">Duplicar</button>
+      <button class="btn perigo mini" data-cancelar-h="${h.id}">Cancelar (chuva)</button>
+      <button class="btn perigo mini" data-excluir="${h.id}">Apagar</button></div>`
+    : `<div class="ph-acoes"><button class="btn perigo mini" data-excluir="${h.id}">Apagar</button></div>`}</div>`;
+}
+function ligarHorarios(raiz){
+  const H = id => ADM.horarios.find(h => h.id === +id);
+  raiz.querySelectorAll('[data-editar]').forEach(b => b.onclick = () => formHorario(H(b.dataset.editar)));
+  raiz.querySelectorAll('[data-duplicar]').forEach(b => b.onclick = () => { const h = H(b.dataset.duplicar); formHorario({ ...h, id: null, abre_em: null }); });
+  raiz.querySelectorAll('[data-abrir]').forEach(b => b.onclick = async () => { await post(`/horario/${b.dataset.abrir}/abrir-agora`); recarregar('Horário aberto para os alunos.'); });
+  raiz.querySelectorAll('[data-status]').forEach(b => b.onclick = async () => { await post(`/horario/${b.dataset.status}/status`, { status: b.dataset.para }); recarregar(b.dataset.para === 'fechado' ? 'Horário fechado.' : 'Horário reaberto.'); });
+  raiz.querySelectorAll('[data-excluir]').forEach(b => b.onclick = async () => {
+    const h = H(b.dataset.excluir);
+    const tem = h.reservas.some(r => ['pendente','confirmada'].includes(r.status));
+    if (!await confirmar({ titulo:'APAGAR HORÁRIO?', perigo:true, ok:'Apagar', texto: tem ? 'Tem aluno marcado aqui. Os créditos deles <b>voltam</b> e o horário some de vez.' : 'O horário some de vez do sistema.' })) return;
+    await del(`/horario/${h.id}`); recarregar('Horário apagado.');
+  });
+  raiz.querySelectorAll('[data-cancelar-h]').forEach(b => b.onclick = () => cancelarHorario(H(b.dataset.cancelarH)));
+  raiz.querySelectorAll('[data-add]').forEach(b => b.onclick = () => adicionarNoHorario(H(b.dataset.add)));
+}
+function seletorNiveis(sel, todos){
+  const lista = (todos || ADM.niveis).filter(n => n.ativo || sel.includes(n.id));
+  return `<div class="sel-niveis">${lista.map(n => `<button type="button" class="nivel ${sel.includes(n.id)?'on':''}" style="--c:${esc(n.cor)}" data-niv="${n.id}">${esc(n.nome)}</button>`).join('')}</div>`;
+}
+function ligarSeletor(raiz){ raiz.querySelectorAll('[data-niv]').forEach(b => b.onclick = () => b.classList.toggle('on')); }
+const lerSeletor = raiz => [...raiz.querySelectorAll('[data-niv].on')].map(b => +b.dataset.niv);
+
+function formHorario(h){
+  const novo = !h || !h.id;
+  h = h || { data: somaDias(hojeISO(), 1), hora: '', nivel_ids: [], vagas: 1, observacao: '' };
+  const abre = h.abre_em ? new Date(h.abre_em) : null;
+  const abreLocal = abre ? new Intl.DateTimeFormat('sv-SE',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).format(abre).replace(' ','T') : '';
+  modal(`<h2>${novo ? 'NOVO' : 'EDITAR'} <span class="verde">HORÁRIO</span></h2><p class="sub">Local: ${esc(ADM.config.local_nome || 'Clube Militar')}</p>
+    <div id="fh-msg"></div>
+    <div class="linha2"><div class="campo"><label>Dia</label><input type="date" id="fh-data" value="${esc(h.data)}"></div>
+    <div class="campo"><label>Hora</label><input type="time" id="fh-hora" value="${esc((h.hora||'').slice(0,5))}" step="900"></div></div>
+    <div class="campo"><label>Níveis (pode marcar mais de um)</label>${seletorNiveis(h.nivel_ids)}
+      <div class="cinza pequeno" style="margin-top:6px">Sem nenhum marcado = aberto para todos os níveis.</div></div>
+    <div class="linha2"><div class="campo"><label>Vagas</label><input type="number" id="fh-vagas" min="0" max="12" value="${esc(h.vagas)}"></div>
+    <div class="campo"><label>Quando abre</label><select id="fh-quando">
+      <option value="padrao" ${!abreLocal ? 'selected' : ''}>Véspera às ${esc(ADM.config.hora_abertura || '14:00')}</option>
+      <option value="agora">Agora</option><option value="custom" ${abreLocal ? 'selected' : ''}>Escolher dia/hora</option></select></div></div>
+    <div class="campo ${abreLocal ? '' : 'oculto'}" id="fh-custom-box"><label>Abre em</label><input type="datetime-local" id="fh-abre" value="${esc(abreLocal)}"></div>
+    <div class="campo"><label>Observação (opcional)</label><input id="fh-obs" value="${esc(h.observacao||'')}" placeholder="Ex.: Quadra 1 · trazer garrafa d'água"></div>
+    <div class="rodape-m"><button class="btn sec" data-fechar>Voltar</button><button class="btn" id="fh-salvar">${novo ? 'Criar horário' : 'Salvar'}</button></div>`,
+  (m, fechar) => {
+    ligarSeletor(m);
+    m.querySelector('#fh-quando').onchange = e => m.querySelector('#fh-custom-box').classList.toggle('oculto', e.target.value !== 'custom');
+    m.querySelector('#fh-salvar').onclick = async e => {
+      const q = m.querySelector('#fh-quando').value;
+      const body = { id: novo ? null : h.id, data: m.querySelector('#fh-data').value, hora: m.querySelector('#fh-hora').value,
+        nivel_ids: lerSeletor(m), vagas: m.querySelector('#fh-vagas').value, observacao: m.querySelector('#fh-obs').value, abre_em: null };
+      if (!body.data || !body.hora){ m.querySelector('#fh-msg').innerHTML = '<div class="aviso erro">Preencha dia e hora.</div>'; return; }
+      const dow = diaSemana(body.data);
+      if (q === 'agora') body.abre_em = new Date().toISOString();
+      if (q === 'custom'){ const v = m.querySelector('#fh-abre').value; if (!v){ m.querySelector('#fh-msg').innerHTML = '<div class="aviso erro">Escolha quando abre.</div>'; return; } body.abre_em = new Date(v + ':00-03:00').toISOString(); }
+      ocupado(e.target, true);
+      try { await post('/horario', body); fechar(); recarregar(novo ? (q === 'padrao' ? `Criado! Abre ${fmtDataHora(new Date(new Date(somaDias(body.data,-1)+'T'+(ADM.config.hora_abertura||'14:00')+':00-03:00')))}.` : 'Horário criado.') : 'Horário salvo.'); }
+      catch(err){ ocupado(e.target, false); m.querySelector('#fh-msg').innerHTML = `<div class="aviso erro">${esc(err.message)}</div>`; }
+      if (dow === 0 || dow === 6) toast('Atenção: esse dia cai no fim de semana.');
+    };
+  });
+}
+async function cancelarHorario(h){
+  modal(`<h2>CANCELAR <span class="verde">HORÁRIO</span></h2><p class="sub">${nomeDia(h.data)} ${dataCurta(h.data)} às ${fmtHora(h.hora)}. Quem estava marcado recebe o crédito de volta.</p>
+    <div class="campo"><label>Motivo</label><input id="ch-motivo" value="chuva"></div>
+    <div class="rodape-m"><button class="btn sec" data-fechar>Voltar</button><button class="btn perigo" id="ch-ok">Cancelar horário</button></div>`,
+  (m, fechar) => m.querySelector('#ch-ok').onclick = async e => {
+    ocupado(e.target, true);
+    const motivo = m.querySelector('#ch-motivo').value;
+    const r = await post(`/horario/${h.id}/cancelar`, { motivo }).catch(err => { toast(err.message, true); return null; });
+    fechar(); await recarregar('Horário cancelado.');
+    if (r && r.afetados.length) avisarAfetados(r.afetados, h, motivo);
+  });
+}
+function avisarAfetados(lista, h, motivo){
+  modal(`<h2>AVISAR <span class="verde">ALUNOS</span></h2><p class="sub">Os créditos já voltaram. Toque em cada um para avisar pelo WhatsApp.</p>
+    <div class="lista">${lista.map(a => `<div class="item"><div class="q"><b>${esc(a.nome)}</b><span>${a.whatsapp ? fmtWpp(a.whatsapp) : 'sem WhatsApp'}</span></div>
+      ${a.whatsapp ? `<a class="btn wpp mini" target="_blank" rel="noopener" href="${linkWpp(a.whatsapp, preencher(ADM.config.msg_cancelamento, variaveis(h || {data:hojeISO(),hora:'00:00'}, { nome: a.nome.split(' ')[0], motivo })))}">${ICON.wpp} Avisar</a>` : ''}</div>`).join('')}</div>
+    <div class="rodape-m"><button class="btn" data-fechar>Pronto</button></div>`);
+}
+function adicionarNoHorario(h){
+  const elegiveis = ADM.alunos.filter(a => a.ativo && (!h.nivel_ids.length || a.nivel_ids.some(n => h.nivel_ids.includes(n))));
+  modal(`<h2>MARCAR <span class="verde">ALUNO</span></h2><p class="sub">${nomeDia(h.data)} às ${fmtHora(h.hora)} — entra já confirmado.</p>
+    <div class="campo"><label>Aluno</label><select id="ad-aluno">${elegiveis.map(a => `<option value="${a.id}">${esc(a.nome)} · ${a.creditos} crédito(s)</option>`).join('')}</select></div>
+    <label class="check-linha"><input type="checkbox" id="ad-cred" checked> <span>Usar 1 crédito do aluno</span></label>
+    <div id="ad-msg"></div>
+    <div class="rodape-m"><button class="btn sec" data-fechar>Voltar</button><button class="btn" id="ad-ok">Marcar</button></div>`,
+  (m, fechar) => m.querySelector('#ad-ok').onclick = async () => {
+    const r = await post('/reservar', { aluno_id: +m.querySelector('#ad-aluno').value, horario_id: h.id, usar_credito: m.querySelector('#ad-cred').checked });
+    if (!r.ok){ m.querySelector('#ad-msg').innerHTML = `<div class="aviso erro">${r.motivo === 'sem_credito' ? 'Esse aluno não tem crédito. Desmarque "usar crédito" se quiser marcar mesmo assim.' : 'Esse aluno já está nesse horário.'}</div>`; return; }
+    fechar(); recarregar('Aluno marcado.');
+  });
+}
+function abaHorarios(){
+  const hoje = hojeISO();
+  const futuros = ADM.horarios.filter(h => h.data >= hoje).sort((a,b) => (a.data+a.hora).localeCompare(b.data+b.hora));
+  const passados = ADM.horarios.filter(h => h.data < hoje);
+  let html = `<div class="p-titulo"><h2>HORÁRIOS DE <span class="verde">REPOSIÇÃO</span></h2><button class="btn auto mini" id="novo-h">+ Novo horário</button></div>
+    <div class="aviso">Cada horário abre sozinho na <b>véspera às ${esc(ADM.config.hora_abertura || '14:00')}</b> (segunda abre domingo). Você pode deixar a semana toda pronta. Sexta e sábado não abre nada, porque não tem aula no fim de semana.</div>`;
+  let ult = '';
+  if (!futuros.length) html += `<div class="vazio"><span class="bebas">Nenhum horário futuro</span>Crie o primeiro no botão acima.</div>`;
+  futuros.forEach(h => { if (h.data !== ult){ ult = h.data; html += `<div class="dia"><h3>${nomeDia(h.data)}</h3><span>${diaCompleto(h.data)}</span></div>`; } html += cartaHorario(h); });
+  if (passados.length) html += `<details style="margin-top:26px"><summary class="cinza" style="cursor:pointer">Últimos 30 dias (${passados.length})</summary><div style="margin-top:12px">${passados.map(cartaHorario).join('')}</div></details>`;
+  const m = $('p-miolo'); m.innerHTML = html;
+  $('novo-h').onclick = () => formHorario(); ligarHorarios(m); ligarConfirmar(m);
+}
+
+/* ---------- ALUNOS ---------- */
+let FILTRO = { q: '', nivel: '', so: '' };
+function abaAlunos(){
+  const m = $('p-miolo');
+  const semWpp = ADM.alunos.filter(a => !a.whatsapp).length;
+  m.innerHTML = `<div class="p-titulo"><h2>ALUNOS <span class="cinza" style="font-size:1.2rem">(${ADM.alunos.length})</span></h2>
+      <div style="display:flex;gap:8px"><button class="btn sec auto mini" id="importar">Importar lista</button><button class="btn auto mini" id="novo-a">+ Aluno</button></div></div>
+    ${semWpp ? `<div class="aviso amarelo"><b>${semWpp} aluno(s) sem WhatsApp.</b> Eles não conseguem entrar no site até você cadastrar o número. Use o filtro "Sem WhatsApp".</div>` : ''}
+    <div class="busca"><input id="fa-q" placeholder="Buscar por nome ou número…" value="${esc(FILTRO.q)}">
+      <select id="fa-nivel"><option value="">Todos os níveis</option>${ADM.niveis.map(n => `<option value="${n.id}" ${+FILTRO.nivel===n.id?'selected':''}>${esc(n.nome)}</option>`).join('')}</select>
+      <select id="fa-so"><option value="">Todos</option><option value="sem" ${FILTRO.so==='sem'?'selected':''}>Sem WhatsApp</option><option value="cred" ${FILTRO.so==='cred'?'selected':''}>Com crédito</option><option value="inativos" ${FILTRO.so==='inativos'?'selected':''}>Inativos</option></select></div>
+    <div class="lista" id="lista-a"></div>`;
+  const desenhar = () => {
+    const q = FILTRO.q.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+    const lista = ADM.alunos.filter(a => {
+      const nome = a.nome.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+      if (q && !nome.includes(q) && !(a.whatsapp||'').includes(soNum(q) || '###')) return false;
+      if (FILTRO.nivel && !a.nivel_ids.includes(+FILTRO.nivel)) return false;
+      if (FILTRO.so === 'sem' && a.whatsapp) return false;
+      if (FILTRO.so === 'cred' && !a.creditos) return false;
+      if (FILTRO.so === 'inativos' ? a.ativo : !a.ativo) return false;
+      return true;
+    });
+    $('lista-a').innerHTML = lista.length ? lista.map(a => `<div class="item clicavel" data-al="${a.id}">
+      <div class="q"><b>${esc(a.nome)}</b><span>${a.whatsapp ? fmtWpp(a.whatsapp) : '<span style="color:var(--amarelo)">sem WhatsApp</span>'}${a.turmas.length ? ' · ' + esc(a.turmas.join(', ')) : ''}</span></div>
+      <div class="niveis">${a.nivel_ids.map(chipNivel).join('')}</div>
+      <span class="selo ${a.creditos ? 'ok' : 'cinza'}">${a.creditos} crédito${a.creditos===1?'':'s'}</span></div>`).join('')
+      : `<div class="vazio" style="border:0">Nenhum aluno encontrado.</div>`;
+    $('lista-a').querySelectorAll('[data-al]').forEach(el => el.onclick = () => formAluno(ADM.alunos.find(a => a.id === +el.dataset.al)));
+  };
+  $('fa-q').oninput = e => { FILTRO.q = e.target.value; desenhar(); };
+  $('fa-nivel').onchange = e => { FILTRO.nivel = e.target.value; desenhar(); };
+  $('fa-so').onchange = e => { FILTRO.so = e.target.value; desenhar(); };
+  $('novo-a').onclick = () => formAluno();
+  $('importar').onclick = importarAlunos;
+  desenhar();
+}
+function formAluno(a){
+  const novo = !a;
+  a = a || { nome:'', whatsapp:'', nivel_ids:[], turmas:[], observacao:'', ativo:true, creditos:0 };
+  const creds = novo ? [] : ADM.creditos.filter(c => c.aluno_id === a.id);
+  const reservas = [];
+  if (!novo) ADM.horarios.forEach(h => h.reservas.filter(r => r.aluno_id === a.id).forEach(r => reservas.push({ r, h })));
+  const STC = { disponivel:['ok','Disponível'], reservado:['pend','Em uso'], usado:['cinza','Usado'], perdido:['verm','Perdido'], removido:['cinza','Removido'], vencido:['verm','Vencido'] };
+  modal(`<h2>${novo ? 'NOVO' : 'EDITAR'} <span class="verde">ALUNO</span></h2><div id="fa-msg"></div>
+    <div class="campo"><label>Nome</label><input id="fa-nome" value="${esc(a.nome)}"></div>
+    <div class="campo"><label>WhatsApp (do aluno ou do responsável)</label><input id="fa-wpp" type="tel" inputmode="numeric" value="${esc(fmtWpp(a.whatsapp))}" placeholder="(22) 99999-9999"></div>
+    <div class="campo"><label>Nível(eis)</label>${seletorNiveis(a.nivel_ids)}</div>
+    <div class="campo"><label>Turmas fixas (separe por vírgula)</label><input id="fa-turmas" value="${esc(a.turmas.join(', '))}" placeholder="Ex.: Ter 18h, Qui 18h"></div>
+    <div class="campo"><label>Observação</label><input id="fa-obs" value="${esc(a.observacao||'')}"></div>
+    <label class="check-linha"><input type="checkbox" id="fa-ativo" ${a.ativo ? 'checked' : ''}> <span>Aluno ativo</span></label>
+    ${novo ? '' : `<div class="p-titulo" style="margin-top:18px"><h2 style="font-size:1.5rem">CRÉDITOS · ${a.creditos}</h2><button class="btn auto mini" id="fa-mais">+ Dar crédito</button></div>
+      ${creds.length ? `<div class="lista">${creds.map(c => `<div class="item"><div class="q"><b>${c.origem === 'chuva' ? 'Chuva' : c.origem === 'devolucao' ? 'Devolução' : 'Manual'}${c.motivo ? ' · ' + esc(c.motivo) : ''}</b>
+          <span>Criado ${dataDe(c.criado_em)} · vence ${dataDe(c.expira_em)}</span></div><span class="selo ${(STC[c.status]||['cinza'])[0]}">${(STC[c.status]||['',c.status])[1]}</span>
+          ${c.status === 'disponivel' ? `<button class="btn perigo mini" data-rmc="${c.id}">Remover</button>` : ''}</div>`).join('')}</div>` : '<p class="cinza pequeno">Nenhum crédito ainda.</p>'}
+      ${reservas.length ? `<div class="p-titulo"><h2 style="font-size:1.5rem">HISTÓRICO</h2></div><div class="lista">${reservas.map(({r,h}) => `<div class="item"><div class="q"><b>${diaCompleto(h.data)} · ${fmtHora(h.hora)}</b></div><span class="selo ${(STATUS_RES[r.status]||['cinza'])[0]}">${(STATUS_RES[r.status]||['',r.status])[1]}</span></div>`).join('')}</div>` : ''}`}
+    <div class="rodape-m">${novo ? '' : '<button class="btn perigo auto" id="fa-del">Excluir</button>'}<button class="btn sec" data-fechar>Voltar</button><button class="btn" id="fa-salvar">Salvar</button></div>`,
+  (m, fechar) => {
+    ligarSeletor(m);
+    m.querySelector('#fa-wpp').oninput = e => e.target.value = mascaraWpp(e.target.value);
+    m.querySelector('#fa-salvar').onclick = async e => {
+      const body = { id: novo ? null : a.id, nome: m.querySelector('#fa-nome').value, whatsapp: soNum(m.querySelector('#fa-wpp').value) || null,
+        nivel_ids: lerSeletor(m), turmas: m.querySelector('#fa-turmas').value.split(','), observacao: m.querySelector('#fa-obs').value, ativo: m.querySelector('#fa-ativo').checked };
+      ocupado(e.target, true);
+      try { await post('/aluno', body); fechar(); recarregar('Aluno salvo.'); }
+      catch(err){ ocupado(e.target, false); m.querySelector('#fa-msg').innerHTML = `<div class="aviso erro">${esc(err.message)}</div>`; }
+    };
+    const d = m.querySelector('#fa-del'); if (d) d.onclick = async () => {
+      if (!await confirmar({ titulo:'EXCLUIR ALUNO?', perigo:true, ok:'Excluir', texto:`${esc(a.nome)} e todo o histórico dele serão apagados. Se ele só parou de treinar, prefira desmarcar "Aluno ativo".` })) return;
+      await del(`/aluno/${a.id}`); fechar(); recarregar('Aluno excluído.');
+    };
+    const mais = m.querySelector('#fa-mais'); if (mais) mais.onclick = () => { fechar(); darCredito([a.id]); };
+    m.querySelectorAll('[data-rmc]').forEach(b => b.onclick = async () => { await del(`/credito/${b.dataset.rmc}`); fechar(); await recarregar('Crédito removido.'); formAluno(ADM.alunos.find(x => x.id === a.id)); });
+  });
+}
+function darCredito(ids){
+  const nomes = ids.map(id => ADM.alunos.find(a => a.id === id)?.nome).join(', ');
+  modal(`<h2>DAR <span class="verde">CRÉDITO</span></h2><p class="sub">${esc(nomes)} · vale ${esc(ADM.config.validade_dias || 40)} dias</p>
+    <div class="linha2"><div class="campo"><label>Quantidade</label><input type="number" id="dc-q" min="1" max="10" value="1"></div>
+    <div class="campo"><label>Motivo</label><select id="dc-o"><option value="chuva">Chuva</option><option value="manual">Professor cancelou / outro</option></select></div></div>
+    <div class="campo"><label>Detalhe (opcional)</label><input id="dc-m" placeholder="Ex.: aula de ter 25/11 18h"></div>
+    <div class="rodape-m"><button class="btn sec" data-fechar>Voltar</button><button class="btn" id="dc-ok">Dar crédito</button></div>`,
+  (m, fechar) => m.querySelector('#dc-ok').onclick = async () => {
+    await post('/creditos', { aluno_ids: ids, quantidade: +m.querySelector('#dc-q').value, origem: m.querySelector('#dc-o').value, motivo: m.querySelector('#dc-m').value });
+    fechar(); recarregar('Crédito adicionado ✅');
+  });
+}
+function importarAlunos(){
+  modal(`<h2>IMPORTAR <span class="verde">LISTA</span></h2><p class="sub">Um aluno por linha, no formato:<br><b>Nome ; WhatsApp ; Nível ; Turmas</b><br>Ex.: <span class="cinza">Ana Souza ; 22 99999-1111 ; Iniciante ; Ter 18h, Qui 18h</span></p>
+    <div class="campo"><textarea id="imp-t" style="min-height:180px" placeholder="Ana Souza ; 22999991111 ; Iniciante ; Ter 18h"></textarea></div>
+    <div class="rodape-m"><button class="btn sec" data-fechar>Voltar</button><button class="btn" id="imp-ok">Importar</button></div>`,
+  (m, fechar) => m.querySelector('#imp-ok').onclick = async () => {
+    const lista = m.querySelector('#imp-t').value.split('\n').map(l => l.split(';').map(s => s.trim())).filter(p => p[0])
+      .map(([nome, whatsapp, nivel, turmas]) => ({ nome, whatsapp: soNum(whatsapp) || null, nivel: nivel || '', turmas: (turmas||'').split(',').map(s=>s.trim()).filter(Boolean) }));
+    if (!lista.length) return;
+    const r = await post('/importar', { lista }); fechar(); recarregar(`${r.importados} aluno(s) importado(s).`);
+  });
+}
+
+/* ---------- CRÉDITOS ---------- */
+function abaCreditos(){
+  const m = $('p-miolo');
+  const STC = { disponivel:['ok','Disponível'], reservado:['pend','Em uso'], usado:['cinza','Usado'], perdido:['verm','Perdido'], removido:['cinza','Removido'], vencido:['verm','Vencido'] };
+  const vencendo = ADM.creditos.filter(c => c.status === 'disponivel' && diasAte(c.expira_em) <= 7);
+  m.innerHTML = `<div class="carta" style="border-color:var(--verde-b);background:linear-gradient(135deg,rgba(43,213,118,.10),var(--carta) 60%)">
+      <h2 class="secao-t" style="font-size:1.8rem">🌧️ DIA DE <span class="verde">CHUVA</span></h2>
+      <p class="secao-s" style="margin-bottom:14px">Escolha as turmas ou os alunos que perderam aula. Cada um ganha 1 crédito de ${esc(ADM.config.validade_dias || 40)} dias.</p>
+      <button class="btn auto" id="chuva">Lançar créditos de chuva</button></div>
+    <div class="p-titulo"><h2>DAR CRÉDITO <span class="verde">AVULSO</span></h2><button class="btn sec auto mini" id="avulso">Escolher alunos</button></div>
+    ${vencendo.length ? `<div class="p-titulo"><h2>VENCENDO EM <span style="color:var(--vermelho)">7 DIAS</span></h2></div>
+      <div class="lista">${vencendo.map(c => { const a = ADM.alunos.find(x => x.id === c.aluno_id);
+        return `<div class="item"><div class="q"><b>${esc(c.nome)}</b><span>vence ${dataDe(c.expira_em)}</span></div>
+        ${a && a.whatsapp ? `<a class="btn wpp mini" target="_blank" rel="noopener" href="${linkWpp(a.whatsapp, `Oi, ${c.nome.split(' ')[0]}! Você tem um crédito de reposição que vence dia ${dataDe(c.expira_em)}. Marque seu horário pelo site 👉 ${SITE}`)}">${ICON.wpp} Lembrar</a>` : ''}</div>`; }).join('')}</div>` : ''}
+    <div class="p-titulo"><h2>ÚLTIMOS <span class="verde">CRÉDITOS</span></h2></div>
+    ${ADM.creditos.length ? `<div class="lista">${ADM.creditos.slice(0, 80).map(c => `<div class="item"><div class="q"><b>${esc(c.nome)}</b>
+      <span>${c.origem === 'chuva' ? 'Chuva' : c.origem === 'devolucao' ? 'Devolução' : 'Manual'}${c.motivo ? ' · ' + esc(c.motivo) : ''} · ${dataDe(c.criado_em)} → vence ${dataDe(c.expira_em)}</span></div>
+      <span class="selo ${(STC[c.status]||['cinza'])[0]}">${(STC[c.status]||['',c.status])[1]}</span></div>`).join('')}</div>` : '<div class="vazio">Nenhum crédito lançado ainda.</div>'}`;
+  $('chuva').onclick = () => escolherAlunos({ chuva: true });
+  $('avulso').onclick = () => escolherAlunos({ chuva: false });
+}
+function escolherAlunos({ chuva }){
+  const turmas = [...new Set(ADM.alunos.flatMap(a => a.turmas))].sort();
+  const sel = new Set();
+  modal(`<h2>${chuva ? 'DIA DE <span class="verde">CHUVA</span>' : 'ESCOLHER <span class="verde">ALUNOS</span>'}</h2>
+    ${chuva ? `<div class="linha2"><div class="campo"><label>Dia da aula</label><input type="date" id="ec-data" value="${hojeISO()}"></div>
+      <div class="campo"><label>Motivo</label><input id="ec-mot" value="Chuva"></div></div>` : ''}
+    ${turmas.length ? `<label>Turmas</label><div class="turmas-sel" id="ec-turmas">${turmas.map(t => `<button type="button" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>` : `<p class="cinza pequeno">Dica: cadastre as turmas fixas de cada aluno (ex.: "Ter 18h") para marcar a turma inteira com um toque.</p>`}
+    <div class="campo"><input id="ec-q" placeholder="Buscar aluno…"></div>
+    <div class="alunos-check" id="ec-lista"></div>
+    ${chuva ? `<label class="check-linha"><input type="checkbox" id="ec-cancel" checked> <span>Cancelar também as reposições marcadas nesse dia (o crédito volta)</span></label>` : ''}
+    <div class="rodape-m"><button class="btn sec" data-fechar>Voltar</button><button class="btn" id="ec-ok">Continuar (<span id="ec-n">0</span>)</button></div>`,
+  (m, fechar) => {
+    const lista = ADM.alunos.filter(a => a.ativo);
+    const desenhar = () => {
+      const q = m.querySelector('#ec-q').value.toLowerCase();
+      m.querySelector('#ec-lista').innerHTML = lista.filter(a => !q || a.nome.toLowerCase().includes(q)).map(a =>
+        `<label class="check-linha"><input type="checkbox" data-ec="${a.id}" ${sel.has(a.id)?'checked':''}><span style="flex:1">${esc(a.nome)}</span><span class="cinza pequeno">${esc(a.turmas.join(', '))}</span></label>`).join('');
+      m.querySelectorAll('[data-ec]').forEach(c => c.onchange = () => { c.checked ? sel.add(+c.dataset.ec) : sel.delete(+c.dataset.ec); m.querySelector('#ec-n').textContent = sel.size; });
+      m.querySelector('#ec-n').textContent = sel.size;
+    };
+    m.querySelector('#ec-q').oninput = desenhar;
+    m.querySelectorAll('[data-t]').forEach(b => b.onclick = () => {
+      b.classList.toggle('on'); const on = b.classList.contains('on');
+      lista.filter(a => a.turmas.includes(b.dataset.t)).forEach(a => on ? sel.add(a.id) : sel.delete(a.id)); desenhar();
+    });
+    const dataIn = m.querySelector('#ec-data');
+    if (dataIn){ // ao escolher o dia, sugere as turmas daquele dia da semana
+      const sugerir = () => { const pref = SEM[diaSemana(dataIn.value)].toLowerCase();
+        m.querySelectorAll('[data-t]').forEach(b => b.style.borderColor = b.dataset.t.toLowerCase().startsWith(pref) ? 'var(--verde-b)' : ''); };
+      dataIn.onchange = sugerir; sugerir();
+    }
+    desenhar();
+    m.querySelector('#ec-ok').onclick = async e => {
+      if (!chuva){ if (!sel.size) return toast('Escolha pelo menos um aluno.', true); fechar(); return darCredito([...sel]); }
+      const cancel = m.querySelector('#ec-cancel').checked;
+      if (!sel.size && !cancel) return toast('Escolha pelo menos um aluno.', true);
+      ocupado(e.target, true);
+      const motivo = `${m.querySelector('#ec-mot').value} · ${diaCompleto(dataIn.value)}`;
+      const r = await post('/chuva', { data: dataIn.value, aluno_ids: [...sel], motivo, cancelar_reposicoes: cancel }).catch(err => { toast(err.message, true); return null; });
+      fechar(); await recarregar(r ? `${r.creditos} crédito(s) lançado(s) 🌧️` : null);
+      if (r && r.afetados && r.afetados.length) avisarAfetados(r.afetados, { data: dataIn.value, hora: '00:00' }, m.querySelector('#ec-mot').value);
+    };
+  });
+}
+
+/* ---------- NÚMEROS ---------- */
+async function abaNumeros(){
+  const m = $('p-miolo'); m.innerHTML = '<div class="vazio"><span class="girando"></span></div>';
+  try { ESTAT = await api('/estatisticas'); } catch(e){ return; }
+  const c = ESTAT.creditos, meses = ESTAT.por_mes.slice(-6);
+  const max = Math.max(1, ...meses.map(x => x.pedidos));
+  const MES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  m.innerHTML = `<div class="kpis">
+      <div class="kpi"><div class="v">${c.disponiveis}</div><div class="l">Créditos disponíveis</div></div>
+      <div class="kpi" style="--k:var(--azul)"><div class="v">${ESTAT.alunos_com_credito}</div><div class="l">Alunos com crédito</div></div>
+      <div class="kpi" style="--k:var(--amarelo)"><div class="v">${c.vencendo_7d}</div><div class="l">Vencem em 7 dias</div></div>
+      <div class="kpi" style="--k:var(--vermelho)"><div class="v">${c.vencidos_30d}</div><div class="l">Venceram sem uso (30d)</div></div></div>
+    <div class="kpis"><div class="kpi"><div class="v">${c.gerados_30d}</div><div class="l">Créditos gerados (30d)</div></div>
+      <div class="kpi"><div class="v">${c.usados_30d}</div><div class="l">Créditos usados (30d)</div></div></div>
+    <div class="p-titulo"><h2>REPOSIÇÕES POR <span class="verde">MÊS</span></h2></div>
+    ${meses.length ? `<div class="lista"><div class="barra">${meses.map(x => `<div class="col"><span class="n">${x.confirmadas}</span>
+        <div class="b" style="height:${Math.round(x.confirmadas / max * 120)}px"></div></div>`).join('')}</div>
+      <div class="barra-leg">${meses.map(x => `<span>${MES[+x.mes.slice(5)-1]}/${x.mes.slice(2,4)}<br>${x.pedidos} pedidos</span>`).join('')}</div></div>
+      <p class="cinza pequeno">Barra = reposições confirmadas. Embaixo, o total de pedidos do mês.</p>` : '<div class="vazio">Ainda sem dados.</div>'}
+    <div class="p-titulo"><h2>HORÁRIOS MAIS <span class="verde">PROCURADOS</span></h2></div>
+    ${ESTAT.por_horario.length ? `<div class="lista">${ESTAT.por_horario.map((x,i) => `<div class="item"><span class="bebas" style="font-size:1.4rem;width:28px;color:var(--verde)">${i+1}</span>
+      <div class="q"><b>${SEM_L[x.dia_semana % 7].replace(/^./,c=>c.toUpperCase())} · ${fmtHora(x.hora)}</b></div><span class="selo cinza">${x.pedidos} pedidos</span></div>`).join('')}</div>` : '<div class="vazio">Ainda sem dados.</div>'}`;
+}
+
+/* ---------- AJUSTES ---------- */
+function abaAjustes(){
+  const c = ADM.config, m = $('p-miolo');
+  m.innerHTML = `<div class="p-titulo"><h2>REGRAS</h2></div>
+    <div class="carta"><div class="linha2"><div class="campo"><label>Validade do crédito (dias)</label><input type="number" id="aj-val" value="${esc(c.validade_dias || 40)}"></div>
+      <div class="campo"><label>Hora de abertura (véspera)</label><input type="time" id="aj-hora" value="${esc(c.hora_abertura || '14:00')}"></div></div>
+      <div class="campo"><label>Regras mostradas ao aluno (uma por linha)</label><textarea id="aj-regras" style="min-height:170px">${esc((c.regras||[]).join('\n'))}</textarea></div></div>
+    <div class="p-titulo"><h2>PROFESSOR E <span class="verde">LOCAL</span></h2></div>
+    <div class="carta"><div class="prof" style="margin-bottom:16px">${c.foto ? `<img class="foto" src="${esc(c.foto)}" alt="">` : '<div class="foto"><img src="/logo-simbolo.png" alt="" style="width:46%;height:auto"></div>'}
+        <div><label for="aj-foto" class="btn sec auto mini" style="letter-spacing:0;text-transform:none;font-size:.82rem;color:var(--texto)">Trocar foto</label>
+        <input type="file" id="aj-foto" accept="image/*" class="oculto"></div></div>
+      <div class="linha2"><div class="campo"><label>Nome</label><input id="aj-pnome" value="${esc(c.professor_nome||'')}"></div>
+      <div class="campo"><label>Instagram</label><input id="aj-ig" value="${esc(c.instagram||'')}"></div></div>
+      <div class="campo"><label>Seu WhatsApp (botão para os alunos)</label><input id="aj-pwpp" type="tel" value="${esc(fmtWpp(c.professor_whatsapp))}" placeholder="(22) 99999-9999"></div>
+      <div class="campo"><label>Sobre você</label><textarea id="aj-bio">${esc(c.professor_bio||'')}</textarea></div>
+      <div class="linha2"><div class="campo"><label>Local</label><input id="aj-lnome" value="${esc(c.local_nome||'Clube Militar')}"></div>
+      <div class="campo"><label>Endereço</label><input id="aj-lend" value="${esc(c.local_endereco||'')}" placeholder="Rua…, Cabo Frio"></div></div></div>
+    <div class="p-titulo"><h2>MENSAGENS DE <span class="verde">WHATSAPP</span></h2></div>
+    <div class="carta"><p class="cinza pequeno" style="margin-top:0">Use {nome}, {dia}, {hora}, {local}, {link} e {motivo}. Eles são trocados automaticamente.</p>
+      <div class="campo"><label>Confirmação</label><textarea id="aj-mc">${esc(c.msg_confirmacao||'')}</textarea></div>
+      <div class="campo"><label>Aviso no grupo (vagas abertas)</label><textarea id="aj-mg">${esc(c.msg_grupo||'')}</textarea></div>
+      <div class="campo"><label>Cancelamento (chuva)</label><textarea id="aj-mx">${esc(c.msg_cancelamento||'')}</textarea></div></div>
+    <button class="btn" id="aj-salvar" style="margin-top:16px">Salvar ajustes</button>
+    <div class="p-titulo"><h2>NÍVEIS</h2><button class="btn auto mini" id="aj-nnovo">+ Nível</button></div>
+    <div class="lista">${ADM.niveis.map(n => `<div class="item"><input type="color" class="cor-in" value="${esc(n.cor)}" data-ncor="${n.id}">
+      <input value="${esc(n.nome)}" data-nnome="${n.id}" style="flex:1 1 140px">
+      <input type="number" value="${n.ordem}" data-nordem="${n.id}" style="width:70px" title="Ordem">
+      <button class="btn sec mini" data-nsalvar="${n.id}">Salvar</button><button class="btn perigo mini" data-ndel="${n.id}">Apagar</button></div>`).join('')}</div>
+    <div class="p-titulo"><h2>SAIR</h2></div><button class="btn sec auto" id="aj-sair">Sair do painel</button>`;
+  let foto = null;
+  $('aj-foto').onchange = e => {
+    const f = e.target.files[0]; if (!f) return;
+    const img = new Image(); img.onload = () => {
+      const lado = Math.min(img.width, img.height), cv = document.createElement('canvas'); cv.width = cv.height = 360;
+      cv.getContext('2d').drawImage(img, (img.width-lado)/2, (img.height-lado)/2, lado, lado, 0, 0, 360, 360);
+      foto = cv.toDataURL('image/jpeg', .82); m.querySelector('.prof .foto').outerHTML = `<img class="foto" src="${foto}" alt="">`; toast('Foto pronta. Clique em "Salvar ajustes".');
+    }; img.src = URL.createObjectURL(f);
+  };
+  $('aj-salvar').onclick = async e => {
+    const body = { validade_dias: +$('aj-val').value || 40, hora_abertura: $('aj-hora').value || '14:00',
+      regras: $('aj-regras').value.split('\n').map(s => s.trim()).filter(Boolean), professor_nome: $('aj-pnome').value, instagram: $('aj-ig').value.replace('@','').trim(),
+      professor_whatsapp: soNum($('aj-pwpp').value) ? (soNum($('aj-pwpp').value).startsWith('55') ? soNum($('aj-pwpp').value) : '55' + soNum($('aj-pwpp').value)) : '',
+      professor_bio: $('aj-bio').value, local_nome: $('aj-lnome').value, local_endereco: $('aj-lend').value,
+      msg_confirmacao: $('aj-mc').value, msg_grupo: $('aj-mg').value, msg_cancelamento: $('aj-mx').value };
+    if (foto) body.foto = foto;
+    ocupado(e.target, true); await post('/config', body).catch(err => toast(err.message, true)); recarregar('Ajustes salvos ✅');
+  };
+  $('aj-nnovo').onclick = async () => { await post('/nivel', { nome: 'Novo nível', cor: '#2BD576', ordem: ADM.niveis.length + 1 }); recarregar('Nível criado. Renomeie e salve.'); };
+  m.querySelectorAll('[data-nsalvar]').forEach(b => b.onclick = async () => { const id = b.dataset.nsalvar;
+    await post('/nivel', { id, nome: m.querySelector(`[data-nnome="${id}"]`).value, cor: m.querySelector(`[data-ncor="${id}"]`).value, ordem: m.querySelector(`[data-nordem="${id}"]`).value }); recarregar('Nível salvo.'); });
+  m.querySelectorAll('[data-ndel]').forEach(b => b.onclick = async () => {
+    if (!await confirmar({ titulo:'APAGAR NÍVEL?', perigo:true, ok:'Apagar', texto:'Ele sai dos alunos e horários que usam esse nível.' })) return;
+    await del(`/nivel/${b.dataset.ndel}`); recarregar('Nível apagado.'); });
+  $('aj-sair').onclick = () => { SENHA = null; try{sessionStorage.removeItem('knupp_senha')}catch(_){}; fecharPainel(); };
+}
+
+/* =========================================================
+   PAINEL v3 (área do aluno)
+   ========================================================= */
+const v3 = (fn, body) => post('/v3/' + fn, body || {});
+async function carregarPainel(){
+  try { ADM = await v3('admin_dados_v3'); } catch(e){ if (e.status !== 401) toast(e.message, true); return; }
+  INFO.niveis = ADM.niveis.filter(n => n.ativo); INFO.config = ADM.config;
+  desenharPainel();
+}
+function fecharPainel(){ $('painel').classList.add('oculto'); document.body.style.overflow = ''; carregarInfo(); if (S.token) carregarApp(true); }
+const ALEX = id => (ADM.alunos_extra || {})[id] || {};
+const nomeAluno = id => (ADM.alunos.find(a => a.id === id) || {}).nome || '—';
+const nomeTurma = t => `${SEM[t.dia_semana]} ${fmtHora(t.hora)}${t.nome ? ' · ' + t.nome : ''}`;
+
+function desenharPainel(){
+  const pend = pendentes().length, p = ADM.pendencias || {};
+  const badge = { pedidos: pend, financeiro: (p.informadas || 0) + (p.atrasadas || 0), conteudo: p.indicacoes_novas || 0 };
+  $('painel').innerHTML = `<div class="p-topo"><div class="p-linha">
+      <div class="marca"><img src="/logo.png" alt="Matheus Knupp Tennis" class="logo-img"><small>DASHBOARD</small></div>
+      <div style="display:flex;gap:8px"><button class="chip-btn" id="p-atualizar">Atualizar</button><button class="chip-btn" id="p-fechar">Ver site</button></div></div>
+    <nav class="p-abas">${ABAS.map(([k,t]) => `<button data-aba="${k}" class="${ABA===k?'on':''}">${t}${badge[k] ? `<span class="badge">${badge[k]}</span>` : ''}</button>`).join('')}</nav></div>
+    <div class="p-miolo" id="p-miolo"></div>`;
+  $('p-fechar').onclick = fecharPainel;
+  $('p-atualizar').onclick = () => recarregar('Atualizado.');
+  document.querySelectorAll('[data-aba]').forEach(b => b.onclick = () => { ABA = b.dataset.aba; desenharPainel(); });
+  ({ hoje: abaHoje, pedidos: abaPedidos, horarios: abaHorarios, turmas: abaTurmas, alunos: abaAlunos, financeiro: abaFinanceiro,
+     creditos: abaCreditos, conteudo: abaConteudo, numeros: abaNumeros, ajustes: abaAjustes })[ABA]();
+}
+
+/* ---------- HOJE: chamada + diário ---------- */
+let DIA_HOJE = null;
+async function abaHoje(){
+  const m = $('p-miolo'); DIA_HOJE = DIA_HOJE || hojeISO();
+  const p = ADM.pendencias || {}, pend = pendentes().length;
+  m.innerHTML = `<div class="kpis">
+      <button class="kpi" data-ir-aba="pedidos" style="--k:var(--amarelo)"><div class="v">${pend}</div><div class="l">Reposições a confirmar</div></button>
+      <button class="kpi" data-ir-aba="financeiro" style="--k:var(--azul)"><div class="v">${p.informadas || 0}</div><div class="l">Pagamentos informados</div></button>
+      <button class="kpi" data-ir-aba="financeiro" style="--k:var(--vermelho)"><div class="v">${p.atrasadas || 0}</div><div class="l">Mensalidades atrasadas</div></button>
+      <button class="kpi" data-ir-aba="conteudo"><div class="v">${p.indicacoes_novas || 0}</div><div class="l">Indicações novas</div></button></div>
+    <div class="p-titulo"><h2>CHAMADA E <span class="verde">DIÁRIO</span></h2>
+      <div style="display:flex;gap:6px;align-items:center"><button class="btn sec mini" id="dia-ant">‹</button>
+      <input type="date" id="dia-sel" value="${DIA_HOJE}" style="width:auto;padding:9px 12px"><button class="btn sec mini" id="dia-prox">›</button></div></div>
+    <div id="chamada"><div class="vazio"><span class="girando"></span></div></div>`;
+  m.querySelectorAll('[data-ir-aba]').forEach(b => b.onclick = () => { ABA = b.dataset.irAba; desenharPainel(); });
+  $('dia-sel').onchange = e => { DIA_HOJE = e.target.value; abaHoje(); };
+  $('dia-ant').onclick = () => { DIA_HOJE = somaDias(DIA_HOJE, -1); abaHoje(); };
+  $('dia-prox').onclick = () => { DIA_HOJE = somaDias(DIA_HOJE, 1); abaHoje(); };
+  let dia; try { dia = await v3('admin_aulas_dia', { data: DIA_HOJE }); } catch(e){ return; }
+  if (!dia.turmas.length){
+    $('chamada').innerHTML = `<div class="vazio"><span class="bebas">Sem turmas ${nomeDia(DIA_HOJE).toLowerCase()}</span>${ADM.turmas.length ? 'Nenhuma turma cadastrada nesse dia da semana.' : 'Cadastre suas turmas fixas na aba <b>Turmas</b> para fazer a chamada aqui.'}</div>`; return;
+  }
+  $('chamada').innerHTML = dia.turmas.map(t => {
+    const aula = t.aula, pres = Object.fromEntries(dia.presencas.filter(p => aula && p.aula_id === aula.id).map(p => [p.aluno_id, p]));
+    const lista = [...t.aluno_ids.map(id => ({ id, tipo: 'fixo' })), ...t.reposicoes.filter(r => !t.aluno_ids.includes(r.aluno_id)).map(r => ({ id: r.aluno_id, tipo: 'repo' }))];
+    const cancelada = aula && aula.status === 'cancelada';
+    return `<div class="ph" data-turma="${t.turma_id}" style="border-left:3px solid ${esc(t.nivel_id ? corDe([t.nivel_id]) : 'var(--verde)')}">
+      <div class="ph-cab"><div class="hora">${fmtHoraBig(t.hora)}</div><div class="q"><b>${esc(t.nome || 'Turma')}</b>
+        <div class="niveis" style="margin-top:4px">${t.nivel_id ? chipNivel(t.nivel_id) : ''}</div></div>
+        <span class="selo ${cancelada ? 'verm' : aula ? 'ok' : 'cinza'}">${cancelada ? 'Cancelada' : aula ? 'Chamada feita' : 'Pendente'}</span></div>
+      <div class="ph-res">${lista.length ? lista.map(({ id, tipo }) => { const p = pres[id] || {}; const st = p.status || (tipo === 'repo' ? 'reposicao' : 'presente');
+        return `<div class="item chamada-linha" data-aluno="${id}" data-tipo="${tipo}"><div class="q"><b>${esc(nomeAluno(id))}</b>
+          <span>${tipo === 'repo' ? 'Reposição' : 'Fixo'}${p.nota_aluno ? ` · ${'★'.repeat(p.nota_aluno)}${p.comentario_aluno ? ' "' + esc(p.comentario_aluno) + '"' : ''}` : ''}</span></div>
+          <div class="seg"><button data-st="${tipo === 'repo' ? 'reposicao' : 'presente'}" class="${st !== 'falta' ? 'on' : ''}">Veio</button><button data-st="falta" class="${st === 'falta' ? 'on falta' : ''}">Faltou</button></div>
+          <input class="com-aluno" placeholder="Recado para o aluno (opcional)" value="${esc(p.comentario || '')}"></div>`; }).join('')
+        : '<div class="item"><span class="cinza">Nenhum aluno nessa turma.</span></div>'}</div>
+      <div style="padding:12px 16px;display:grid;gap:10px"><input class="tema" placeholder="Tema da aula (ex.: saque e devolução)" value="${esc(aula && aula.tema || '')}">
+        <input class="com-geral" placeholder="Comentário geral da aula (todos veem)" value="${esc(aula && aula.comentario || '')}"></div>
+      <div class="ph-acoes"><button class="btn mini" data-salvar>Salvar chamada</button>
+        <button class="btn sec mini" data-lembrar>Lembrar alunos</button>
+        <button class="btn perigo mini" data-cancelar-aula>Cancelar aula (chuva)</button></div></div>`;
+  }).join('');
+  $('chamada').querySelectorAll('.seg button').forEach(b => b.onclick = () => {
+    const seg = b.parentElement; seg.querySelectorAll('button').forEach(x => x.classList.remove('on', 'falta'));
+    b.classList.add('on'); if (b.dataset.st === 'falta') b.classList.add('falta');
+  });
+  $('chamada').querySelectorAll('[data-turma]').forEach(card => {
+    const t = dia.turmas.find(x => x.turma_id === +card.dataset.turma);
+    const coletar = status => ({ turma_id: t.turma_id, data: DIA_HOJE, hora: t.hora.slice(0,5), status,
+      tema: card.querySelector('.tema').value, comentario: card.querySelector('.com-geral').value,
+      presencas: [...card.querySelectorAll('.chamada-linha')].map(l => ({ aluno_id: +l.dataset.aluno,
+        status: status === 'cancelada' ? 'falta' : l.querySelector('.seg .on').dataset.st, comentario: l.querySelector('.com-aluno').value })) });
+    card.querySelector('[data-salvar]').onclick = async e => { ocupado(e.target, true); await v3('admin_salvar_aula', coletar('realizada')).catch(err => toast(err.message, true)); toast('Chamada salva ✅'); abaHoje(); };
+    card.querySelector('[data-lembrar]').onclick = () => {
+      const ids = [...card.querySelectorAll('.chamada-linha')].map(l => +l.dataset.aluno);
+      modal(`<h2>LEMBRAR <span class="verde">ALUNOS</span></h2><p class="sub">${nomeDia(DIA_HOJE)} às ${fmtHora(t.hora)} — toque em cada um.</p>
+        <div class="lista">${ids.map(id => { const a = ADM.alunos.find(x => x.id === id) || {};
+          return `<div class="item"><div class="q"><b>${esc(a.nome)}</b><span>${a.whatsapp ? fmtWpp(a.whatsapp) : 'sem WhatsApp'}</span></div>
+          ${a.whatsapp ? `<a class="btn wpp mini" target="_blank" rel="noopener" href="${linkWpp(a.whatsapp, preencher(ADM.config.msg_lembrete_aula, { nome: a.nome.split(' ')[0], dia: nomeDia(DIA_HOJE).toLowerCase(), hora: fmtHora(t.hora) }))}">${ICON.wpp} Lembrar</a>` : ''}</div>`; }).join('')}</div>
+        <div class="rodape-m"><button class="btn" data-fechar>Pronto</button></div>`);
+    };
+    card.querySelector('[data-cancelar-aula]').onclick = async () => {
+      if (!await confirmar({ titulo: 'CANCELAR AULA?', ok: 'Cancelar e dar créditos', perigo: true,
+        texto: `Os alunos fixos dessa turma ganham <b>1 crédito de reposição</b> cada (vale ${esc(ADM.config.validade_dias || 40)} dias).` })) return;
+      await v3('admin_salvar_aula', coletar('cancelada'));
+      if (t.aluno_ids.length) await post('/creditos', { aluno_ids: t.aluno_ids, quantidade: 1, origem: 'chuva', motivo: `Chuva · ${diaCompleto(DIA_HOJE)} ${fmtHora(t.hora)}` });
+      await recarregar(`Aula cancelada. ${t.aluno_ids.length} crédito(s) lançado(s) 🌧️`);
+      avisarAfetados(t.aluno_ids.map(id => ADM.alunos.find(a => a.id === id)).filter(Boolean).map(a => ({ nome: a.nome, whatsapp: a.whatsapp })),
+        { data: DIA_HOJE, hora: t.hora }, 'chuva');
+    };
+  });
+}
+
+/* ---------- TURMAS ---------- */
+function abaTurmas(){
+  const m = $('p-miolo');
+  const porDia = [1,2,3,4,5,6,0].map(d => [d, ADM.turmas.filter(t => t.dia_semana === d)]).filter(([, ts]) => ts.length);
+  m.innerHTML = `<div class="p-titulo"><h2>TURMAS <span class="verde">FIXAS</span></h2><button class="btn auto mini" id="nova-t">+ Nova turma</button></div>
+    <div class="aviso">As turmas fixas alimentam a chamada do dia, o "dia de chuva" e a próxima aula que o aluno vê no app.</div>
+    ${porDia.length ? porDia.map(([d, ts]) => `<div class="dia"><h3>${SEM_L[d].replace(/^./, x => x.toUpperCase())}</h3><span>${ts.length} turma(s)</span></div>
+      ${ts.map(t => { const livres = t.capacidade - t.aluno_ids.length;
+        return `<div class="ph clicavel" data-t="${t.id}" style="border-left:3px solid ${esc(t.nivel_id ? corDe([t.nivel_id]) : 'var(--verde)')};cursor:pointer">
+        <div class="ph-cab"><div class="hora">${fmtHoraBig(t.hora)}</div><div class="q"><b>${esc(t.nome || 'Turma')}</b>${t.ativo ? '' : ' <span class="selo cinza">Inativa</span>'}
+          <div class="niveis" style="margin:4px 0">${t.nivel_id ? chipNivel(t.nivel_id) : ''}</div><span>${t.aluno_ids.map(id => esc(nomeAluno(id))).join(', ') || 'Sem alunos'}</span></div>
+          <div style="text-align:right"><div class="ocup">${t.aluno_ids.length}/${t.capacidade}</div>${livres > 0 ? `<span class="selo ok">+${livres} vaga${livres > 1 ? 's' : ''}</span>` : '<span class="selo cinza">Cheia</span>'}</div></div></div>`; }).join('')}`).join('')
+    : '<div class="vazio"><span class="bebas">Nenhuma turma ainda</span>Crie suas turmas fixas (ex.: Terça 18h · Intermediário) e coloque os alunos.</div>'}`;
+  $('nova-t').onclick = () => formTurma();
+  m.querySelectorAll('[data-t]').forEach(el => el.onclick = () => formTurma(ADM.turmas.find(t => t.id === +el.dataset.t)));
+}
+function formTurma(t){
+  const novo = !t; t = t || { nome: '', dia_semana: 2, hora: '18:00', nivel_id: null, capacidade: 4, aluno_ids: [], ativo: true };
+  const sel = new Set(t.aluno_ids);
+  modal(`<h2>${novo ? 'NOVA' : 'EDITAR'} <span class="verde">TURMA</span></h2><div id="ft-msg"></div>
+    <div class="linha2"><div class="campo"><label>Dia</label><select id="ft-dia">${[1,2,3,4,5,6,0].map(d => `<option value="${d}" ${t.dia_semana === d ? 'selected' : ''}>${SEM_L[d]}</option>`).join('')}</select></div>
+    <div class="campo"><label>Hora</label><input type="time" id="ft-hora" value="${esc(String(t.hora).slice(0,5))}" step="900"></div></div>
+    <div class="linha2"><div class="campo"><label>Nível</label><select id="ft-nivel"><option value="">—</option>${ADM.niveis.map(n => `<option value="${n.id}" ${t.nivel_id === n.id ? 'selected' : ''}>${esc(n.nome)}</option>`).join('')}</select></div>
+    <div class="campo"><label>Capacidade</label><input type="number" id="ft-cap" min="1" max="12" value="${t.capacidade}"></div></div>
+    <div class="campo"><label>Nome (opcional)</label><input id="ft-nome" value="${esc(t.nome || '')}" placeholder="Ex.: Quarteto Intermediário"></div>
+    <label>Alunos (<span id="ft-n">${sel.size}</span>)</label>
+    <div class="campo"><input id="ft-q" placeholder="Buscar aluno…"></div><div class="alunos-check" id="ft-lista"></div>
+    <label class="check-linha"><input type="checkbox" id="ft-ativo" ${t.ativo ? 'checked' : ''}> <span>Turma ativa</span></label>
+    <div class="rodape-m">${novo ? '' : '<button class="btn perigo auto" id="ft-del">Apagar</button>'}<button class="btn sec" data-fechar>Voltar</button><button class="btn" id="ft-ok">Salvar</button></div>`,
+  (m, fechar) => {
+    const desenhar = () => {
+      const q = m.querySelector('#ft-q').value.toLowerCase(), niv = +m.querySelector('#ft-nivel').value;
+      const lista = ADM.alunos.filter(a => a.ativo && (!q || a.nome.toLowerCase().includes(q)))
+        .sort((x, y) => (sel.has(y.id) - sel.has(x.id)) || ((niv && y.nivel_ids.includes(niv)) - (niv && x.nivel_ids.includes(niv))) || x.nome.localeCompare(y.nome));
+      m.querySelector('#ft-lista').innerHTML = lista.map(a => `<label class="check-linha"><input type="checkbox" data-a="${a.id}" ${sel.has(a.id) ? 'checked' : ''}>
+        <span style="flex:1">${esc(a.nome)}</span><span class="niveis">${a.nivel_ids.map(chipNivel).join('')}</span></label>`).join('');
+      m.querySelectorAll('[data-a]').forEach(c => c.onchange = () => { c.checked ? sel.add(+c.dataset.a) : sel.delete(+c.dataset.a); m.querySelector('#ft-n').textContent = sel.size; });
+    };
+    m.querySelector('#ft-q').oninput = desenhar; m.querySelector('#ft-nivel').onchange = desenhar; desenhar();
+    m.querySelector('#ft-ok').onclick = async e => {
+      ocupado(e.target, true);
+      try { await v3('admin_salvar_turma', { id: novo ? null : t.id, nome: m.querySelector('#ft-nome').value, dia: +m.querySelector('#ft-dia').value,
+        hora: m.querySelector('#ft-hora').value, nivel_id: +m.querySelector('#ft-nivel').value || null, capacidade: +m.querySelector('#ft-cap').value || 4,
+        aluno_ids: [...sel], ativo: m.querySelector('#ft-ativo').checked }); fechar(); recarregar('Turma salva.'); }
+      catch(err){ ocupado(e.target, false); m.querySelector('#ft-msg').innerHTML = `<div class="aviso erro">${esc(err.message)}</div>`; }
+    };
+    const d = m.querySelector('#ft-del'); if (d) d.onclick = async () => {
+      if (!await confirmar({ titulo: 'APAGAR TURMA?', perigo: true, ok: 'Apagar', texto: 'Os alunos continuam cadastrados; só a turma some. O histórico de chamadas fica guardado.' })) return;
+      await v3('admin_excluir_turma', { id: t.id }); fechar(); recarregar('Turma apagada.');
+    };
+  });
+}
+
+/* ---------- FINANCEIRO ---------- */
+let MES_FIN = null, FILTRO_FIN = 'todos';
+async function abaFinanceiro(){
+  const m = $('p-miolo'); MES_FIN = MES_FIN || hojeISO().slice(0,7) + '-01';
+  m.innerHTML = '<div class="vazio"><span class="girando"></span></div>';
+  let f; try { f = await v3('admin_financeiro', { mes: MES_FIN }); } catch(e){ return; }
+  const hoje = hojeISO(), itens = f.itens;
+  const atras = i => i.status === 'pendente' && i.vencimento < hoje;
+  const soma = arr => arr.reduce((s, i) => s + Number(i.valor), 0);
+  const previsto = soma(itens.filter(i => i.status !== 'isento')), recebido = soma(itens.filter(i => i.status === 'pago'));
+  const filtros = { todos: () => true, aberto: i => i.status === 'pendente' && !atras(i), informados: i => i.status === 'informado', atrasados: atras, pagos: i => i.status === 'pago' };
+  const lista = itens.filter(filtros[FILTRO_FIN]);
+  const SEL = i => atras(i) ? ['verm','Atrasada'] : ({ pendente: ['pend','Em aberto'], informado: ['azul','Informou pagamento'], pago: ['ok','Paga'], isento: ['cinza','Isenta'] })[i.status];
+  const inicio = ADM.config.financeiro_inicio;
+  m.innerHTML = `<div class="p-titulo"><h2>FINAN<span class="verde">CEIRO</span></h2>
+      <div style="display:flex;gap:6px;align-items:center"><button class="btn sec mini" id="mes-ant">‹</button><b style="min-width:130px;text-align:center">${esc(nomeMes(f.mes).replace(/^./, x => x.toUpperCase()))}</b><button class="btn sec mini" id="mes-prox">›</button></div></div>
+    ${!itens.length ? `<div class="aviso amarelo">Nenhuma mensalidade nesse mês. ${inicio && MES_FIN < inicio ? `O financeiro começa em <b>${esc(nomeMes(inicio))}</b> (mude em Ajustes).` : 'Confira se os alunos têm valor de mensalidade cadastrado.'}</div>` : ''}
+    <div class="kpis"><div class="kpi"><div class="v" style="font-size:1.9rem">${dinheiro(previsto)}</div><div class="l">Previsto</div></div>
+      <div class="kpi" style="--k:var(--verde)"><div class="v" style="font-size:1.9rem">${dinheiro(recebido)}</div><div class="l">Recebido</div></div>
+      <div class="kpi" style="--k:var(--amarelo)"><div class="v" style="font-size:1.9rem">${dinheiro(previsto - recebido)}</div><div class="l">Falta receber</div></div>
+      <div class="kpi" style="--k:var(--vermelho)"><div class="v">${itens.filter(atras).length}</div><div class="l">Atrasadas</div></div></div>
+    <div class="turmas-sel">${[['todos','Todos'],['aberto','Em aberto'],['informados','Informaram'],['atrasados','Atrasados'],['pagos','Pagos']].map(([k, t]) =>
+      `<button data-f="${k}" class="${FILTRO_FIN === k ? 'on' : ''}">${t} (${itens.filter(filtros[k]).length})</button>`).join('')}</div>
+    ${lista.length ? `<div class="lista">${lista.map(i => { const [sc, st] = SEL(i);
+      return `<div class="item"><div class="q"><b>${esc(i.nome)}</b><span>${dinheiro(i.valor)} · venc. ${dataCurta(i.vencimento)}${i.status === 'pago' ? ` · ${esc(i.forma || '')} · recibo nº ${i.recibo}` : ''}</span></div>
+        <span class="selo ${sc}">${st}</span><div class="btns">
+        ${['pendente','informado'].includes(i.status) ? `<button class="btn mini" data-pagar="${i.id}">Recebi</button>` : ''}
+        ${i.status === 'pendente' && i.whatsapp ? `<a class="btn wpp mini" target="_blank" rel="noopener" href="${linkWpp(i.whatsapp, preencher(ADM.config.msg_cobranca, { nome: (i.responsavel || i.nome).split(' ')[0], mes: nomeMes(f.mes), valor: dinheiro(i.valor), vencimento: dataCurta(i.vencimento), link: SITE }))}">${ICON.wpp} Cobrar</a>` : ''}
+        ${i.status === 'pago' ? `<button class="btn sec mini" data-recibo="${i.id}">Recibo</button>` : ''}
+        <button class="btn sec mini" data-mais="${i.id}">…</button></div></div>`; }).join('')}</div>` : itens.length ? '<div class="vazio">Nada nesse filtro.</div>' : ''}
+    ${f.atrasadas_outros_meses.length ? `<div class="p-titulo"><h2>ATRASADAS DE <span style="color:var(--vermelho)">MESES ANTERIORES</span></h2></div>
+      <div class="lista">${f.atrasadas_outros_meses.map(i => `<div class="item"><div class="q"><b>${esc(i.nome)}</b><span>${esc(nomeMes(i.competencia))} · ${dinheiro(i.valor)} · venc. ${dataCurta(i.vencimento)}</span></div>
+        <div class="btns"><button class="btn mini" data-pagar="${i.id}">Recebi</button></div></div>`).join('')}</div>` : ''}
+    ${f.historico.length ? `<div class="p-titulo"><h2>ÚLTIMOS <span class="verde">MESES</span></h2></div><div class="lista"><div class="barra">${f.historico.map(x => {
+        const max = Math.max(...f.historico.map(y => +y.previsto || 0), 1);
+        return `<div class="col"><span class="n">${Math.round((+x.recebido || 0) / 1000 * 10) / 10}k</span><div class="b" style="height:${Math.round((+x.recebido || 0) / max * 120)}px"></div></div>`; }).join('')}</div>
+      <div class="barra-leg">${f.historico.map(x => `<span>${MESES[+x.mes.slice(5)-1].slice(0,3)}<br>de ${Math.round(+x.previsto)}</span>`).join('')}</div></div>` : ''}`;
+  $('mes-ant').onclick = () => { MES_FIN = somaMes(MES_FIN, -1); abaFinanceiro(); };
+  $('mes-prox').onclick = () => { MES_FIN = somaMes(MES_FIN, 1); abaFinanceiro(); };
+  m.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { FILTRO_FIN = b.dataset.f; abaFinanceiro(); });
+  const todos = [...itens, ...f.atrasadas_outros_meses];
+  m.querySelectorAll('[data-pagar]').forEach(b => b.onclick = () => {
+    const i = todos.find(x => x.id === +b.dataset.pagar);
+    modal(`<h2>RECEBI <span class="verde">${dinheiro(i.valor)}</span></h2><p class="sub">${esc(i.nome)}</p>
+      <div class="campo"><label>Forma</label><div class="turmas-sel" id="pg-forma">${['PIX','Dinheiro','Cartão','Transferência'].map((x, k) => `<button type="button" class="${k ? '' : 'on'}">${x}</button>`).join('')}</div></div>
+      <div class="rodape-m"><button class="btn sec" data-fechar>Voltar</button><button class="btn" id="pg-ok">Confirmar pagamento</button></div>`,
+    (mm, fechar) => {
+      mm.querySelectorAll('#pg-forma button').forEach(x => x.onclick = () => { mm.querySelectorAll('#pg-forma button').forEach(y => y.classList.remove('on')); x.classList.add('on'); });
+      mm.querySelector('#pg-ok').onclick = async () => { await v3('admin_mensalidade', { id: i.id, status: 'pago', forma: mm.querySelector('#pg-forma .on').textContent }); fechar(); toast('Pagamento registrado ✅'); await recarregarSilencioso(); abaFinanceiro(); };
+    });
+  });
+  m.querySelectorAll('[data-recibo]').forEach(b => b.onclick = () => { const i = itens.find(x => x.id === +b.dataset.recibo);
+    abrirRecibo({ numero: i.recibo, nome: i.nome, responsavel: i.responsavel, valor: i.valor, competencia: f.mes, forma: i.forma, pago_em: i.pago_em }); });
+  m.querySelectorAll('[data-mais]').forEach(b => b.onclick = () => {
+    const i = itens.find(x => x.id === +b.dataset.mais);
+    modal(`<h2>${esc(i.nome)}</h2><p class="sub">${esc(nomeMes(f.mes))}</p>
+      <div class="campo"><label>Valor deste mês</label><input type="number" step="0.01" id="mx-valor" value="${i.valor}"></div>
+      <div class="campo"><label>Observação</label><input id="mx-obs" value="${esc(i.observacao || '')}"></div>
+      <div class="acoes" style="margin-top:0"><button class="btn" id="mx-salvar">Salvar valor</button>
+        ${i.status !== 'pendente' ? '<button class="btn sec" id="mx-reabrir">Voltar para "em aberto"</button>' : ''}
+        ${i.status !== 'isento' ? '<button class="btn sec" id="mx-isentar">Isentar este mês</button>' : ''}
+        <button class="btn perigo" id="mx-apagar">Apagar cobrança</button></div>
+      <div class="rodape-m"><button class="btn sec" data-fechar>Fechar</button></div>`,
+    (mm, fechar) => {
+      const fim = async (body, msg) => { await v3('admin_mensalidade', { id: i.id, ...body }); fechar(); toast(msg); await recarregarSilencioso(); abaFinanceiro(); };
+      mm.querySelector('#mx-salvar').onclick = () => fim({ valor: +mm.querySelector('#mx-valor').value, observacao: mm.querySelector('#mx-obs').value }, 'Salvo.');
+      const r = mm.querySelector('#mx-reabrir'); if (r) r.onclick = () => fim({ status: 'pendente' }, 'Voltou para em aberto.');
+      const s = mm.querySelector('#mx-isentar'); if (s) s.onclick = () => fim({ status: 'isento' }, 'Mês isento.');
+      mm.querySelector('#mx-apagar').onclick = async () => { await v3('admin_excluir_mensalidade', { id: i.id }); fechar(); toast('Cobrança apagada.'); abaFinanceiro(); };
+    });
+  });
+}
+function somaMes(iso, n){ const [y, mo] = iso.split('-').map(Number); const d = new Date(Date.UTC(y, mo - 1 + n, 1)); return d.toISOString().slice(0,10); }
+async function recarregarSilencioso(){ try { ADM = await v3('admin_dados_v3'); INFO.config = ADM.config; } catch(e){} }
+
+/* ---------- ALUNO (ficha completa) ---------- */
+function formAluno(a){
+  const novo = !a;
+  a = a || { nome:'', whatsapp:'', nivel_ids:[], turmas:[], observacao:'', ativo:true, creditos:0 };
+  const x = novo ? { valor_mensal: null, dia_vencimento: 10, responsavel: '', checklist: {}, turma_ids: [] } : ALEX(a.id);
+  const creds = novo ? [] : ADM.creditos.filter(c => c.aluno_id === a.id);
+  const STC = { disponivel:['ok','Disponível'], reservado:['pend','Em uso'], usado:['cinza','Usado'], perdido:['verm','Perdido'], removido:['cinza','Removido'], vencido:['verm','Vencido'] };
+  const turmaSel = new Set(x.turma_ids || []);
+  modal(`<h2>${novo ? 'NOVO' : 'FICHA DO'} <span class="verde">ALUNO</span></h2><div id="fa-msg"></div>
+    <div class="campo"><label>Nome</label><input id="fa-nome" value="${esc(a.nome)}"></div>
+    <div class="linha2"><div class="campo"><label>WhatsApp</label><input id="fa-wpp" type="tel" inputmode="numeric" value="${esc(fmtWpp(a.whatsapp))}" placeholder="(22) 99999-9999"></div>
+    <div class="campo"><label>Responsável (crianças)</label><input id="fa-resp" value="${esc(x.responsavel || '')}" placeholder="Nome do pai/mãe"></div></div>
+    <div class="campo"><label>Nível(eis)</label>${seletorNiveis(a.nivel_ids)}</div>
+    <div class="linha2"><div class="campo"><label>Mensalidade (R$)</label><input id="fa-valor" type="number" step="0.01" value="${x.valor_mensal ?? ''}" placeholder="Ex.: 260"></div>
+    <div class="campo"><label>Vence todo dia</label><input id="fa-dia" type="number" min="1" max="28" value="${x.dia_vencimento || 10}"></div></div>
+    ${ADM.turmas.length ? `<div class="campo"><label>Turmas fixas</label><div class="turmas-sel" id="fa-turmas">${ADM.turmas.map(t =>
+      `<button type="button" data-tid="${t.id}" class="${turmaSel.has(t.id) ? 'on' : ''}">${esc(nomeTurma(t))}</button>`).join('')}</div></div>` : ''}
+    <div class="campo"><label>Observação</label><input id="fa-obs" value="${esc(a.observacao||'')}"></div>
+    <label class="check-linha"><input type="checkbox" id="fa-ativo" ${a.ativo ? 'checked' : ''}> <span>Aluno ativo</span></label>
+    ${novo ? '' : `
+    <div class="p-titulo" style="margin-top:18px"><h2 style="font-size:1.5rem">PARA SUBIR DE NÍVEL</h2></div><div id="fa-check"></div>
+    <div class="p-titulo"><h2 style="font-size:1.5rem">AVALIAÇÃO TÉCNICA</h2><button class="btn auto mini" id="fa-aval">+ Nova avaliação</button></div><div id="fa-avals" class="cinza pequeno">Carregando…</div>
+    <div class="p-titulo"><h2 style="font-size:1.5rem">CRÉDITOS · ${a.creditos}</h2><button class="btn auto mini" id="fa-mais">+ Dar crédito</button></div>
+      ${creds.length ? `<div class="lista">${creds.map(c => `<div class="item"><div class="q"><b>${c.origem === 'chuva' ? 'Chuva' : c.origem === 'devolucao' ? 'Devolução' : 'Manual'}${c.motivo ? ' · ' + esc(c.motivo) : ''}</b>
+          <span>Criado ${dataDe(c.criado_em)} · vence ${dataDe(c.expira_em)}</span></div><span class="selo ${(STC[c.status]||['cinza'])[0]}">${(STC[c.status]||['',c.status])[1]}</span>
+          ${c.status === 'disponivel' ? `<button class="btn perigo mini" data-rmc="${c.id}">Remover</button>` : ''}</div>`).join('')}</div>` : '<p class="cinza pequeno">Nenhum crédito ainda.</p>'}
+    <div class="p-titulo"><h2 style="font-size:1.5rem">ACESSO</h2></div>
+      <p class="cinza pequeno">${x.tem_pin ? 'O aluno já criou o PIN de acesso.' : 'O aluno ainda não entrou na área do aluno.'} ${x.em_dia === false ? '<span class="selo verm">Mensalidade atrasada</span>' : ''}</p>
+      ${x.tem_pin ? '<button class="btn sec auto mini" id="fa-reset">Zerar PIN (aluno cria outro)</button>' : ''}`}
+    <div class="rodape-m">${novo ? '' : '<button class="btn perigo auto" id="fa-del">Excluir</button>'}<button class="btn sec" data-fechar>Voltar</button><button class="btn" id="fa-salvar">Salvar</button></div>`,
+  async (m, fechar) => {
+    ligarSeletor(m);
+    m.querySelector('#fa-wpp').oninput = e => e.target.value = mascaraWpp(e.target.value);
+    m.querySelectorAll('[data-tid]').forEach(b => b.onclick = () => { b.classList.toggle('on'); });
+    const checklist = { ...(x.checklist || {}) };
+    const desenharCheck = () => {
+      const niv = lerSeletor(m)[0], n = ADM.niveis.find(v => v.id === niv), crit = (n && n.criterios) || [];
+      const box = m.querySelector('#fa-check'); if (!box) return;
+      box.innerHTML = crit.length ? crit.map((c, k) => `<label class="check-linha"><input type="checkbox" data-ck="${k}" ${checklist[c] ? 'checked' : ''}><span>${esc(c)}</span></label>`).join('')
+        : '<p class="cinza pequeno">Sem critérios para esse nível. Cadastre em Ajustes → Níveis.</p>';
+      box.querySelectorAll('[data-ck]').forEach(c => c.onchange = () => { checklist[crit[+c.dataset.ck]] = c.checked; });
+    };
+    m.querySelectorAll('[data-niv]').forEach(b => b.addEventListener('click', desenharCheck)); desenharCheck();
+    m.querySelector('#fa-salvar').onclick = async e => {
+      const body = { id: novo ? null : a.id, nome: m.querySelector('#fa-nome').value, whatsapp: soNum(m.querySelector('#fa-wpp').value) || null,
+        nivel_ids: lerSeletor(m), turmas: a.turmas || [], observacao: m.querySelector('#fa-obs').value, ativo: m.querySelector('#fa-ativo').checked };
+      ocupado(e.target, true);
+      try {
+        const r = await post('/aluno', body);
+        const valor = m.querySelector('#fa-valor').value;
+        await v3('admin_salvar_aluno_extra', { id: r.id, valor: valor === '' ? null : +valor, dia: +m.querySelector('#fa-dia').value || 10,
+          responsavel: m.querySelector('#fa-resp').value, checklist, turma_ids: ADM.turmas.length ? [...m.querySelectorAll('[data-tid].on')].map(b => +b.dataset.tid) : null });
+        fechar(); recarregar('Aluno salvo.');
+      } catch(err){ ocupado(e.target, false); m.querySelector('#fa-msg').innerHTML = `<div class="aviso erro">${esc(err.message)}</div>`; }
+    };
+    const d = m.querySelector('#fa-del'); if (d) d.onclick = async () => {
+      if (!await confirmar({ titulo:'EXCLUIR ALUNO?', perigo:true, ok:'Excluir', texto:`${esc(a.nome)} e todo o histórico (pagamentos, chamadas, avaliações) serão apagados. Se ele só parou de treinar, prefira desmarcar "Aluno ativo".` })) return;
+      await del(`/aluno/${a.id}`); fechar(); recarregar('Aluno excluído.');
+    };
+    const mais = m.querySelector('#fa-mais'); if (mais) mais.onclick = () => { fechar(); darCredito([a.id]); };
+    m.querySelectorAll('[data-rmc]').forEach(b => b.onclick = async () => { await del(`/credito/${b.dataset.rmc}`); fechar(); await recarregar('Crédito removido.'); formAluno(ADM.alunos.find(y => y.id === a.id)); });
+    const rs = m.querySelector('#fa-reset'); if (rs) rs.onclick = async () => {
+      if (!await confirmar({ titulo: 'ZERAR PIN?', ok: 'Zerar', texto: 'O aluno vai criar um PIN novo no próximo acesso. Quem estiver logado com esse número sai do app.' })) return;
+      await v3('admin_resetar_pin', { whatsapp: a.whatsapp }); toast('PIN zerado.'); fechar(); recarregar();
+    };
+    const av = m.querySelector('#fa-aval'); if (av) av.onclick = () => { fechar(); formAvaliacao(a); };
+    if (!novo){
+      const lista = await v3('admin_avaliacoes', { aluno_id: a.id }).catch(() => []);
+      const box = m.querySelector('#fa-avals');
+      if (box) box.innerHTML = lista.length ? `<div class="lista">${lista.map(v => `<div class="item"><div class="q"><b>${diaCompleto(v.data)}</b>
+          <span>${Object.entries(v.notas).map(([k, n]) => `${esc(k)} ${n}`).join(' · ')}</span></div><button class="btn perigo mini" data-rmav="${v.id}">Apagar</button></div>`).join('')}</div>`
+        : 'Nenhuma avaliação ainda. Faça a primeira para o aluno ver o gráfico de evolução.';
+      m.querySelectorAll('[data-rmav]').forEach(b => b.onclick = async () => { await v3('admin_excluir_avaliacao', { id: +b.dataset.rmav }); b.closest('.item').remove(); toast('Avaliação apagada.'); });
+    }
+  });
+}
+function formAvaliacao(a){
+  const habs = ADM.config.habilidades || ['Forehand','Backhand','Saque','Devolução','Voleio','Movimentação','Tático','Mental'];
+  const notas = Object.fromEntries(habs.map(h => [h, 3]));
+  modal(`<h2>AVALIAR <span class="verde">${esc(a.nome.split(' ')[0].toUpperCase())}</span></h2><p class="sub">De 1 (começando) a 5 (excelente para o nível). O aluno vê o gráfico na área dele.</p>
+    <div class="campo"><label>Data</label><input type="date" id="av-data" value="${hojeISO()}"></div>
+    ${habs.map(h => `<div class="nota-linha"><span>${esc(h)}</span><div class="seg notas" data-h="${esc(h)}">${[1,2,3,4,5].map(n => `<button type="button" class="${n === 3 ? 'on' : ''}">${n}</button>`).join('')}</div></div>`).join('')}
+    <div class="campo" style="margin-top:14px"><label>Observação para o aluno</label><textarea id="av-obs" placeholder="Pontos fortes, o que treinar a seguir…"></textarea></div>
+    <div class="rodape-m"><button class="btn sec" data-fechar>Voltar</button><button class="btn" id="av-ok">Salvar avaliação</button></div>`,
+  (m, fechar) => {
+    m.querySelectorAll('.notas').forEach(seg => seg.querySelectorAll('button').forEach(b => b.onclick = () => {
+      seg.querySelectorAll('button').forEach(x => x.classList.remove('on')); b.classList.add('on'); notas[seg.dataset.h] = +b.textContent; }));
+    m.querySelector('#av-ok').onclick = async e => {
+      ocupado(e.target, true);
+      await v3('admin_salvar_avaliacao', { aluno_id: a.id, data: m.querySelector('#av-data').value, notas, observacao: m.querySelector('#av-obs').value });
+      fechar(); await recarregar('Avaliação salva 📈'); formAluno(ADM.alunos.find(y => y.id === a.id));
+    };
+  });
+}
+
+/* ---------- CONTEÚDO, AVISOS, INDICAÇÕES ---------- */
+function abaConteudo(){
+  const m = $('p-miolo');
+  const ST = { nova: ['pend','Nova'], contatada: ['azul','Contatada'], fechou: ['ok','Fechou'], nao_fechou: ['cinza','Não fechou'] };
+  m.innerHTML = `<div class="p-titulo"><h2>INDICA<span class="verde">ÇÕES</span></h2></div>
+    ${ADM.indicacoes.length ? `<div class="lista">${ADM.indicacoes.map(i => `<div class="item"><div class="q"><b>${esc(i.nome)}</b>
+      <span>Indicado por ${esc(i.indicador || '—')} · ${dataDe(i.criado_em)}${i.whatsapp ? ' · ' + fmtWpp(i.whatsapp) : ''}</span></div>
+      <select data-ind="${i.id}" style="width:auto;padding:8px 34px 8px 10px">${Object.entries(ST).map(([k, [, t]]) => `<option value="${k}" ${i.status === k ? 'selected' : ''}>${t}</option>`).join('')}</select>
+      ${i.whatsapp ? `<a class="btn wpp mini" target="_blank" rel="noopener" href="${linkWpp(i.whatsapp, `Oi, ${i.nome.split(' ')[0]}! Aqui é o Matheus, professor de tênis. ${i.indicador ? i.indicador.split(' ')[0] + ' me indicou você' : 'Recebi sua indicação'} — bora marcar uma aula? 🎾`)}">${ICON.wpp} Chamar</a>` : ''}</div>`).join('')}</div>`
+      : '<div class="vazio">Quando um aluno indicar alguém pelo app, aparece aqui.</div>'}
+    <div class="p-titulo"><h2>MURAL DE <span class="verde">AVISOS</span></h2></div>
+    <div class="carta"><div class="campo"><label>Novo aviso (aparece no início do app)</label><input id="av-txt" placeholder="Ex.: Sem aula na sexta (feriado)."></div>
+      <div class="linha2"><div class="campo"><label>Mostrar até (opcional)</label><input type="date" id="av-ate"></div><div class="campo" style="display:flex;align-items:flex-end"><button class="btn" id="av-add">Publicar aviso</button></div></div>
+      ${ADM.avisos.map(v => `<div class="item" style="padding:10px 0"><div class="q"><b>${esc(v.texto)}</b><span>${v.ate ? 'até ' + dataCurta(v.ate) : 'sem data para sair'}</span></div><button class="btn perigo mini" data-rmaviso="${v.id}">Apagar</button></div>`).join('')}</div>
+    <div class="p-titulo"><h2>CONTEÚDO PARA <span class="verde">ALUNOS</span></h2><button class="btn auto mini" id="ct-novo">+ Conteúdo</button></div>
+    ${ADM.conteudos.length ? `<div class="lista">${ADM.conteudos.map(c => `<div class="item clicavel" data-ct="${c.id}"><div class="q"><b>${esc(c.titulo)}</b><span>${esc(c.url || '')}</span></div>
+      <div class="niveis">${chipsNiveis(c.nivel_ids)}</div></div>`).join('')}</div>` : '<div class="vazio">Coloque links dos seus Reels, vídeos de exercícios e dicas por nível. Eles aparecem na aba Evolução do aluno.</div>'}`;
+  m.querySelectorAll('[data-ind]').forEach(s => s.onchange = async () => { await v3('admin_indicacao_status', { id: +s.dataset.ind, status: s.value }); recarregar('Indicação atualizada.'); });
+  $('av-add').onclick = async () => { const t = $('av-txt').value.trim(); if (!t) return; await v3('admin_salvar_aviso', { texto: t, ate: $('av-ate').value || null }); recarregar('Aviso publicado 📢'); };
+  m.querySelectorAll('[data-rmaviso]').forEach(b => b.onclick = async () => { await v3('admin_excluir_aviso', { id: +b.dataset.rmaviso }); recarregar('Aviso apagado.'); });
+  $('ct-novo').onclick = () => formConteudo();
+  m.querySelectorAll('[data-ct]').forEach(el => el.onclick = () => formConteudo(ADM.conteudos.find(c => c.id === +el.dataset.ct)));
+}
+function formConteudo(c){
+  const novo = !c; c = c || { titulo: '', url: '', descricao: '', nivel_ids: [] };
+  modal(`<h2>${novo ? 'NOVO' : 'EDITAR'} <span class="verde">CONTEÚDO</span></h2>
+    <div class="campo"><label>Título</label><input id="ct-t" value="${esc(c.titulo)}" placeholder="Ex.: 3 exercícios para o saque"></div>
+    <div class="campo"><label>Link (Instagram, YouTube…)</label><input id="ct-u" value="${esc(c.url || '')}" placeholder="https://"></div>
+    <div class="campo"><label>Descrição</label><input id="ct-d" value="${esc(c.descricao || '')}"></div>
+    <div class="campo"><label>Para quais níveis (nenhum = todos)</label>${seletorNiveis(c.nivel_ids)}</div>
+    <div class="rodape-m">${novo ? '' : '<button class="btn perigo auto" id="ct-del">Apagar</button>'}<button class="btn sec" data-fechar>Voltar</button><button class="btn" id="ct-ok">Salvar</button></div>`,
+  (m, fechar) => {
+    ligarSeletor(m);
+    m.querySelector('#ct-ok').onclick = async () => { if (!m.querySelector('#ct-t').value.trim()) return toast('Coloque um título.', true);
+      await v3('admin_salvar_conteudo', { id: novo ? null : c.id, titulo: m.querySelector('#ct-t').value, url: m.querySelector('#ct-u').value, descricao: m.querySelector('#ct-d').value, nivel_ids: lerSeletor(m) });
+      fechar(); recarregar('Conteúdo salvo.'); };
+    const d = m.querySelector('#ct-del'); if (d) d.onclick = async () => { await v3('admin_excluir_conteudo', { id: c.id }); fechar(); recarregar('Conteúdo apagado.'); };
+  });
+}
+
+/* ---------- dia de chuva usando as turmas reais ---------- */
+const escolherAlunosV2 = escolherAlunos;
+escolherAlunos = function(opts){
+  if (!ADM.turmas.length) return escolherAlunosV2(opts);
+  // converte as turmas reais para o formato de texto que o seletor antigo entende
+  const original = ADM.alunos.map(a => a.turmas);
+  ADM.alunos.forEach(a => { a.turmas = ADM.turmas.filter(t => t.aluno_ids.includes(a.id)).map(t => `${SEM[t.dia_semana]} ${fmtHora(t.hora)}${t.nome ? ' · ' + t.nome : ''}`); });
+  escolherAlunosV2(opts);
+  ADM.alunos.forEach((a, k) => { a.turmas = original[k]; });
+};
+
+/* ---------- AJUSTES (extras do v3) ---------- */
+const abaAjustesV2 = abaAjustes;
+abaAjustes = function(){
+  abaAjustesV2();
+  const c = ADM.config, m = $('p-miolo');
+  const box = document.createElement('div');
+  box.innerHTML = `<div class="p-titulo"><h2>PIX E <span class="verde">FINANCEIRO</span></h2></div>
+    <div class="carta"><div class="linha2"><div class="campo"><label>Tipo de chave</label><select id="aj-ptipo">${[['celular','Celular'],['cpf','CPF/CNPJ'],['email','E-mail'],['aleatoria','Chave aleatória']].map(([k, t]) => `<option value="${k}" ${(c.pix_tipo || 'celular') === k ? 'selected' : ''}>${t}</option>`).join('')}</select></div>
+      <div class="campo"><label>Chave PIX</label><input id="aj-pchave" value="${esc(c.pix_chave || '')}"></div></div>
+      <div class="linha2"><div class="campo"><label>Nome do recebedor</label><input id="aj-pnome2" value="${esc(c.pix_nome || '')}"></div>
+      <div class="campo"><label>Cidade</label><input id="aj-pcid" value="${esc(c.pix_cidade || 'Cabo Frio')}"></div></div>
+      <div class="campo"><label>Financeiro começa em (mês)</label><input type="month" id="aj-finini" value="${esc(String(c.financeiro_inicio || '').slice(0,7))}"></div>
+      <div class="campo"><label>Mensagem de cobrança</label><textarea id="aj-mcob">${esc(c.msg_cobranca || '')}</textarea><div class="cinza pequeno">Use {nome}, {mes}, {valor}, {vencimento} e {link}.</div></div>
+      <div class="campo"><label>Mensagem de lembrete de aula</label><textarea id="aj-mlem">${esc(c.msg_lembrete_aula || '')}</textarea></div>
+      <div class="campo"><label>Benefício da indicação (aparece para o aluno)</label><input id="aj-ind" value="${esc(c.indicacao_beneficio || '')}"></div>
+      <div class="campo"><label>Habilidades avaliadas (uma por linha)</label><textarea id="aj-habs">${esc((c.habilidades || []).join('\n'))}</textarea></div>
+      <button class="btn" id="aj-salvar3">Salvar PIX e financeiro</button></div>
+    <div class="p-titulo"><h2>CRITÉRIOS PARA SUBIR DE <span class="verde">NÍVEL</span></h2></div>
+    <div class="lista">${ADM.niveis.map(n => `<div class="item" style="display:block"><div style="margin-bottom:8px">${chipNivel(n.id) || esc(n.nome)}</div>
+      <textarea data-crit="${n.id}" style="min-height:96px" placeholder="Um critério por linha">${esc((n.criterios || []).join('\n'))}</textarea>
+      <button class="btn sec mini" style="margin-top:8px" data-salvacrit="${n.id}">Salvar critérios</button></div>`).join('')}</div>`;
+  const ref = m.querySelector('#aj-sair') ? m.querySelector('#aj-sair').closest('div') : null;
+  m.insertBefore(box, m.querySelector('#aj-salvar').nextSibling);
+  $('aj-salvar3').onclick = async e => {
+    ocupado(e.target, true);
+    const ini = $('aj-finini').value;
+    await post('/config', { pix_tipo: $('aj-ptipo').value, pix_chave: $('aj-pchave').value.trim(), pix_nome: $('aj-pnome2').value, pix_cidade: $('aj-pcid').value,
+      msg_cobranca: $('aj-mcob').value, msg_lembrete_aula: $('aj-mlem').value, indicacao_beneficio: $('aj-ind').value,
+      habilidades: $('aj-habs').value.split('\n').map(s => s.trim()).filter(Boolean), ...(ini ? { financeiro_inicio: ini + '-01' } : {}) }).catch(err => toast(err.message, true));
+    recarregar('Salvo ✅');
+  };
+  m.querySelectorAll('[data-salvacrit]').forEach(b => b.onclick = async () => {
+    const id = +b.dataset.salvacrit;
+    await v3('admin_nivel_criterios', { id, criterios: m.querySelector(`[data-crit="${id}"]`).value.split('\n').map(s => s.trim()).filter(Boolean) });
+    toast('Critérios salvos.'); await recarregarSilencioso();
+  });
+};
+
+/* =========================================================
+   INÍCIO
+   ========================================================= */
+$('ano').textContent = new Date().getFullYear();
+(async () => {
+  await carregarInfo();
+  const w = pega('knupp_wpp'); if (w) $('in-wpp').value = mascaraWpp(w);
+  if (S.token) carregarApp(true); else mostrarPasso('wpp');
+  if (location.hash === '#admin') $('engrenagem').click();
+})();
+document.addEventListener('visibilitychange', () => { if (!document.hidden && S.token && $('painel').classList.contains('oculto')) carregarApp(true); });
+</script>
+</body>
+</html>

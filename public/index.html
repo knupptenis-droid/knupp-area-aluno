@@ -399,6 +399,43 @@ button.kpi{text-align:left;color:var(--branco);cursor:pointer;font:inherit}
 .carteira .tubo3d canvas{position:absolute;inset:0;width:100%;height:100%}
 .carteira .tubo3d em{position:absolute;right:10px;top:10px;font:400 1.2rem "Bebas Neue",Impact,sans-serif;color:var(--verde);font-style:normal}
 @media(prefers-reduced-motion:reduce){.cj{transition:none}}
+/* v8: ícones + conquistas */
+.ico{width:1.15em;height:1.15em;flex:none;vertical-align:-.2em}
+.com-ico{display:flex;gap:10px;align-items:flex-start}.com-ico>.ico{margin-top:.15em;color:currentColor;opacity:.9}
+.aviso.com-ico>.ico{color:var(--verde)}.aviso.amarelo.com-ico>.ico{color:var(--amarelo)}
+.tema.com-ico{gap:6px;align-items:center}.tema.com-ico>.ico{margin:0;color:var(--verde)}
+.prod .semfoto{color:#9a9a9a}.prod .semfoto .ico{width:44px;height:44px}
+.carrinho-flut .ico,#pagar-cartao .ico{margin-right:4px}
+.cq-grupo{margin-top:18px}
+.cq-grupo h3{font:600 .78rem "DM Sans",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--texto);margin:0 0 10px;display:flex;justify-content:space-between}
+.cq-grupo h3 span{color:var(--cinza);letter-spacing:0}
+.cq{background:var(--carta);border:1px solid var(--borda);border-radius:14px;padding:14px 8px 12px;text-align:center;opacity:1;filter:none;color:inherit;font:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center}
+.cq .md{position:relative;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;border:2px solid #2e2e2e;background:radial-gradient(circle at 35% 30%,#222,#121212);color:#5c5c5c}
+.cq .md .ico{width:26px;height:26px;stroke-width:1.7}
+.cq .md .cad{position:absolute;right:-4px;bottom:-4px;width:20px;height:20px;border-radius:50%;background:#1b1b1b;border:1px solid #333;display:grid;place-items:center;color:#777}
+.cq .md .cad .ico{width:11px;height:11px;stroke-width:2.2}
+.num-md{display:flex;flex-direction:column;align-items:center;line-height:.85}
+.md .num-md b,.cq .md .num-md b{font:400 1.7rem/.85 "Bebas Neue",Impact,sans-serif;margin:0;color:inherit;display:block}.md .num-md small,.cq .md .num-md small{font:700 .5rem/1 "DM Sans",sans-serif;letter-spacing:.08em;text-transform:uppercase;margin:2px 0 0;color:inherit;opacity:1}
+.cq b{font-size:.74rem;font-weight:600;color:var(--cinza);display:block;margin-top:8px;line-height:1.25}
+.cq small{display:block;font-size:.64rem;color:var(--cinza);margin-top:3px;line-height:1.2;opacity:.85}
+.cq.on{border-color:var(--verde-b);background:linear-gradient(180deg,rgba(43,213,118,.10),var(--carta))}
+.cq.on .md{border-color:var(--verde);color:var(--verde);background:radial-gradient(circle at 35% 30%,#1f4a31,#0d1b12);box-shadow:0 0 18px rgba(43,213,118,.25)}
+.cq.on b{color:var(--branco)}
+.cq.esp.on{border-color:rgba(224,180,58,.45);background:linear-gradient(180deg,rgba(224,180,58,.12),var(--carta))}
+.cq.esp.on .md{border-color:#e0b43a;color:#f5c84a;background:radial-gradient(circle at 35% 30%,#4a3a12,#1b1405);box-shadow:0 0 18px rgba(224,180,58,.3)}
+.tf-fb .md.grande{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;border:3px solid var(--verde);color:var(--verde);background:radial-gradient(circle at 35% 30%,#1f4a31,#0d1b12)}
+.tf-fb .md.grande .ico{width:56px;height:56px}.tf-fb .num-md b{font-size:3rem}
+.mini-md{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;flex:none;border:2px solid #e0b43a;color:#f5c84a;background:radial-gradient(circle at 35% 30%,#4a3a12,#1b1405);margin-right:12px}
+.mini-md .ico{width:18px;height:18px}
+.cq-mes{background:var(--carta);border:1px solid var(--borda);color:var(--branco);border-radius:10px;padding:9px 10px;font:inherit;font-size:16px;color-scheme:dark}
+.cq .md.anel{border:0;width:62px;height:62px;background:transparent;box-shadow:none}
+.cq.on .md.anel{background:radial-gradient(circle,#10241a 0 52%,transparent 54%);box-shadow:none}
+.md .anel-svg{width:100%;height:100%;display:block}
+.tf-fb .md.grande.anel{border:0;background:transparent;width:150px;height:150px}
+.cq-tipos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.cq-tipos button{display:flex;gap:8px;align-items:center;padding:10px;border-radius:11px;border:1px solid var(--borda);background:var(--carta);color:var(--texto);cursor:pointer;font:inherit;font-size:.85rem;text-align:left;min-height:44px}
+.cq-tipos button.on{border-color:#e0b43a;color:#fff;background:rgba(224,180,58,.12)}.cq-tipos button.on .ico{color:#f5c84a}
+.dc-alunos{max-height:240px;overflow:auto;border:1px solid var(--borda);border-radius:11px;padding:6px 10px;margin-top:8px}
 </style>
 </head>
 <body>
@@ -734,7 +771,7 @@ $('btn-sair').onclick = () => sair(false);
 
 async function carregarApp(silencioso){
   let r;
-  try { r = await apiAluno('aluno_area_v5'); } catch(e){ if (!silencioso && e.status !== 401) toast(e.message, true); return; }
+  try { r = await apiAluno('aluno_area_v8'); } catch(e){ if (!silencioso && e.status !== 401) toast(e.message, true); return; }
   if (!r.ok){ sair(true); return; }
   S.dados = r;
   if (!S.sel || !r.alunos.some(a => a.id === S.sel)) S.sel = +(pega('knupp_sel') || 0) && r.alunos.some(a => a.id === +pega('knupp_sel')) ? +pega('knupp_sel') : r.alunos[0].id;
@@ -799,7 +836,7 @@ function tabInicio(){
     <p class="eyebrow">Área do aluno</p>
     <h1 class="ola-t">OLÁ, <span class="verde">${esc(a.nome.split(' ')[0].toUpperCase())}</span></h1>
     <div class="niveis" style="margin:-4px 0 18px">${a.nivel_ids.map(chipNivel).join('')}</div>
-    ${avisos.map(v => `<div class="aviso amarelo">📢 ${esc(v.texto)}</div>`).join('')}
+    ${avisos.map(v => `<div class="aviso amarelo com-ico">${ICO('megafone')}<span>${esc(v.texto)}</span></div>`).join('')}
     ${atrasada ? `<div class="aviso erro"><b>Mensalidade de ${esc(nomeMes(m.competencia))} em atraso.</b> Enquanto não regularizar, a reposição fica bloqueada.
        <button class="btn mini" style="margin-top:10px" data-ir="fin">Pagar agora</button></div>` : ''}
     <div class="prox">
@@ -812,7 +849,7 @@ function tabInicio(){
       <button class="tile" data-ir="repo"><div class="v">${a.creditos}</div><div class="l">Crédito${a.creditos===1?'':'s'} de reposição</div></button>
       <button class="tile" data-ir="fin"><div class="v"><span class="selo ${mc}">${mt}</span></div><div class="l">Mensalidade</div></button>
       <button class="tile" data-ir="aulas"><div class="v">${ex.total_presencas || 0}</div><div class="l">Aulas feitas</div></button>
-      <button class="tile" data-ir="evo"><div class="v">${sequencia(ex)}🔥</div><div class="l">Aulas seguidas</div></button>
+      <button class="tile" data-ir="evo"><div class="v">${sequencia(ex)}</div><div class="l">Aulas seguidas</div></button>
     </div>
     <div class="secao"><h2 class="secao-t">INDIQUE UM <span class="verde">AMIGO</span></h2>
       <div class="carta"><p style="margin-top:0">${esc(c.indicacao_beneficio || 'Indique um amigo para treinar com a gente!')}</p>
@@ -820,7 +857,7 @@ function tabInicio(){
         <div class="campo"><label>WhatsApp dele</label><input id="ind-wpp" type="tel" inputmode="numeric" placeholder="(22) 9…"></div></div>
         <div class="acoes" style="margin-top:0"><button class="btn" id="ind-enviar">Enviar indicação</button>
         <a class="btn wpp" target="_blank" rel="noopener" href="${linkWppLivre('Faço aula de tênis com o professor Matheus Knupp e estou curtindo demais! Vem fazer uma aula 🎾 https://knupptenis.com.br')}">${ICON.wpp} Convidar</a></div>
-        ${ex.indicacoes ? `<p class="cinza pequeno" style="margin-bottom:0">Você já indicou ${ex.indicacoes} amigo(s)${ex.indicacoes_fechadas ? `, ${ex.indicacoes_fechadas} já fechou 💚` : ''}.</p>` : ''}</div></div>
+        ${ex.indicacoes ? `<p class="cinza pequeno" style="margin-bottom:0">Você já indicou ${ex.indicacoes} amigo(s)${ex.indicacoes_fechadas ? `, ${ex.indicacoes_fechadas} já fechou` : ''}.</p>` : ''}</div></div>
     <div class="secao"><h2 class="secao-t">SEU <span class="verde">PROFESSOR</span></h2>
       <div class="carta"><div class="prof">${c.foto ? `<img class="foto" src="${esc(c.foto)}" alt="">` : '<div class="foto"><img src="/logo-simbolo.png" alt="" style="width:46%;height:auto"></div>'}
         <div><p class="eyebrow">Knupp Tênis</p><h3>${esc(c.professor_nome || 'Matheus Knupp')}</h3><p>${esc(c.professor_bio || '')}</p></div></div>
@@ -836,7 +873,7 @@ function tabInicio(){
     const nome = $('ind-nome').value.trim(); if (!nome) return toast('Escreva o nome do amigo.', true);
     ocupado(e.target, true);
     try { const r = await apiAluno('aluno_indicar', { aluno_id: S.sel, nome, whatsapp: soNum($('ind-wpp').value) });
-      toast(r.ok ? 'Indicação enviada! Valeu 💚' : 'Não foi possível enviar.', !r.ok); } catch(err){ toast(err.message, true); }
+      toast(r.ok ? 'Indicação enviada! Valeu!' : 'Não foi possível enviar.', !r.ok); } catch(err){ toast(err.message, true); }
     await carregarApp(true);
   };
 }
@@ -858,7 +895,7 @@ function tabAulas(){
         const [pc, pt] = au.status_aula === 'cancelada' ? ['cinza','Aula cancelada'] : (PRES[au.presenca] || ['cinza', au.presenca]);
         const podeAvaliar = au.status_aula === 'realizada' && au.presenca !== 'falta';
         return `<div class="diario"><div class="diario-cab"><div><b>${diaCompleto(au.data)} · ${fmtHora(au.hora)}</b>
-          ${au.tema ? `<div class="tema">🎯 ${esc(au.tema)}</div>` : ''}</div><span class="selo ${pc}">${pt}</span></div>
+          ${au.tema ? `<div class="tema com-ico">${ICO('alvo')}<span>${esc(au.tema)}</span></div>` : ''}</div><span class="selo ${pc}">${pt}</span></div>
           ${au.comentario ? `<div class="recado"><span class="eyebrow">Recado do professor</span>${esc(au.comentario)}</div>` : ''}
           ${au.comentario_geral ? `<p class="cinza pequeno" style="margin:8px 0 0">${esc(au.comentario_geral)}</p>` : ''}
           ${podeAvaliar ? (au.nota_aluno ? `<div class="estrelas-lidas">${'★'.repeat(au.nota_aluno)}${'☆'.repeat(5 - au.nota_aluno)} <span class="cinza pequeno">sua avaliação</span></div>`
@@ -877,7 +914,7 @@ function avaliarAula(aulaId){
     m.querySelectorAll('[data-n]').forEach(b => b.onclick = () => { nota = +b.dataset.n; m.querySelectorAll('[data-n]').forEach(x => x.classList.toggle('on', +x.dataset.n <= nota)); });
     m.querySelector('#av-ok').onclick = async () => {
       if (!nota) return toast('Toque nas estrelas.', true);
-      try { await apiAluno('aluno_avaliar_aula', { aluno_id: S.sel, aula_id: aulaId, nota, comentario: m.querySelector('#av-com').value }); toast('Obrigado pela avaliação! ⭐'); } catch(e){ toast(e.message, true); }
+      try { await apiAluno('aluno_avaliar_aula', { aluno_id: S.sel, aula_id: aulaId, nota, comentario: m.querySelector('#av-com').value }); toast('Obrigado pela avaliação!'); } catch(e){ toast(e.message, true); }
       fechar(); carregarApp(true);
     };
   });
@@ -921,7 +958,7 @@ function tabRepo(){
         <div style="margin-top:6px"><span class="selo ${cl}">${tx}</span></div></div>
         ${['pendente','confirmada'].includes(r.status) ? `<button class="btn perigo mini" data-cancelar="${r.id}" data-st="${r.status}">Cancelar</button>` : ''}</div>`; }).join('')}</div></div>` : ''}
     <div class="secao"><h2 class="secao-t">VAGAS <span class="verde">ABERTAS</span></h2><p class="secao-s">Horários liberados para o seu nível.</p>
-      <div class="aviso" style="margin-bottom:14px">💡 <b>Pode pedir mais de um horário!</b> Marque todos os que você consegue. O professor confirma um deles e só então 1 crédito é usado. Os outros pedidos do mesmo dia se encerram sozinhos.${nPend ? `<br><b>Você tem ${nPend} ${nPend === 1 ? 'pedido aguardando' : 'pedidos aguardando'}.</b>` : ''}</div>${vagas}
+      <div class="aviso com-ico" style="margin-bottom:14px">${ICO('info')}<span><b>Pode pedir mais de um horário!</b> Marque todos os que você consegue. O professor confirma um deles e só então 1 crédito é usado. Os outros pedidos do mesmo dia se encerram sozinhos.${nPend ? `<br><b>Você tem ${nPend} ${nPend === 1 ? 'pedido aguardando' : 'pedidos aguardando'}.</b>` : ''}</span></div>${vagas}
       ${!a.creditos && meus.length ? `<div class="aviso amarelo">Para pedir uma vaga você precisa ter pelo menos 1 crédito.</div>` : ''}</div>
     <div class="secao"><h2 class="secao-t">COMO <span class="verde">FUNCIONA</span></h2><div class="carta" style="padding:6px 20px"><ol class="regras">${(cfg('regras') || []).map(r => `<li>${esc(r)}</li>`).join('')}<li>A reposição só pode ser marcada com a mensalidade em dia.</li></ol></div></div>`;
   ligarIr();
@@ -985,7 +1022,7 @@ function tabFin(){
   const cp = $('pix-copiar'); if (cp) cp.onclick = () => copiar(pixCopiaCola(atual.valor, 'KNUPP' + atual.id));
   const jp = $('ja-paguei'); if (jp) jp.onclick = async () => {
     if (!await confirmar({ titulo: 'JÁ PAGOU?', ok: 'Sim, já paguei', texto: 'Vamos avisar o professor para conferir o pagamento. Se quiser, mande o comprovante para ele no WhatsApp.' })) return;
-    try { await apiAluno('aluno_informar_pagamento', { mensalidade_id: atual.id }); toast('Aviso enviado! ✅'); } catch(e){ toast(e.message, true); }
+    try { await apiAluno('aluno_informar_pagamento', { mensalidade_id: atual.id }); toast('Aviso enviado!'); } catch(e){ toast(e.message, true); }
     const w = cfg('professor_whatsapp');
     if (w) modal(`<h2>ENVIAR <span class="verde">COMPROVANTE?</span></h2><p class="sub">Opcional, mas agiliza a confirmação.</p>
       <a class="btn wpp" target="_blank" rel="noopener" href="${linkWpp(w, `Oi, professor! Paguei a mensalidade de ${nomeMes(atual.competencia)} (${a.nome}). Segue o comprovante:`)}">${ICON.wpp} Mandar no WhatsApp</a>
@@ -1116,7 +1153,7 @@ function pagarPedido(id){
   (m, fechar) => {
     const c = m.querySelector('#pp-copiar'); if (c) c.onclick = () => copiar(pix);
     const pg = m.querySelector('#pp-paguei'); if (pg) pg.onclick = async () => {
-      try { await apiAluno('aluno_informar_pedido', { pedido_id: p.id }); toast('Aviso enviado! O professor vai conferir ✅'); } catch(e){ toast(e.message, true); }
+      try { await apiAluno('aluno_informar_pedido', { pedido_id: p.id }); toast('Aviso enviado! O professor vai conferir.'); } catch(e){ toast(e.message, true); }
       fechar(); carregarApp(true);
     };
   });
@@ -1177,11 +1214,11 @@ async function tabLoja(){
     <p class="secao-s">${esc(LOJA.config.loja_entrega || 'Retirada nas aulas ou entrega combinada.')}</p>
     <div class="cats">${cats.map(c => `<button class="${c === LOJA_CAT ? 'on' : ''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}</div>
     ${lista.length ? `<div class="grade">${lista.map(p => { const { min, aPartir } = precoMinimo(p);
-      return `<button class="prod" data-prod="${esc(p.id)}">${p.foto ? `<img src="${esc(p.foto)}" alt="" loading="lazy">` : '<div class="semfoto">🎾</div>'}
+      return `<button class="prod" data-prod="${esc(p.id)}">${p.foto ? `<img src="${esc(p.foto)}" alt="" loading="lazy">` : `<div class="semfoto">${ICO('raquete')}</div>`}
         ${p.condicao ? `<span class="cond">${esc(p.condicao)}</span>` : ''}<b>${esc(p.nome)}</b>
         <span class="cinza pequeno">${aPartir ? 'A partir de' : 'Pix à vista'}</span><span class="preco">${dinheiro(min)}</span></button>`; }).join('')}</div>`
       : '<div class="vazio">Nenhum produto nessa categoria.</div>'}
-    ${nCar ? `<button class="carrinho-flut" id="ver-carrinho">🛒 Ver carrinho (${nCar}) · ${dinheiro(totalCarrinho())}</button>` : ''}`;
+    ${nCar ? `<button class="carrinho-flut" id="ver-carrinho">${ICO('carrinho')} Ver carrinho (${nCar}) · ${dinheiro(totalCarrinho())}</button>` : ''}`;
   document.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => { LOJA_CAT = b.dataset.cat; tabLoja(); });
   document.querySelectorAll('[data-prod]').forEach(b => b.onclick = () => abrirProduto(b.dataset.prod));
   const vc = $('ver-carrinho'); if (vc) vc.onclick = abrirCarrinho;
@@ -1223,7 +1260,7 @@ async function abrirProduto(id){
     m.querySelector('#pg-add').onclick = () => {
       const k = S.carrinho.find(i => i.produto_id === p.id && JSON.stringify(i.escolhas) === JSON.stringify(escolhas));
       if (k) k.qtd += qtd; else S.carrinho.push({ produto_id: p.id, escolhas: { ...escolhas }, qtd });
-      salvarCarrinho(); fechar(); toast('Adicionado ao carrinho 🛒'); tabLoja();
+      salvarCarrinho(); fechar(); toast('Adicionado ao carrinho.'); tabLoja();
     };
     upd();
     if (p.n_fotos){ try { const full = await chamar('/api/loja/' + encodeURIComponent(p.id));
@@ -1282,10 +1319,10 @@ function bannerPlano(){
     return termina
       ? `<div class="banner-plano"><div class="bp-tag">⏰ SEU PLANO TERMINA ESTE MÊS</div><div class="bp-tit">RENOVE COM <span class="verde">DESCONTO</span></div>
          <div class="bp-sub">Mais 3 meses por <b>${dinheiro(pr.pix)}</b> no PIX ou <b>3x de ${dinheiro(pr.parcela3)}</b> sem juros.</div><button class="btn" data-plano>Renovar plano</button></div>`
-      : `<div class="plano-ativo">✅ <b>Plano trimestral ativo</b> até ${esc(nomeMes(pl.ativo_ate))}</div>`;
+      : `<div class="plano-ativo com-ico">${ICO('check')}<span><b>Plano trimestral ativo</b> até ${esc(nomeMes(pl.ativo_ate))}</span></div>`;
   }
-  if (pl.pendente) return `<div class="plano-ativo" style="border-color:rgba(250,204,21,.4)">⏳ <b>Plano trimestral aguardando pagamento</b> · veja em Financeiro → Meus pedidos</div>`;
-  return `<div class="banner-plano"><div class="bp-tag">🔥 PLANO TRIMESTRAL</div>
+  if (pl.pendente) return `<div class="plano-ativo com-ico" style="border-color:rgba(250,204,21,.4)">${ICO('relogio')}<span><b>Plano trimestral aguardando pagamento</b> · veja em Financeiro → Meus pedidos</span></div>`;
+  return `<div class="banner-plano"><div class="bp-tag">PLANO TRIMESTRAL</div>
     <div class="bp-tit">ECONOMIZE <span class="verde">${dinheiro(pr.economia_pix)}</span></div>
     <div class="bp-sub">Pague 3 meses de uma vez: <b>${dinheiro(pr.pix)}</b> no PIX<br>ou <b>3x de ${dinheiro(pr.parcela3)} sem juros</b> no cartão</div>
     <button class="btn" data-plano>Quero o plano trimestral</button></div>`;
@@ -1295,7 +1332,7 @@ function modalPlano(){
   const pl = planoSel(), pr = pl.precos; if (!pr) return;
   let forma = 'pix';
   const opc = [
-    ['pix', '⭐ MELHOR PREÇO', 'PIX à vista', dinheiro(pr.pix), `Você economiza ${dinheiro(pr.economia_pix)}`],
+    ['pix', 'MELHOR PREÇO', 'PIX à vista', dinheiro(pr.pix), `Você economiza ${dinheiro(pr.economia_pix)}`],
     ['cartao3', 'SEM JUROS', 'Cartão em 3x', `3x de ${dinheiro(pr.parcela3)}`, `Total ${dinheiro(pr.cartao3)} · você economiza ${dinheiro(pr.economia_cartao3)}`],
     ['cartao1', '', 'Cartão à vista', dinheiro(pr.cartao1), `Você economiza ${dinheiro(pr.cheio - pr.cartao1)}`],
   ];
@@ -1342,10 +1379,10 @@ tabFin = function(){
   const jp = $('ja-paguei');
   if (jp && atual && atual.status === 'pendente'){
     const valorCartao = Math.ceil(Number(atual.valor) / (1 - Number(cfg('taxa_credito_1x') || 3.15) / 100));
-    jp.insertAdjacentHTML('afterend', `<button class="btn sec" id="pagar-cartao" style="margin-top:10px">💳 Pagar no cartão na aula (${dinheiro(valorCartao)})</button>`);
+    jp.insertAdjacentHTML('afterend', `<button class="btn sec" id="pagar-cartao" style="margin-top:10px">${ICO('cartao')} Pagar no cartão na aula (${dinheiro(valorCartao)})</button>`);
     $('pagar-cartao').onclick = async () => {
-      if (!await confirmar({ titulo: 'PAGAR NO CARTÃO?', ok: 'Combinado', texto: `Você paga <b>${dinheiro(valorCartao)}</b> na maquininha, na sua próxima aula (inclui a taxa do cartão).<br><br>💡 Dica: no <b>plano trimestral</b> você parcela 3 meses em 3x sem juros e ainda tem desconto.` })) return;
-      try { const r = await apiAluno('aluno_pagar_cartao', { mensalidade_id: atual.id }); toast(r.ok ? 'Combinado! Leve o cartão na próxima aula 💳' : 'Não foi possível.', !r.ok); } catch(e){ toast(e.message, true); }
+      if (!await confirmar({ titulo: 'PAGAR NO CARTÃO?', ok: 'Combinado', texto: `Você paga <b>${dinheiro(valorCartao)}</b> na maquininha, na sua próxima aula (inclui a taxa do cartão).<br><br>Dica: no <b>plano trimestral</b> você parcela 3 meses em 3x sem juros e ainda tem desconto.` })) return;
+      try { const r = await apiAluno('aluno_pagar_cartao', { mensalidade_id: atual.id }); toast(r.ok ? 'Combinado! Leve o cartão na próxima aula.' : 'Não foi possível.', !r.ok); } catch(e){ toast(e.message, true); }
       carregarApp(true);
     };
   }
@@ -1396,7 +1433,7 @@ async function carregarPainel(){
 }
 async function recarregar(msg){ if (msg) toast(msg); await carregarPainel(); }
 
-const ABAS = [['hoje','Hoje'],['pedidos','Reposições'],['horarios','Horários'],['turmas','Turmas'],['alunos','Alunos'],['financeiro','Financeiro'],['loja','Loja'],['creditos','Créditos'],['conteudo','Conteúdo'],['numeros','Números'],['ajustes','Ajustes']];
+const ABAS = [['hoje','Hoje'],['pedidos','Reposições'],['horarios','Horários'],['turmas','Turmas'],['alunos','Alunos'],['conquistas','Conquistas'],['financeiro','Financeiro'],['loja','Loja'],['creditos','Créditos'],['conteudo','Conteúdo'],['numeros','Números'],['ajustes','Ajustes']];
 function desenharPainel(){
   const pend = gruposPendentes().length;
   $('painel').innerHTML = `<div class="p-topo"><div class="p-linha">
@@ -1452,8 +1489,8 @@ function ligarConfirmar(raiz){
 }
 
 function msgConfirmado(r){
-  if (!r || !r.ok) return ({ lotado: '⚠️ Não confirmou: o horário já está lotado.', sem_credito: '⚠️ Não confirmou: o aluno está sem crédito.' })[r && r.motivo] || '⚠️ Não foi possível confirmar.';
-  return r.encerrados ? `Confirmado ✅ · ${r.encerrados} ${r.encerrados === 1 ? 'outro pedido encerrado' : 'outros pedidos encerrados'}` : 'Confirmado ✅';
+  if (!r || !r.ok) return ({ lotado: 'Não confirmou: o horário já está lotado.', sem_credito: 'Não confirmou: o aluno está sem crédito.' })[r && r.motivo] || 'Não foi possível confirmar.';
+  return r.encerrados ? `Confirmado · ${r.encerrados} ${r.encerrados === 1 ? 'outro pedido encerrado' : 'outros pedidos encerrados'}` : 'Confirmado.';
 }
 /* pedidos agrupados por aluno + dia: mostra todos os horários que a pessoa pode */
 function gruposPendentes(){
@@ -1713,7 +1750,7 @@ function darCredito(ids){
     <div class="rodape-m"><button class="btn sec" data-fechar>Voltar</button><button class="btn" id="dc-ok">Dar crédito</button></div>`,
   (m, fechar) => m.querySelector('#dc-ok').onclick = async () => {
     await post('/creditos', { aluno_ids: ids, quantidade: +m.querySelector('#dc-q').value, origem: m.querySelector('#dc-o').value, motivo: m.querySelector('#dc-m').value });
-    fechar(); recarregar('Crédito adicionado ✅');
+    fechar(); recarregar('Crédito adicionado.');
   });
 }
 function importarAlunos(){
@@ -1734,7 +1771,7 @@ function abaCreditos(){
   const STC = { disponivel:['ok','Disponível'], reservado:['pend','Em uso'], usado:['cinza','Usado'], perdido:['verm','Perdido'], removido:['cinza','Removido'], vencido:['verm','Vencido'] };
   const vencendo = ADM.creditos.filter(c => c.status === 'disponivel' && diasAte(c.expira_em) <= 7);
   m.innerHTML = `<div class="carta" style="border-color:var(--verde-b);background:linear-gradient(135deg,rgba(43,213,118,.10),var(--carta) 60%)">
-      <h2 class="secao-t" style="font-size:1.8rem">🌧️ DIA DE <span class="verde">CHUVA</span></h2>
+      <h2 class="secao-t" style="font-size:1.8rem">DIA DE <span class="verde">CHUVA</span></h2>
       <p class="secao-s" style="margin-bottom:14px">Escolha as turmas ou os alunos que perderam aula. Cada um ganha 1 crédito de ${esc(ADM.config.validade_dias || 40)} dias.</p>
       <button class="btn auto" id="chuva">Lançar créditos de chuva</button></div>
     <div class="p-titulo"><h2>DAR CRÉDITO <span class="verde">AVULSO</span></h2><button class="btn sec auto mini" id="avulso">Escolher alunos</button></div>
@@ -1788,7 +1825,7 @@ function escolherAlunos({ chuva }){
       ocupado(e.target, true);
       const motivo = `${m.querySelector('#ec-mot').value} · ${diaCompleto(dataIn.value)}`;
       const r = await post('/chuva', { data: dataIn.value, aluno_ids: [...sel], motivo, cancelar_reposicoes: cancel }).catch(err => { toast(err.message, true); return null; });
-      fechar(); await recarregar(r ? `${r.creditos} crédito(s) lançado(s) 🌧️` : null);
+      fechar(); await recarregar(r ? `${r.creditos} crédito(s) lançado(s).` : null);
       if (r && r.afetados && r.afetados.length) avisarAfetados(r.afetados, { data: dataIn.value, hora: '00:00' }, m.querySelector('#ec-mot').value);
     };
   });
@@ -1863,7 +1900,7 @@ function abaAjustes(){
       professor_bio: $('aj-bio').value, local_nome: $('aj-lnome').value, local_endereco: $('aj-lend').value,
       msg_confirmacao: $('aj-mc').value, msg_grupo: $('aj-mg').value, msg_cancelamento: $('aj-mx').value };
     if (foto) body.foto = foto;
-    ocupado(e.target, true); await post('/config', body).catch(err => toast(err.message, true)); recarregar('Ajustes salvos ✅');
+    ocupado(e.target, true); await post('/config', body).catch(err => toast(err.message, true)); recarregar('Ajustes salvos.');
   };
   $('aj-nnovo').onclick = async () => { await post('/nivel', { nome: 'Novo nível', cor: '#2BD576', ordem: ADM.niveis.length + 1 }); recarregar('Nível criado. Renomeie e salve.'); };
   m.querySelectorAll('[data-nsalvar]').forEach(b => b.onclick = async () => { const id = b.dataset.nsalvar;
@@ -1900,7 +1937,7 @@ function desenharPainel(){
   $('p-atualizar').onclick = () => recarregar('Atualizado.');
   document.querySelectorAll('[data-aba]').forEach(b => b.onclick = () => { ABA = b.dataset.aba; desenharPainel(); });
   ({ hoje: abaHoje, pedidos: abaPedidos, horarios: abaHorarios, turmas: abaTurmas, alunos: abaAlunos, financeiro: abaFinanceiro,
-     creditos: abaCreditos, conteudo: abaConteudo, numeros: abaNumeros, ajustes: abaAjustes, loja: () => {} })[ABA]();
+     creditos: abaCreditos, conteudo: abaConteudo, numeros: abaNumeros, ajustes: abaAjustes, loja: () => {}, conquistas: () => abaConquistas() })[ABA]();
 }
 
 /* ---------- HOJE: chamada + diário ---------- */
@@ -1955,7 +1992,7 @@ async function abaHoje(){
       tema: card.querySelector('.tema').value, comentario: card.querySelector('.com-geral').value,
       presencas: [...card.querySelectorAll('.chamada-linha')].map(l => ({ aluno_id: +l.dataset.aluno,
         status: status === 'cancelada' ? 'falta' : l.querySelector('.seg .on').dataset.st, comentario: l.querySelector('.com-aluno').value })) });
-    card.querySelector('[data-salvar]').onclick = async e => { ocupado(e.target, true); await v3('admin_salvar_aula', coletar('realizada')).catch(err => toast(err.message, true)); toast('Chamada salva ✅'); abaHoje(); };
+    card.querySelector('[data-salvar]').onclick = async e => { ocupado(e.target, true); await v3('admin_salvar_aula', coletar('realizada')).catch(err => toast(err.message, true)); toast('Chamada salva.'); abaHoje(); };
     card.querySelector('[data-lembrar]').onclick = () => {
       const ids = [...card.querySelectorAll('.chamada-linha')].map(l => +l.dataset.aluno);
       modal(`<h2>LEMBRAR <span class="verde">ALUNOS</span></h2><p class="sub">${nomeDia(DIA_HOJE)} às ${fmtHora(t.hora)} — toque em cada um.</p>
@@ -1969,7 +2006,7 @@ async function abaHoje(){
         texto: `Os alunos fixos dessa turma ganham <b>1 crédito de reposição</b> cada (vale ${esc(ADM.config.validade_dias || 40)} dias).` })) return;
       await v3('admin_salvar_aula', coletar('cancelada'));
       if (t.aluno_ids.length) await post('/creditos', { aluno_ids: t.aluno_ids, quantidade: 1, origem: 'chuva', motivo: `Chuva · ${diaCompleto(DIA_HOJE)} ${fmtHora(t.hora)}` });
-      await recarregar(`Aula cancelada. ${t.aluno_ids.length} crédito(s) lançado(s) 🌧️`);
+      await recarregar(`Aula cancelada. ${t.aluno_ids.length} crédito(s) lançado(s).`);
       avisarAfetados(t.aluno_ids.map(id => ADM.alunos.find(a => a.id === id)).filter(Boolean).map(a => ({ nome: a.nome, whatsapp: a.whatsapp })),
         { data: DIA_HOJE, hora: t.hora }, 'chuva');
     };
@@ -2081,7 +2118,7 @@ async function abaFinanceiro(){
       mm.querySelectorAll('#pg-forma button').forEach(x => x.onclick = () => { mm.querySelectorAll('#pg-forma button').forEach(y => y.classList.remove('on')); x.classList.add('on');
         const ehCartao = x.textContent === 'Cartão'; mm.querySelector('#pg-valor').value = ehCartao ? cartao : Number(i.valor);
         mm.querySelector('#pg-dica').textContent = ehCartao ? `Mensalidade + taxa do crédito à vista (${t1}%).` : ''; });
-      mm.querySelector('#pg-ok').onclick = async () => { await v3('admin_mensalidade', { id: i.id, status: 'pago', forma: mm.querySelector('#pg-forma .on').textContent, valor: Number(mm.querySelector('#pg-valor').value) || Number(i.valor) }); fechar(); toast('Pagamento registrado ✅'); await recarregarSilencioso(); abaFinanceiro(); };
+      mm.querySelector('#pg-ok').onclick = async () => { await v3('admin_mensalidade', { id: i.id, status: 'pago', forma: mm.querySelector('#pg-forma .on').textContent, valor: Number(mm.querySelector('#pg-valor').value) || Number(i.valor) }); fechar(); toast('Pagamento registrado.'); await recarregarSilencioso(); abaFinanceiro(); };
     });
   });
   m.querySelectorAll('[data-recibo]').forEach(b => b.onclick = () => { const i = itens.find(x => x.id === +b.dataset.recibo);
@@ -2198,7 +2235,7 @@ function formAvaliacao(a){
     m.querySelector('#av-ok').onclick = async e => {
       ocupado(e.target, true);
       await v3('admin_salvar_avaliacao', { aluno_id: a.id, data: m.querySelector('#av-data').value, notas, observacao: m.querySelector('#av-obs').value });
-      fechar(); await recarregar('Avaliação salva 📈'); formAluno(ADM.alunos.find(y => y.id === a.id));
+      fechar(); await recarregar('Avaliação salva.'); formAluno(ADM.alunos.find(y => y.id === a.id));
     };
   });
 }
@@ -2221,7 +2258,7 @@ function abaConteudo(){
     ${ADM.conteudos.length ? `<div class="lista">${ADM.conteudos.map(c => `<div class="item clicavel" data-ct="${c.id}"><div class="q"><b>${esc(c.titulo)}</b><span>${esc(c.url || '')}</span></div>
       <div class="niveis">${chipsNiveis(c.nivel_ids)}</div></div>`).join('')}</div>` : '<div class="vazio">Coloque links dos seus Reels, vídeos de exercícios e dicas por nível. Eles aparecem na aba Evolução do aluno.</div>'}`;
   m.querySelectorAll('[data-ind]').forEach(s => s.onchange = async () => { await v3('admin_indicacao_status', { id: +s.dataset.ind, status: s.value }); recarregar('Indicação atualizada.'); });
-  $('av-add').onclick = async () => { const t = $('av-txt').value.trim(); if (!t) return; await v3('admin_salvar_aviso', { texto: t, ate: $('av-ate').value || null }); recarregar('Aviso publicado 📢'); };
+  $('av-add').onclick = async () => { const t = $('av-txt').value.trim(); if (!t) return; await v3('admin_salvar_aviso', { texto: t, ate: $('av-ate').value || null }); recarregar('Aviso publicado.'); };
   m.querySelectorAll('[data-rmaviso]').forEach(b => b.onclick = async () => { await v3('admin_excluir_aviso', { id: +b.dataset.rmaviso }); recarregar('Aviso apagado.'); });
   $('ct-novo').onclick = () => formConteudo();
   m.querySelectorAll('[data-ct]').forEach(el => el.onclick = () => formConteudo(ADM.conteudos.find(c => c.id === +el.dataset.ct)));
@@ -2283,7 +2320,7 @@ abaAjustes = function(){
     await post('/config', { pix_tipo: $('aj-ptipo').value, pix_chave: $('aj-pchave').value.trim(), pix_nome: $('aj-pnome2').value, pix_cidade: $('aj-pcid').value,
       msg_cobranca: $('aj-mcob').value, msg_lembrete_aula: $('aj-mlem').value, indicacao_beneficio: $('aj-ind').value,
       habilidades: $('aj-habs').value.split('\n').map(s => s.trim()).filter(Boolean), ...(ini ? { financeiro_inicio: ini + '-01' } : {}) }).catch(err => toast(err.message, true));
-    recarregar('Salvo ✅');
+    recarregar('Salvo.');
   };
   m.querySelectorAll('[data-salvacrit]').forEach(b => b.onclick = async () => {
     const id = +b.dataset.salvacrit;
@@ -2334,7 +2371,7 @@ function lojaPedidos(){
       `<button data-fp="${k}" class="${FILTRO_PED === k ? 'on' : ''}">${t} (${peds.filter(F[k]).length})</button>`).join('')}</div>
     ${lista.length ? `<div class="lista">${lista.map(p => { const [sc, st] = ST[p.status] || ['cinza', p.status];
       return `<div class="item"><div class="q"><b>#${p.id} · ${esc(p.nome || '—')} · ${dinheiro(p.total)}</b>
-        <span>${p.tipo === 'aulas' ? '🎾 Compra de aulas · ' : p.tipo === 'plano' ? '📅 Plano trimestral · ' : ''}${esc(p.itens.map(i => `${i.qtd}× ${i.nome}${i.opcoes ? ' (' + i.opcoes + ')' : ''}`).join(' · '))}</span>
+        <span>${p.tipo === 'aulas' ? 'Compra de aulas · ' : p.tipo === 'plano' ? 'Plano trimestral · ' : ''}${esc(p.itens.map(i => `${i.qtd}× ${i.nome}${i.opcoes ? ' (' + i.opcoes + ')' : ''}`).join(' · '))}</span>
         <span>${p.pagamento === 'pix' ? 'PIX' : 'Cartão na entrega'} · ${p.entrega === 'entrega' ? 'Entrega: ' + esc(p.endereco || '') : 'Retira na aula'} · ${dataDe(p.criado_em)}${p.observacao ? ' · "' + esc(p.observacao) + '"' : ''}</span></div>
         <span class="selo ${sc}">${st}</span><div class="btns">
         ${['aguardando','informado'].includes(p.status) ? `<button class="btn mini" data-pst="${p.id}" data-para="pago">Recebi</button>` : ''}
@@ -2350,7 +2387,7 @@ function lojaPedidos(){
     if (para === 'cancelado' && !await confirmar({ titulo: 'CANCELAR PEDIDO?', perigo: true, ok: 'Cancelar', texto: p.tipo === 'aulas' && p.status === 'pago' ? 'Atenção: os créditos dessa compra já foram lançados. Remova-os na ficha do aluno se precisar.' : 'O pedido fica marcado como cancelado.' })) return;
     if (para === 'pago' && p.tipo === 'aulas' && !await confirmar({ titulo: 'CONFIRMAR PAGAMENTO?', ok: 'Recebi', texto: `${esc(p.nome)} recebe <b>${p.itens[0].qtd} aula(s)</b> de crédito na hora.` })) return;
     await v3('admin_pedido_status', { id: p.id, status: para }).catch(e => toast(e.message, true));
-    await recarregarSilencioso(); toast(para === 'pago' ? 'Pagamento registrado ✅' : 'Pedido atualizado.'); desenharPainel();
+    await recarregarSilencioso(); toast(para === 'pago' ? 'Pagamento registrado.' : 'Pedido atualizado.'); desenharPainel();
   });
   box.querySelectorAll('[data-prec]').forEach(b => b.onclick = () => { const p = peds.find(x => x.id === +b.dataset.prec);
     abrirRecibo({ numero: p.recibo, nome: p.nome, responsavel: p.responsavel, valor: p.total, forma: p.forma, pago_em: p.pago_em,
@@ -2375,7 +2412,7 @@ function lojaProdutos(){
     const url = ADM.config.loja_url || 'https://lojaknupptenis.netlify.app/';
     if (!await confirmar({ titulo: 'IMPORTAR PRODUTOS?', ok: 'Importar', texto: `Vou ler os produtos, fotos e preços de <b>${esc(url)}</b>. Produtos que já existem aqui são atualizados; nada é apagado.` })) return;
     toast('Importando… pode levar alguns segundos.');
-    try { const r = await post('/importar-loja', { url }); await recarregarSilencioso(); toast(`${r.importados} produto(s) importado(s) ✅`); desenharPainel(); }
+    try { const r = await post('/importar-loja', { url }); await recarregarSilencioso(); toast(`${r.importados} produto(s) importado(s).`); desenharPainel(); }
     catch(e){ toast(e.message, true); }
   };
 }
@@ -2444,11 +2481,11 @@ function formProduto(p){
    PAINEL v5: PLANOS TRIMESTRAIS
    ========================================================= */
 async function carregarPainel(){
-  try { ADM = await v3('admin_dados_v5'); } catch(e){ if (e.status !== 401) toast(e.message, true); return; }
+  try { ADM = await v3('admin_dados_v8'); } catch(e){ if (e.status !== 401) toast(e.message, true); return; }
   INFO.niveis = ADM.niveis.filter(n => n.ativo); INFO.config = ADM.config;
   desenharPainel();
 }
-async function recarregarSilencioso(){ try { ADM = await v3('admin_dados_v5'); INFO.config = ADM.config; } catch(e){} }
+async function recarregarSilencioso(){ try { ADM = await v3('admin_dados_v8'); INFO.config = ADM.config; } catch(e){} }
 const abaFinanceiroV4 = abaFinanceiro;
 abaFinanceiro = async function(){
   await abaFinanceiroV4();
@@ -2477,7 +2514,7 @@ abaFinanceiro = async function(){
     const p = pendentesPlano.find(x => x.id === +b.dataset.plrec);
     if (!await confirmar({ titulo: 'RECEBEU O PLANO?', ok: 'Recebi', texto: `${esc(p.nome)} · <b>${dinheiro(p.total)}</b> (${esc(p.itens[0].opcoes || '')}).<br>Os meses <b>${(p.itens[0].meses || []).map(mesCurto).join(', ')}</b> ficam pagos.` })) return;
     await v3('admin_pedido_status', { id: p.id, status: 'pago', forma: p.pagamento === 'pix' ? 'PIX' : (p.itens[0].forma === 'cartao3' ? 'Cartão 3x' : 'Cartão à vista') });
-    await recarregarSilencioso(); toast('Plano confirmado ✅'); abaFinanceiro();
+    await recarregarSilencioso(); toast('Plano confirmado.'); abaFinanceiro();
   });
 };
 const abaAjustesV4 = abaAjustes;
@@ -2611,7 +2648,7 @@ async function compartilharCartao(d, btn){
 function abrirTrofeu(icone, nome, extra){
   modal(`<div class="tf-palco"><canvas class="tf-conf"></canvas></div>
     <div class="tf-txt"><small>CONQUISTA DESBLOQUEADA</small><h2>${esc(nome)}</h2>${extra ? `<p class="sub">${esc(extra)}</p>` : ''}</div>
-    <button class="btn" data-fechar>Show! 🎾</button>`, m => {
+    <button class="btn" data-fechar>Show!</button>`, m => {
     const palco = m.querySelector('.tf-palco');
     carregar3D().then(() => { K3D.trofeu(palco); K3D.confete(palco.querySelector('.tf-conf')); })
       .catch(() => palco.insertAdjacentHTML('beforeend', `<div class="tf-fb">${icone}</div>`));
@@ -2619,7 +2656,7 @@ function abrirTrofeu(icone, nome, extra){
 }
 function checarConquistas(){
   const a = alunoSel(), ex = extraSel(); if (!a || !ex) return;
-  const ganhas = conquistas(a, ex).filter(c => c[2]), k = 'knupp_conq_' + a.id, antes = pega(k);
+  const ganhas = conquistas(a, ex).filter(c => c[2]), k = 'knupp_conq2_' + a.id, antes = pega(k);
   guarda(k, JSON.stringify(ganhas.map(c => c[1])));
   if (antes === null) return; // primeira vez neste aparelho: só registra
   let vistas = []; try { vistas = JSON.parse(antes) || []; } catch(e){}
@@ -2645,7 +2682,7 @@ tabEvo = function(){
   $('cj-share').onclick = e => compartilharCartao(d, e.currentTarget);
   const conq = conquistas(a, ex);
   document.querySelectorAll('#app-conteudo .cq').forEach((el, i) => { const c = conq[i]; if (!c) return;
-    el.onclick = () => c[2] ? abrirTrofeu(c[0], c[1]) : toast('Ainda bloqueada. Continue treinando! 💪'); });
+    el.onclick = () => c[2] ? abrirTrofeu(c[0], c[1]) : toast('Ainda bloqueada. Continue treinando!'); });
   checarConquistas();
 };
 const tabInicioV6 = tabInicio;
@@ -2664,6 +2701,191 @@ tabRepo = function(){
   cart.classList.add('com-tubo'); cart.appendChild(box);
   carregar3D().then(() => K3D.tubo(box, n, antes === null ? n : +antes)).catch(() => { box.remove(); cart.classList.remove('com-tubo'); });
 };
+
+
+/* =========================================================
+   v8: ícones desenhados + conquistas novas + aba Conquistas (painel)
+   ========================================================= */
+const ICONES = {
+  megafone: '<path d="M3 10v4a1 1 0 0 0 1 1h2l5 4V5L6 9H4a1 1 0 0 0-1 1z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/>',
+  alvo: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.4"/>',
+  carrinho: '<circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/><path d="M2.5 3.5h2.6l2.4 11.5h11l2-8H6.3"/>',
+  check: '<circle cx="12" cy="12" r="9"/><path d="M8 12.3l2.7 2.7L16.2 9.5"/>',
+  relogio: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/>',
+  cartao: '<rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 10h19M6 15h4"/>',
+  raquete: '<ellipse cx="9.5" cy="9" rx="5.6" ry="6.3" transform="rotate(-45 9.5 9)"/><path d="M13.6 13.1l6.4 6.4M18.3 21.2l2.9-2.9"/><path d="M6.5 6.2l6 6M5 9.2l4.5 4.5M9.5 4.7L14 9.2"/>',
+  casa: '<path d="M3.5 11L12 4l8.5 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5.5h4V20"/>',
+  chama: '<path d="M12 3c.8 3.4 4.5 5.4 4.5 10a4.5 4.5 0 0 1-9 0c0-2.4 1.2-3.8 2.3-4.8.1 2 .9 3.2 2 3.6-.6-3.2-.3-6 .2-8.8z"/>',
+  calcheck: '<rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 9.8h17M8 3v4M16 3v4"/><path d="M8.8 15l2.2 2.2 4.4-4.4"/>',
+  calestrela: '<rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 9.8h17M8 3v4M16 3v4"/><path d="M12 12.2l1.2 2.3 2.5.4-1.8 1.7.4 2.5-2.3-1.2-2.3 1.2.4-2.5-1.8-1.7 2.5-.4z"/>',
+  prancheta: '<rect x="5" y="4.5" width="14" height="16.5" rx="2"/><path d="M9 4.5V3h6v1.5M8.5 10.5h7M8.5 14h7M8.5 17.5h4"/>',
+  subindo: '<path d="M3 17l6-6 4 4 7.5-7.5"/><path d="M15 7.5h5.5V13"/>',
+  carta: '<rect x="5.5" y="2.5" width="13" height="19" rx="2.2"/><circle cx="12" cy="10" r="2.6"/><path d="M8.8 16.2h6.4M10 18.6h4"/>',
+  lista: '<path d="M4 6.5l1.5 1.5L8.2 5.3M4 12.5l1.5 1.5 2.7-2.7M4 18.5l1.5 1.5 2.7-2.7M11 6.8h9M11 12.8h9M11 18.8h9"/>',
+  nivel: '<path d="M12 19V5M6.5 10.5L12 5l5.5 5.5"/><path d="M5 21h14"/>',
+  moeda: '<circle cx="12" cy="12" r="9"/><path d="M14.6 8.6c-.5-.8-1.5-1.3-2.6-1.3-1.5 0-2.7.8-2.7 2.1 0 3 5.6 1.6 5.6 4.6 0 1.3-1.2 2.2-2.9 2.2-1.2 0-2.3-.6-2.8-1.4M12 5.8v1.5M12 16.2v1.6"/>',
+  camadas: '<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 12.5l9 5 9-5"/><path d="M3 16.5l9 5 9-5"/>',
+  amigo: '<circle cx="9" cy="8" r="3.8"/><path d="M2.5 20.5c0-3.8 2.9-6.5 6.5-6.5s6.5 2.7 6.5 6.5"/><path d="M19 8v6M16 11h6"/>',
+  amigos: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.8"/><path d="M16.3 14.1c3 .3 5.2 2.5 5.2 5.9"/>',
+  estrela: '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',
+  raio: '<path d="M13.5 2.5L4.5 14h7l-1 7.5 9-11.5h-7z"/>',
+  trofeu: '<path d="M8 4h8v5.5a4 4 0 0 1-8 0z"/><path d="M16 5.5h3v1.8a3.2 3.2 0 0 1-3 3.2M8 5.5H5v1.8a3.2 3.2 0 0 0 3 3.2"/><path d="M12 13.5V17M8 21h8M9.5 17h5v4"/>',
+  medalha: '<circle cx="12" cy="15" r="5.5"/><path d="M8.2 3l2.5 7M15.8 3l-2.5 7M8.2 3h7.6"/><path d="M12 12.6v4.8M10.8 13.6l1.2-1"/>',
+  cadeado: '<rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/>',
+};
+function ICO(nome, cls = 'ico'){ return `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONES[nome] || ''}</svg>`; }
+
+const ESPECIAIS = {
+  destaque_mes: ['estrela', 'Destaque do mês'], melhor_evolucao: ['subindo', 'Melhor evolução do mês'], raca: ['raio', 'Raça'],
+  primeiro_torneio: ['raquete', 'Primeiro torneio'], campeao: ['trofeu', 'Campeão de torneio'], vice: ['medalha', 'Vice-campeão'],
+};
+const mesesDesde = d => { if (!d) return -1; const a = new Date(d + 'T12:00:00'), h = new Date(hojeISO() + 'T12:00:00');
+  return (h.getFullYear() - a.getFullYear()) * 12 + (h.getMonth() - a.getMonth()) - (h.getDate() < a.getDate() ? 1 : 0); };
+const conqSel = () => ((S.dados && S.dados.conq) || {})[S.sel] || {};
+const mesAno = d => d ? `${MESES[+d.slice(5,7)-1].slice(0,3)}/${d.slice(2,4)}` : '';
+
+/* lista completa: [ícone, nome, ganhou?, grupo, detalhe, especial?] — os 3 primeiros seguem o formato antigo */
+conquistas = function(a, ex){
+  const cq = (S.dados && S.dados.conq || {})[a.id] || {}, av = ex.avaliacoes || [], s = sequencia(ex);
+  const media = v => { const xs = Object.values(v.notas || {}).map(Number).filter(Boolean); return xs.length ? xs.reduce((p, q) => p + q, 0) / xs.length : 0; };
+  const meses = mesesDesde(cq.aluno_desde), d = dadosCartao(a, ex), ovr = d.ovr || 0;
+  const nivelId = a.nivel_ids[0], crit = ((S.dados.niveis_criterios || {})[nivelId]) || [], feitos = crit.filter(c => (ex.checklist || {})[c]).length;
+  const man = cq.manuais || [], deTipo = t => man.filter(m => m.tipo === t);
+  const MARCOS = [[6, '6 MESES', '6 meses de aulas'], [9, '9 MESES', '9 meses de aulas'], [12, '1 ANO', '1 ano de aulas'],
+    [18, '18 MESES', '1 ano e 6 meses de aulas'], [24, '2 ANOS', '2 anos de aulas'], [36, '3 ANOS', '3 anos de aulas']];
+  const feitosCasa = MARCOS.filter(m => meses >= m[0]).length;
+  const anel = (i, txt, on) => { const r = 24, L = 2 * Math.PI * r / MARCOS.length; let seg = '';
+    for (let k = 0; k < MARCOS.length; k++){ const ok = on ? k <= i : k < feitosCasa;
+      seg += `<circle cx="27" cy="27" r="${r}" fill="none" stroke="${ok ? '#2bd576' : '#2c2c2c'}" stroke-width="3.6" stroke-linecap="round" stroke-dasharray="${(L - 5).toFixed(2)} 200" stroke-dashoffset="${(-k * L).toFixed(2)}" transform="rotate(-87 27 27)"/>`; }
+    const cor = on ? '#2bd576' : '#5c5c5c';
+    return `<svg class="anel-svg" viewBox="0 0 54 54" aria-hidden="true">${seg}
+      <g transform="translate(18.5 12.5) scale(.71)" fill="none" stroke="${cor}" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M5.3 5.6c3.3 3.5 3.3 9.3 0 12.8M18.7 5.6c-3.3 3.5-3.3 9.3 0 12.8"/></g>
+      <text x="27" y="38.5" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700" font-size="${txt.length > 6 ? 6.2 : 7}" letter-spacing=".3" fill="${cor}">${txt}</text></svg>`; };
+  const L = [
+    ...MARCOS.map(([m, txt, nome], i) => [anel(i, txt, meses >= m), nome, meses >= m, 'Tempo de aulas']),
+    [ICO('chama'), '5 aulas seguidas', s >= 5, 'Frequência'],
+    [ICO('chama'), '10 aulas seguidas', s >= 10, 'Frequência'],
+    [ICO('calcheck'), 'Mês perfeito', (cq.meses_perfeitos || 0) >= 1, 'Frequência', 'Todas as aulas do mês'],
+    [ICO('calestrela'), '3 meses perfeitos', (cq.meses_perfeitos_seq || 0) >= 3, 'Frequência', '3 meses seguidos sem faltar'],
+    [ICO('prancheta'), 'Primeira avaliação', av.length >= 1, 'Evolução'],
+    [ICO('subindo'), 'Evoluiu na avaliação', av.length >= 2 && media(av[av.length - 1]) > media(av[0]), 'Evolução'],
+    [ICO('carta'), 'Cartão Prata', ovr >= 60, 'Evolução'],
+    [ICO('carta'), 'Cartão Ouro', ovr >= 75, 'Evolução'],
+    [ICO('carta'), 'Cartão Lenda', ovr >= 87, 'Evolução'],
+    [ICO('lista'), 'Metade do checklist', crit.length > 0 && feitos >= Math.ceil(crit.length / 2), 'Evolução', 'Do seu nível atual'],
+    [ICO('lista'), 'Checklist completo', crit.length > 0 && feitos === crit.length, 'Evolução', 'Pronto para subir'],
+    [ICO('nivel'), 'Subiu de nível', !!cq.subiu || deTipo('subiu_nivel').length > 0, 'Evolução'],
+    [ICO('moeda'), 'Pontual', (cq.pontual_seq || 0) >= 3, 'Compromisso', '3 meses pagando em dia'],
+    [ICO('camadas'), 'Plano trimestral', !!cq.plano, 'Compromisso'],
+    [ICO('amigo'), 'Indicou um amigo', (ex.indicacoes || 0) >= 1, 'Comunidade'],
+    [ICO('amigos'), 'Amigo indicado fechou', (ex.indicacoes_fechadas || 0) >= 1, 'Comunidade'],
+  ];
+  Object.entries(ESPECIAIS).forEach(([t, [ic, nome]]) => { const ms = deTipo(t), ult = ms[ms.length - 1];
+    L.push([ICO(ic), nome, ms.length > 0, 'Especiais do professor', ult ? (ms.length > 1 ? `${ms.length}x · ` : '') + (ult.titulo || mesAno(ult.data)) : 'Dada pelo professor', true]); });
+  return L;
+};
+
+function htmlConquistas(L){
+  const grupos = [...new Set(L.map(c => c[3]))];
+  return grupos.map(g => { const itens = L.filter(c => c[3] === g);
+    return `<div class="cq-grupo"><h3>${esc(g)} <span>${itens.filter(c => c[2]).length}/${itens.length}</span></h3>
+      <div class="conq">${itens.map(c => { const i = L.indexOf(c);
+        return `<button class="cq ${c[2] ? 'on' : ''} ${c[5] ? 'esp' : ''}" data-cq="${i}"><span class="md${c[0].includes('anel-svg') ? ' anel' : ''}">${c[0]}${c[2] ? '' : `<i class="cad">${ICO('cadeado')}</i>`}</span>
+          <b>${esc(c[1])}</b>${c[4] ? `<small>${esc(c[4])}</small>` : ''}</button>`; }).join('')}</div></div>`; }).join('');
+}
+
+/* troféu: fallback com o ícone desenhado em vez de emoji */
+abrirTrofeu = function(icone, nome, extra){
+  modal(`<div class="tf-palco"><canvas class="tf-conf"></canvas></div>
+    <div class="tf-txt"><small>CONQUISTA DESBLOQUEADA</small><h2>${esc(nome)}</h2>${extra ? `<p class="sub">${esc(extra)}</p>` : ''}</div>
+    <button class="btn" data-fechar>Show!</button>`, m => {
+    const palco = m.querySelector('.tf-palco');
+    carregar3D().then(() => { K3D.trofeu(palco); K3D.confete(palco.querySelector('.tf-conf')); })
+      .catch(() => palco.insertAdjacentHTML('beforeend', `<div class="tf-fb"><span class="md grande${icone.includes('anel-svg') ? ' anel' : ''}">${icone}</span></div>`));
+  });
+};
+
+const tabEvoV7 = tabEvo;
+tabEvo = function(){
+  tabEvoV7();
+  const a = alunoSel(), ex = extraSel(), L = conquistas(a, ex), ganhas = L.filter(c => c[2]).length;
+  const velho = document.querySelector('#app-conteudo .conq'); if (!velho) return;
+  const sec = velho.closest('.secao');
+  sec.innerHTML = `<h2 class="secao-t">CONQUIS<span class="verde">TAS</span></h2><p class="secao-s">${ganhas} de ${L.length} desbloqueadas · toque numa conquista para ver o troféu</p>
+    <div class="progresso"><i style="width:${Math.round(ganhas / L.length * 100)}%"></i></div>${htmlConquistas(L)}`;
+  sec.querySelectorAll('[data-cq]').forEach(el => { const c = L[+el.dataset.cq];
+    el.onclick = () => c[2] ? abrirTrofeu(c[0], c[1], c[4] && c[5] ? c[4] : '') : toast(c[5] ? 'Essa conquista é dada pelo professor.' : 'Ainda bloqueada. Continue treinando!'); });
+};
+
+/* ---------- PAINEL: aba Conquistas ---------- */
+let CQ_BUSCA = '';
+function abaConquistas(){
+  const m = $('p-miolo'), desde = ADM.desde || {}, man = ADM.conquistas_manuais || [];
+  const alunos = ADM.alunos.filter(a => a.ativo !== false);
+  const semData = alunos.filter(a => !desde[a.id]).length;
+  m.innerHTML = `<div class="kpis">
+      <div class="kpi"><div class="v">${alunos.length - semData}</div><div class="l">Com "aluno desde"</div></div>
+      <div class="kpi" style="--k:var(--amarelo)"><div class="v">${semData}</div><div class="l">Sem data preenchida</div></div>
+      <div class="kpi" style="--k:var(--azul)"><div class="v">${man.length}</div><div class="l">Conquistas especiais dadas</div></div></div>
+    <div class="p-titulo"><h2>CONQUISTAS <span class="verde">ESPECIAIS</span></h2><button class="btn auto mini" id="cq-dar">+ Dar conquista</button></div>
+    <p class="cinza pequeno" style="margin:-4px 0 12px">Destaque do mês, melhor evolução, raça, torneios. O aluno recebe o troféu com confete na próxima vez que abrir o app.</p>
+    ${man.length ? `<div class="lista">${man.slice(0, 40).map(c => `<div class="item"><span class="md mini-md esp">${ICO((ESPECIAIS[c.tipo] || ['nivel'])[0])}</span>
+        <div class="q"><b>${esc(c.nome)}</b><span>${esc((ESPECIAIS[c.tipo] || [0, 'Subiu de nível'])[1])}${c.titulo ? ' · ' + esc(c.titulo) : ''} · ${dataCurta(c.data)}</span></div>
+        <div class="btns"><button class="btn perigo mini" data-cq-x="${c.id}">Remover</button></div></div>`).join('')}</div>`
+      : `<div class="vazio">Nenhuma conquista especial dada ainda.</div>`}
+    <div class="p-titulo"><h2>ALUNO <span class="verde">DESDE</span></h2></div>
+    <p class="cinza pequeno" style="margin:-4px 0 12px">Coloque o mês em que cada aluno começou com você. Isso libera as conquistas de tempo de aulas (6 meses, 9 meses, 1 ano, 1 ano e 6 meses, 2 e 3 anos). Salva sozinho ao escolher.</p>
+    <div class="campo" style="margin-bottom:12px"><input id="cq-busca" placeholder="Buscar aluno pelo nome" value="${esc(CQ_BUSCA)}"></div>
+    <div class="lista" id="cq-lista"></div>`;
+  const desenharLista = () => {
+    const q = CQ_BUSCA.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const xs = alunos.filter(a => a.nome.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').includes(q))
+      .sort((x, y) => (!!desde[x.id] - !!desde[y.id]) || x.nome.localeCompare(y.nome));
+    $('cq-lista').innerHTML = xs.map(a => { const d = desde[a.id], ms = mesesDesde(d);
+      return `<div class="item"><div class="q"><b>${esc(a.nome)}</b><span>${d ? (ms >= 12 ? `${Math.floor(ms / 12)} ano${ms >= 24 ? 's' : ''}${ms % 12 ? ` e ${ms % 12} ${ms % 12 === 1 ? 'mês' : 'meses'}` : ''}` : `${Math.max(ms, 0)} ${ms === 1 ? 'mês' : 'meses'}`) + ' de aulas' : '<span class="selo pend">Sem data</span>'}</span></div>
+        <div class="btns"><input type="month" class="cq-mes" data-desde="${a.id}" value="${d ? d.slice(0, 7) : ''}" max="${hojeISO().slice(0, 7)}"></div></div>`; }).join('') || '<div class="vazio">Nenhum aluno encontrado.</div>';
+    $('cq-lista').querySelectorAll('[data-desde]').forEach(inp => inp.onchange = async () => {
+      const id = +inp.dataset.desde, v = inp.value ? inp.value + '-01' : null;
+      try { await v3('admin_salvar_desde', { id, data: v }); if (v) desde[id] = v; else delete desde[id]; ADM.desde = desde; toast('Salvo.'); desenharLista(); }
+      catch(e){ toast(e.message, true); }
+    });
+  };
+  desenharLista();
+  $('cq-busca').oninput = e => { CQ_BUSCA = e.target.value; desenharLista(); };
+  m.querySelectorAll('[data-cq-x]').forEach(b => b.onclick = async () => {
+    if (!await confirmar({ titulo: 'REMOVER CONQUISTA?', texto: 'Ela some da área do aluno.', ok: 'Remover', perigo: true })) return;
+    await v3('admin_excluir_conquista', { id: +b.dataset.cqX }).catch(e => toast(e.message, true)); await recarregarSilencioso(); abaConquistas(); toast('Removida.');
+  });
+  $('cq-dar').onclick = formDarConquista;
+}
+function formDarConquista(){
+  const alunos = ADM.alunos.filter(a => a.ativo !== false).sort((x, y) => x.nome.localeCompare(y.nome));
+  const mesAtual = MESES[new Date().getMonth()];
+  let tipo = 'destaque_mes';
+  const sug = t => ({ destaque_mes: `Destaque de ${mesAtual}`, melhor_evolucao: `Melhor evolução de ${mesAtual}`, raca: `Raça de ${mesAtual}`, primeiro_torneio: '', campeao: '', vice: '' })[t] || '';
+  modal(`<h2>DAR <span class="verde">CONQUISTA</span></h2>
+    <div class="campo"><label>Qual conquista</label><div class="cq-tipos">${Object.entries(ESPECIAIS).map(([t, [ic, n]]) =>
+      `<button type="button" data-tp="${t}" class="${t === tipo ? 'on' : ''}">${ICO(ic)}<span>${esc(n)}</span></button>`).join('')}</div></div>
+    <div class="campo"><label>Texto que o aluno vê (opcional)</label><input id="dc-tit" value="${esc(sug(tipo))}" placeholder="Ex.: Campeão do Open de Cabo Frio"></div>
+    <div class="campo"><label>Para quem (pode marcar mais de um)</label><input id="dc-busca" placeholder="Buscar aluno"><div class="dc-alunos">${alunos.map(a =>
+      `<label class="check-linha" data-nome="${esc(a.nome.toLowerCase())}"><input type="checkbox" value="${a.id}"> <span>${esc(a.nome)}</span></label>`).join('')}</div></div>
+    <div class="rodape-m"><button class="btn sec" data-fechar>Cancelar</button><button class="btn" id="dc-ok">Dar conquista</button></div>`, (mm, fechar) => {
+    mm.querySelectorAll('[data-tp]').forEach(b => b.onclick = () => { const antes = sug(tipo); tipo = b.dataset.tp;
+      mm.querySelectorAll('[data-tp]').forEach(x => x.classList.toggle('on', x === b));
+      const t = mm.querySelector('#dc-tit'); if (!t.value || t.value === antes) t.value = sug(tipo); });
+    mm.querySelector('#dc-busca').oninput = e => { const q = e.target.value.toLowerCase();
+      mm.querySelectorAll('.dc-alunos label').forEach(l => l.style.display = l.dataset.nome.includes(q) ? '' : 'none'); };
+    mm.querySelector('#dc-ok').onclick = async e => {
+      const ids = [...mm.querySelectorAll('.dc-alunos input:checked')].map(i => +i.value);
+      if (!ids.length) return toast('Escolha pelo menos um aluno.', true);
+      ocupado(e.target, true);
+      try { await v3('admin_dar_conquista', { aluno_ids: ids, tipo, titulo: mm.querySelector('#dc-tit').value });
+        fechar(); await recarregarSilencioso(); abaConquistas(); toast(ids.length === 1 ? 'Conquista entregue.' : `Conquista entregue para ${ids.length} alunos.`); }
+      catch(err){ ocupado(e.target, false); toast(err.message, true); }
+    };
+  });
+}
 
 /* =========================================================
    INÍCIO

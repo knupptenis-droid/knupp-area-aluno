@@ -1106,7 +1106,7 @@ tabRepo = function(){
   tabRepoV3();
   const s = saldoSel(), ex = extraSel(), emDia = ex.em_dia !== false;
   const box = document.createElement('div');
-  box.innerHTML = `<div class="saldos"><div><b>${s.repo}</b><span>de reposição</span></div><div><b>${s.aula}</b><span>aula${s.aula === 1 ? '' : 's'} comprada${s.aula === 1 ? '' : 's'}</span></div></div>
+  box.innerHTML = `<div class="saldos"><div><b>${s.repo}</b><span>de reposição</span></div><div><b>${s.aula}</b><span>aula${s.aula === 1 ? '' : 's'} extra${s.aula === 1 ? '' : 's'} comprada${s.aula === 1 ? '' : 's'}</span></div></div>
     <div class="carta compra-aulas"><div style="flex:1"><b>Quer treinar mais?</b><div class="cinza pequeno">Compre aulas extras por ${dinheiro(precoAula())} cada. Elas não vencem e valem nos horários de vaga.</div></div>
     <button class="btn auto" id="comprar-aulas" ${emDia ? '' : 'disabled'}>Comprar aulas</button></div>
     ${emDia ? '' : '<p class="cinza pequeno" style="margin-top:-4px">Para comprar aulas, a mensalidade precisa estar em dia.</p>'}`;
@@ -2366,7 +2366,7 @@ function lojaPedidos(){
   box.innerHTML = `<div class="kpis"><div class="kpi" style="--k:var(--amarelo)"><div class="v">${peds.filter(F.abertos).length}</div><div class="l">Aguardando pagamento</div></div>
       <div class="kpi" style="--k:var(--azul)"><div class="v">${peds.filter(F.separar).length}</div><div class="l">Para separar/entregar</div></div>
       <div class="kpi"><div class="v" style="font-size:1.9rem">${dinheiro(vendidoMes)}</div><div class="l">Vendido no mês</div></div>
-      <div class="kpi"><div class="v">${Object.values(ADM.saldo_aulas || {}).reduce((s, n) => s + n, 0)}</div><div class="l">Aulas compradas em aberto</div></div></div>
+      <div class="kpi"><div class="v">${Object.values(ADM.saldo_aulas || {}).reduce((s, n) => s + n, 0)}</div><div class="l">Aulas extras compradas em aberto</div></div></div>
     <div class="turmas-sel">${[['abertos','A receber'],['separar','Separar/entregar'],['concluidos','Concluídos'],['cancelados','Cancelados'],['todos','Todos']].map(([k, t]) =>
       `<button data-fp="${k}" class="${FILTRO_PED === k ? 'on' : ''}">${t} (${peds.filter(F[k]).length})</button>`).join('')}</div>
     ${lista.length ? `<div class="lista">${lista.map(p => { const [sc, st] = ST[p.status] || ['cinza', p.status];

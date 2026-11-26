@@ -360,6 +360,45 @@ button.kpi{text-align:left;color:var(--branco);cursor:pointer;font:inherit}
 .planos-opc b{font-size:1rem}
 .po-val{font-family:"Bebas Neue",Impact,sans-serif;font-size:1.9rem;line-height:1.05;color:var(--verde)}
 .po-eco{font-size:.82rem;color:var(--amarelo);font-weight:700}
+/* v7: 3D — cartão de jogador, troféu, tubo de créditos */
+.cj-palco{display:flex;flex-direction:column;align-items:center;gap:14px;padding:22px 0 18px;perspective:900px;touch-action:pan-y;border-radius:18px;
+  background:radial-gradient(90% 70% at 50% 35%,#1b2a20 0,#0e0e0e 75%);border:1px solid var(--borda)}
+.cj{--rx:0deg;--ry:0deg;--mx:50%;--my:50%;width:240px;min-height:350px;border-radius:18px;position:relative;display:flex;flex-direction:column;align-items:center;padding:14px 18px;
+  transform-style:preserve-3d;transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform .12s ease-out;background:var(--cj-f);
+  box-shadow:0 30px 60px rgba(0,0,0,.6),inset 0 0 0 2px var(--cj-a);color:var(--cj-t);overflow:hidden;user-select:none;-webkit-user-select:none}
+.cj[data-t=bronze]{--cj-f:linear-gradient(150deg,#e3a070,#8a4b25 55%,#5a2f15);--cj-a:#f5c49c;--cj-t:#2a1407}
+.cj[data-t=prata]{--cj-f:linear-gradient(150deg,#f4f6f8,#9aa3ad 55%,#5e6670);--cj-a:#fff;--cj-t:#14181c}
+.cj[data-t=ouro]{--cj-f:linear-gradient(150deg,#fff1a8,#e0b43a 50%,#9b6d10);--cj-a:#fff6c8;--cj-t:#2b1d00}
+.cj[data-t=lenda]{--cj-f:linear-gradient(150deg,#1f3b2a,#0b120e 60%,#000);--cj-a:#2bd576;--cj-t:#eafff2}
+.cj .holo{position:absolute;inset:0;mix-blend-mode:color-dodge;opacity:.55;pointer-events:none;background-size:250% 250%;background-position:var(--mx) var(--my);
+  background-image:linear-gradient(115deg,transparent 20%,rgba(255,0,140,.55) 32%,rgba(0,255,200,.5) 42%,rgba(255,240,0,.5) 52%,rgba(0,140,255,.55) 62%,transparent 75%)}
+.cj[data-t=bronze] .holo{opacity:.18}.cj[data-t=prata] .holo{opacity:.35}
+.cj .brilho{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--mx) var(--my),rgba(255,255,255,.55),transparent 45%);mix-blend-mode:overlay}
+.cj .cab{display:flex;justify-content:space-between;align-items:flex-start;width:100%}
+.cj .ovr{line-height:.9;text-align:center}.cj .ovr b{display:block;font:400 54px "Bebas Neue",Impact,sans-serif}.cj .ovr small{font:700 11px "DM Sans",sans-serif;letter-spacing:1px}
+.cj .logo-c{width:64px;margin-top:4px;opacity:.9}
+.cj:not([data-t=lenda]) .logo-c{filter:invert(1) brightness(.2)}
+.cj svg.jog{width:150px;height:126px;margin-top:-14px;flex:none}
+.cj .nome{margin-top:6px;font:400 36px/1 "Bebas Neue",Impact,sans-serif;letter-spacing:1px;text-align:center;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cj .nv{font:700 10px "DM Sans",sans-serif;letter-spacing:1.2px;opacity:.8;margin:2px 0 8px;text-transform:uppercase;text-align:center}
+.cj .stats{width:100%;margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:1px 18px;border-top:1px solid currentColor;padding-top:7px;font:700 12px "DM Sans",sans-serif}
+.cj .stats span{display:flex;justify-content:space-between;align-items:baseline}
+.cj .stats i{font-style:normal;font:400 17px/1.1 "Bebas Neue",Impact,sans-serif}
+.cj .sem{margin-top:auto;font:600 12px "DM Sans",sans-serif;text-align:center;opacity:.8;padding-bottom:6px}
+.cj-rar{font-size:.8rem;color:var(--texto);text-align:center;max-width:300px}
+.cj-rar b{color:var(--branco)}
+.tf-palco{position:relative;height:300px;margin:-6px -6px 4px;border-radius:16px;overflow:hidden;background:radial-gradient(90% 70% at 50% 40%,#1b2a20 0,transparent 75%);touch-action:pan-y}
+.tf-palco canvas{position:absolute;inset:0;width:100%;height:100%}
+.tf-palco .tf-fb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:6rem}
+.tf-txt{text-align:center}.tf-txt small{color:var(--verde);font-weight:700;letter-spacing:1px;font-size:.75rem}
+.tf-txt h2{margin:4px 0 14px}
+.cq.on{cursor:pointer}
+.carteira.com-tubo{padding-right:128px}
+.carteira.com-tubo .bola{display:none}
+.carteira .tubo3d{position:absolute;right:4px;top:0;bottom:0;width:120px}
+.carteira .tubo3d canvas{position:absolute;inset:0;width:100%;height:100%}
+.carteira .tubo3d em{position:absolute;right:10px;top:10px;font:400 1.2rem "Bebas Neue",Impact,sans-serif;color:var(--verde);font-style:normal}
+@media(prefers-reduced-motion:reduce){.cj{transition:none}}
 </style>
 </head>
 <body>
@@ -2453,6 +2492,177 @@ abaAjustes = function(){
     await post('/config', { plano_desconto: +$('aj-pdesc').value || 10, taxa_credito_1x: +$('aj-t1').value || 3.15, taxa_credito_3x: +$('aj-t3').value || 6.12 }).catch(() => {});
     return orig(e);
   };
+};
+
+
+/* =========================================================
+   v7: 3D — cartão de jogador, troféu nas conquistas, tubo de créditos
+   ========================================================= */
+function tem3D(){ try { const c = document.createElement('canvas'); return !!(window.WebGLRenderingContext && (c.getContext('webgl') || c.getContext('experimental-webgl'))); } catch(e){ return false; } }
+let _k3d = null;
+function carregar3D(){
+  if (!tem3D()) return Promise.reject(new Error('sem webgl'));
+  if (_k3d) return _k3d;
+  const js = src => new Promise((ok, err) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = err; document.head.appendChild(s); });
+  _k3d = (window.THREE ? Promise.resolve() : js('/three.min.js')).then(() => window.K3D ? null : js('/knupp3d.js')).catch(e => { _k3d = null; throw e; });
+  return _k3d;
+}
+
+/* ---------- Cartão de jogador ---------- */
+const notaCarta = v => Math.round(45 + (Math.min(Math.max(+v || 1, 1), 5) - 1) * 12.5);
+const abrevHab = h => h.normalize('NFD').replace(/[̀-ͯ]/g, '').slice(0, 3).toUpperCase();
+const RARIDADE = { bronze: 'Bronze', prata: 'Prata', ouro: 'Ouro', lenda: 'Lenda' };
+function dadosCartao(a, ex){
+  const av = ex.avaliacoes || [], ult = av[av.length - 1];
+  const habsCfg = cfg('habilidades') || ['Forehand','Backhand','Saque','Devolução','Voleio','Movimentação','Tático','Mental'];
+  const nv = nivelPor(a.nivel_ids[0]);
+  const base = { nome: a.nome.trim().split(/\s+/)[0].toUpperCase(), nivel: (nv ? nv.nome : '') + ' · ' + (cfg('local_nome') || 'Clube Militar') };
+  if (!ult) return { ...base, ovr: null, tier: 'bronze', stats: [] };
+  const habs = habsCfg.filter(h => ult.notas[h] !== undefined).concat(Object.keys(ult.notas).filter(h => !habsCfg.includes(h)));
+  const stats = habs.map(h => [abrevHab(h), notaCarta(ult.notas[h])]);
+  const ovr = stats.length ? Math.round(stats.reduce((s, x) => s + x[1], 0) / stats.length) : null;
+  const tier = ovr == null ? 'bronze' : ovr >= 87 ? 'lenda' : ovr >= 75 ? 'ouro' : ovr >= 60 ? 'prata' : 'bronze';
+  return { ...base, ovr, tier, stats: stats.slice(0, 8) };
+}
+const JOGADOR_SVG = `<svg class="jog" viewBox="0 0 170 150" aria-hidden="true"><g fill="currentColor" opacity=".78">
+  <circle cx="78" cy="26" r="15"/><path d="M62 44c10-5 26-5 34 1l10 34-10 3 4 44-14 0-6-38-6 38-14 0 4-46-12-4z"/>
+  <path d="M96 52l30-24 6 6-28 28z"/><ellipse cx="141" cy="20" rx="15" ry="19" transform="rotate(40 141 20)" fill="none" stroke="currentColor" stroke-width="4"/>
+  <path d="M62 50l-22 22 6 6 24-18z"/></g><circle cx="30" cy="96" r="9" fill="#d9ec3c"/></svg>`;
+function htmlCartao(d){
+  return `<div class="cj" id="cj" data-t="${d.tier}">
+    <div class="cab"><div class="ovr"><b>${d.ovr == null ? '--' : d.ovr}</b><small>GERAL</small></div><img class="logo-c" src="/logo.png" alt=""></div>
+    ${JOGADOR_SVG}<div class="nome">${esc(d.nome)}</div><div class="nv">${esc(d.nivel)}</div>
+    ${d.stats.length ? `<div class="stats">${d.stats.map(([k, v]) => `<span>${esc(k)} <i>${v}</i></span>`).join('')}</div>` : `<div class="sem">Aguardando a 1ª avaliação do professor</div>`}
+    <div class="holo"></div><div class="brilho"></div></div>`;
+}
+function ligarCartao(palco){
+  const card = palco.querySelector('.cj'); if (!card) return;
+  let mexendo = false, t0 = performance.now(), tm;
+  const inclina = (x, y) => { card.style.setProperty('--ry', ((x - .5) * 36) + 'deg'); card.style.setProperty('--rx', ((.5 - y) * 30) + 'deg');
+    card.style.setProperty('--mx', (x * 100) + '%'); card.style.setProperty('--my', (y * 100) + '%'); };
+  palco.addEventListener('pointermove', e => { if (e.target.closest('button')) return; const r = card.getBoundingClientRect();
+    mexendo = true; clearTimeout(tm); tm = setTimeout(() => mexendo = false, 1500);
+    inclina(Math.min(Math.max((e.clientX - r.left) / r.width, 0), 1), Math.min(Math.max((e.clientY - r.top) / r.height, 0), 1)); });
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  (function balanca(t){ if (!card.isConnected) return;
+    if (!mexendo){ const s = (t - t0) / 1000; inclina(.5 + Math.sin(s * .9) * .35, .5 + Math.cos(s * .7) * .25); }
+    requestAnimationFrame(balanca); })(t0);
+}
+
+/* imagem para o story (1080x1920) */
+const CORES_STORY = { bronze: ['#e3a070','#8a4b25','#5a2f15','#2a1407','#f5c49c'], prata: ['#f4f6f8','#9aa3ad','#5e6670','#14181c','#ffffff'],
+  ouro: ['#fff1a8','#e0b43a','#9b6d10','#2b1d00','#fff6c8'], lenda: ['#1f3b2a','#0b120e','#000000','#eafff2','#2bd576'] };
+async function imagemStory(d){
+  try { await Promise.all([document.fonts.load('400 100px "Bebas Neue"'), document.fonts.load('700 30px "DM Sans"')]); } catch(e){}
+  const logo = await new Promise(ok => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ok(null); i.src = '/logo.png'; });
+  const cv = document.createElement('canvas'); cv.width = 1080; cv.height = 1920; const g = cv.getContext('2d');
+  const BB = '"Bebas Neue",Impact,sans-serif', DM = '"DM Sans",sans-serif';
+  g.fillStyle = '#0a0a0a'; g.fillRect(0, 0, 1080, 1920);
+  const rg = g.createRadialGradient(540, 300, 50, 540, 300, 900); rg.addColorStop(0, 'rgba(43,213,118,.35)'); rg.addColorStop(1, 'rgba(43,213,118,0)');
+  g.fillStyle = rg; g.fillRect(0, 0, 1080, 1920);
+  if (logo){ const w = 420, h = w * logo.height / logo.width; g.drawImage(logo, 540 - w / 2, 120, w, h); }
+  g.textAlign = 'center'; g.fillStyle = '#f2f2f2'; g.font = `400 84px ${BB}`; g.fillText('MEU CARTÃO DE JOGADOR', 540, 400);
+  const [c1, c2, c3, tinta, aro] = CORES_STORY[d.tier];
+  const X = 190, Y = 470, W = 700, H = 1020, R = 48;
+  const rr = () => { g.beginPath(); g.moveTo(X + R, Y); g.arcTo(X + W, Y, X + W, Y + H, R); g.arcTo(X + W, Y + H, X, Y + H, R); g.arcTo(X, Y + H, X, Y, R); g.arcTo(X, Y, X + W, Y, R); g.closePath(); };
+  g.save(); g.shadowColor = 'rgba(0,0,0,.6)'; g.shadowBlur = 80; g.shadowOffsetY = 40; rr();
+  const lg = g.createLinearGradient(X, Y, X + W, Y + H); lg.addColorStop(0, c1); lg.addColorStop(.55, c2); lg.addColorStop(1, c3); g.fillStyle = lg; g.fill(); g.restore();
+  g.save(); rr(); g.clip();
+  const hg = g.createLinearGradient(X, Y + H, X + W, Y); [['rgba(255,255,255,0)', .25], ['rgba(255,0,140,.18)', .38], ['rgba(0,255,200,.16)', .48], ['rgba(255,240,0,.16)', .56], ['rgba(0,140,255,.18)', .64], ['rgba(255,255,255,0)', .78]].forEach(([c, o]) => hg.addColorStop(o, c));
+  g.fillStyle = hg; g.fillRect(X, Y, W, H); g.restore();
+  rr(); g.lineWidth = 6; g.strokeStyle = aro; g.stroke();
+  g.fillStyle = tinta; g.textAlign = 'center';
+  g.font = `400 170px ${BB}`; g.fillText(d.ovr == null ? '--' : String(d.ovr), X + 120, Y + 190);
+  g.font = `700 30px ${DM}`; g.fillText('GERAL', X + 120, Y + 235);
+  g.save(); g.translate(X + W / 2 - 230, Y + 210); g.scale(2.7, 2.7); g.globalAlpha = .78;
+  g.beginPath(); g.arc(78, 26, 15, 0, Math.PI * 2); g.fill();
+  ['M62 44c10-5 26-5 34 1l10 34-10 3 4 44-14 0-6-38-6 38-14 0 4-46-12-4z', 'M96 52l30-24 6 6-28 28z', 'M62 50l-22 22 6 6 24-18z'].forEach(p => g.fill(new Path2D(p)));
+  g.save(); g.translate(141, 20); g.rotate(40 * Math.PI / 180); g.beginPath(); g.ellipse(0, 0, 15, 19, 0, 0, Math.PI * 2); g.lineWidth = 4; g.strokeStyle = tinta; g.stroke(); g.restore();
+  g.globalAlpha = 1; g.fillStyle = '#d9ec3c'; g.beginPath(); g.arc(30, 96, 9, 0, Math.PI * 2); g.fill(); g.restore();
+  g.fillStyle = tinta; g.font = `400 130px ${BB}`; g.fillText(d.nome, X + W / 2, Y + 680);
+  g.font = `700 30px ${DM}`; g.globalAlpha = .8; g.fillText(d.nivel.toUpperCase(), X + W / 2, Y + 730); g.globalAlpha = 1;
+  if (d.stats.length){
+    g.fillRect(X + 60, Y + 770, W - 120, 3);
+    d.stats.forEach(([k, v], i) => { const col = i % 2, lin = i / 2 | 0, x0 = X + 70 + col * ((W - 140) / 2 + 30), x1 = x0 + (W - 140) / 2 - 30, y = Y + 830 + lin * 52;
+      g.textAlign = 'left'; g.font = `700 34px ${DM}`; g.fillText(k, x0, y); g.textAlign = 'right'; g.font = `400 52px ${BB}`; g.fillText(String(v), x1, y + 4); });
+  } else { g.font = `700 34px ${DM}`; g.fillText('Aguardando a 1ª avaliação', X + W / 2, Y + 880); }
+  g.textAlign = 'center'; g.fillStyle = '#2bd576'; g.font = `400 92px ${BB}`; g.fillText('@KNUPP_TENIS', 540, 1660);
+  g.fillStyle = '#a3a3a3'; g.font = `500 40px ${DM}`; g.fillText('Raridade ' + RARIDADE[d.tier] + ' · alunosknupptenis.com.br', 540, 1730);
+  return cv;
+}
+async function compartilharCartao(d, btn){
+  ocupado(btn, true);
+  try {
+    const cv = await imagemStory(d);
+    const blob = await new Promise(ok => cv.toBlob(ok, 'image/png'));
+    const file = new File([blob], 'meu-cartao-knupp.png', { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })){
+      try { await navigator.share({ files: [file], text: 'Meu cartão de jogador 🎾 @knupp_tenis' }); ocupado(btn, false); return; } catch(e){ if (e.name === 'AbortError'){ ocupado(btn, false); return; } }
+    }
+    const url = cv.toDataURL('image/png');
+    modal(`<h2>SEU <span class="verde">CARTÃO</span></h2><p class="sub">Segure o dedo na imagem e escolha <b>Salvar</b>. Depois é só postar no story marcando o <b>@knupp_tenis</b>.</p>
+      <img src="${url}" alt="Cartão de jogador" style="width:100%;border-radius:14px;display:block;margin:6px 0 14px">
+      <div class="rodape-m"><a class="btn sec" href="${url}" download="meu-cartao-knupp.png">Baixar imagem</a><button class="btn" data-fechar>Fechar</button></div>`);
+  } catch(e){ toast('Não foi possível gerar a imagem.', true); }
+  ocupado(btn, false);
+}
+
+/* ---------- Troféu das conquistas ---------- */
+function abrirTrofeu(icone, nome, extra){
+  modal(`<div class="tf-palco"><canvas class="tf-conf"></canvas></div>
+    <div class="tf-txt"><small>CONQUISTA DESBLOQUEADA</small><h2>${esc(nome)}</h2>${extra ? `<p class="sub">${esc(extra)}</p>` : ''}</div>
+    <button class="btn" data-fechar>Show! 🎾</button>`, m => {
+    const palco = m.querySelector('.tf-palco');
+    carregar3D().then(() => { K3D.trofeu(palco); K3D.confete(palco.querySelector('.tf-conf')); })
+      .catch(() => palco.insertAdjacentHTML('beforeend', `<div class="tf-fb">${icone}</div>`));
+  });
+}
+function checarConquistas(){
+  const a = alunoSel(), ex = extraSel(); if (!a || !ex) return;
+  const ganhas = conquistas(a, ex).filter(c => c[2]), k = 'knupp_conq_' + a.id, antes = pega(k);
+  guarda(k, JSON.stringify(ganhas.map(c => c[1])));
+  if (antes === null) return; // primeira vez neste aparelho: só registra
+  let vistas = []; try { vistas = JSON.parse(antes) || []; } catch(e){}
+  const novas = ganhas.filter(c => !vistas.includes(c[1]));
+  if (novas.length && !document.querySelector('.tf-palco')){ const c = novas[novas.length - 1];
+    setTimeout(() => abrirTrofeu(c[0], c[1], novas.length > 1 ? `E mais ${novas.length - 1} ${novas.length === 2 ? 'conquista' : 'conquistas'} nova${novas.length === 2 ? '' : 's'}! Veja em Evolução.` : ''), 500); }
+}
+
+/* ---------- Evolução: cartão + troféus ---------- */
+const tabEvoV6 = tabEvo;
+tabEvo = function(){
+  tabEvoV6();
+  const a = alunoSel(), ex = extraSel(), d = dadosCartao(a, ex);
+  const titulo = document.querySelector('#app-conteudo .secao-t');
+  const box = document.createElement('div'); box.className = 'secao'; box.style.marginTop = '0'; box.style.marginBottom = '34px';
+  box.innerHTML = `<h2 class="secao-t">SEU <span class="verde">CARTÃO</span></h2>
+    <p class="secao-s">Arraste o dedo no cartão. A nota geral vem da avaliação do professor e a raridade sobe com a sua evolução.</p>
+    <div class="cj-palco">${htmlCartao(d)}
+      <div class="cj-rar">Raridade <b>${RARIDADE[d.tier]}</b> · Bronze → Prata → Ouro → Lenda</div>
+      <button class="btn auto" id="cj-share">Compartilhar no story</button></div>`;
+  titulo.insertAdjacentElement('beforebegin', box);
+  ligarCartao(box.querySelector('.cj-palco'));
+  $('cj-share').onclick = e => compartilharCartao(d, e.currentTarget);
+  const conq = conquistas(a, ex);
+  document.querySelectorAll('#app-conteudo .cq').forEach((el, i) => { const c = conq[i]; if (!c) return;
+    el.onclick = () => c[2] ? abrirTrofeu(c[0], c[1]) : toast('Ainda bloqueada. Continue treinando! 💪'); });
+  checarConquistas();
+};
+const tabInicioV6 = tabInicio;
+tabInicio = function(){ tabInicioV6(); checarConquistas(); };
+
+/* ---------- Reposição: tubo de bolas 3D ---------- */
+const tabRepoV6 = tabRepo;
+tabRepo = function(){
+  tabRepoV6();
+  const cart = document.querySelector('#app-conteudo .carteira'), a = alunoSel();
+  if (!cart || !a || !tem3D()) return;
+  const n = a.creditos || 0, k = 'knupp_cred_' + a.id, antes = pega(k);
+  guarda(k, String(n));
+  const box = document.createElement('div'); box.className = 'tubo3d';
+  if (n > 5) box.innerHTML = `<em>+${n - 5}</em>`;
+  cart.classList.add('com-tubo'); cart.appendChild(box);
+  carregar3D().then(() => K3D.tubo(box, n, antes === null ? n : +antes)).catch(() => { box.remove(); cart.classList.remove('com-tubo'); });
 };
 
 /* =========================================================
